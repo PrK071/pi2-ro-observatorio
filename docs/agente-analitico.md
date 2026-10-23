@@ -12,7 +12,7 @@ As contagens somam `n`, os eventos fatais somam `fatal` e as mortes em pessoas s
 
 ## Autenticação e disponibilidade
 
-Em Vercel, a função usa o token OIDC da própria implantação (`VERCEL_OIDC_TOKEN`), sem publicar chave no cliente. Também aceita uma credencial já configurada em `AI_GATEWAY_API_KEY`. O acesso depende da conta, verificação e saldo/créditos existentes do Gateway; o código não cadastra cartão, compra créditos, cria chave ou altera orçamento. Autenticação OIDC por si só não garante que a conta esteja habilitada para inferência.
+Em Vercel, a função usa o token OIDC renovado no cabeçalho `x-vercel-oidc-token` da requisição da plataforma, consultado apenas quando `VERCEL=1`. Em desenvolvimento, aceita `VERCEL_OIDC_TOKEN` no ambiente. Também aceita uma credencial já configurada em `AI_GATEWAY_API_KEY`. Nenhum token é publicado no cliente. O acesso depende da conta, verificação e saldo/créditos existentes do Gateway; o código não cadastra cartão, compra créditos, cria chave ou altera orçamento. Autenticação OIDC por si só não garante que a conta esteja habilitada para inferência.
 
 Sem serviço de IA, o motor local `dist/assistant.js` continua consultando municípios, anos, meses, chuva, tipos, vias, fases do dia e resultados do estudo, com contexto curto e tratamento de alguns erros de escrita. Essa interpretação tem alcance limitado e a interface informa **Consulta local**, em vez de afirmar que a conversa está usando IA.
 

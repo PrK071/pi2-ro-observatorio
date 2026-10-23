@@ -122,8 +122,8 @@
     },
     {
       "path": "api/chat.mjs",
-      "bytes": 3530,
-      "sha256": "237c226c5489a5235268e55e7a29c7d518523f4d819899699b0cf1b7787efbb3"
+      "bytes": 3801,
+      "sha256": "df4ce5d29251d9cf4daf08d0b8465121d7d80e004af28820bad90a8cfbbca164"
     },
     {
       "path": "audit_research.py",
@@ -182,8 +182,8 @@
     },
     {
       "path": "docs/agente-analitico.md",
-      "bytes": 4813,
-      "sha256": "09ab2a496072ec74bf96eedbeddda64e10d6fb65d2fa99a46c6998f20f808801"
+      "bytes": 4944,
+      "sha256": "d29517b9de3c52475b8d75ffd771a6b9e5a8750817c8a62f340167391c1a6fd3"
     },
     {
       "path": "etl_national.py",
@@ -257,8 +257,8 @@
     },
     {
       "path": "tests/assistant.test.cjs",
-      "bytes": 7035,
-      "sha256": "15943e6b1e4b2d49388fc3e110eda4cb48d7dee9b86f9a3f9d0676e4d47f1238"
+      "bytes": 7620,
+      "sha256": "096e4fc896bb203aab92d5c975e9473bd06f85dbf0d7aadd4c3c448c401d9ae0"
     },
     {
       "path": "tests/chart-navigation.cjs",

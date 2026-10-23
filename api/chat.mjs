@@ -1,6 +1,9 @@
 import {loadEngine,runConversation} from '../lib/chat-agent.mjs';
 
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+// Vercel Function OIDC rotates per request; deployment/build env alone is insufficient.
+// Outside Vercel, a caller-supplied header must never become application credentials.
+const gatewayToken=request=>process.env.AI_GATEWAY_API_KEY||(process.env.VERCEL==='1'?request?.headers.get('x-vercel-oidc-token'):null)||process.env.VERCEL_OIDC_TOKEN;
 // A short-lived burst guard, not a durable per-user quota. No chat history is stored here.
 const bursts=new Map();
 function limited(request){
@@ -9,7 +12,7 @@ function limited(request){
   if(bursts.size>2000)return true;
   const entry=bursts.get(key)||{until:now+60000,n:0};entry.n++;bursts.set(key,entry);return entry.n>15;
 }
-export function GET(){return json({service:'observatorio-assistant',status:'ready',mode:process.env.AI_GATEWAY_API_KEY||process.env.VERCEL_OIDC_TOKEN?'ai-available':'local'});}
+export function GET(request){return json({service:'observatorio-assistant',status:'ready',mode:gatewayToken(request)?'ai-available':'local'});}
 export async function POST(request){
   if(request.headers.get('sec-fetch-site')==='cross-site')return json({error:'Abra a conversa pelo dashboard.'},403);
   const origin=request.headers.get('origin');
@@ -27,7 +30,7 @@ export async function POST(request){
     engine=await loadEngine();
     const filters=engine.cleanFilters(body.filters||{}),previousPlan=body.previousPlan?engine.validate(body.previousPlan):null;
     local=engine.localAnswer(body.message,filters,previousPlan);
-    const result=await runConversation({message:body.message.trim(),history,filters,previousPlan,signal:AbortSignal.any([request.signal,AbortSignal.timeout(45000)])},{engine,token:process.env.AI_GATEWAY_API_KEY||process.env.VERCEL_OIDC_TOKEN});
+    const result=await runConversation({message:body.message.trim(),history,filters,previousPlan,signal:AbortSignal.any([request.signal,AbortSignal.timeout(45000)])},{engine,token:gatewayToken(request)});
     return json({text:result.text,mode:result.mode,reason:result.reason,scope:result.scope,plan:result.plan,sources:result.sources||['metodologia.json','artigo.html']});
   }catch(error){
     if(local){

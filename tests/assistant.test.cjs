@@ -78,3 +78,10 @@ test('API rejects invalid messages and returns a local result when gateway is un
  response=await POST(new Request('http://localhost/api/chat',{method:'POST',headers:{'Content-Type':'application/json','Sec-Fetch-Site':'cross-site'},body:'{}'}));assert.equal(response.status,403);
  response=await POST(new Request('http://localhost/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Santos em 2023',filters:{}})}));assert.equal(response.status,200);const answer=await response.json();assert.match(answer.text,/2.137/);assert.equal(answer.mode,'local');
 });
+test('function OIDC is resolved per request only inside Vercel',async()=>{
+ const {GET}=await import('../api/chat.mjs');const saved=process.env.VERCEL;
+ try{
+  process.env.VERCEL='1';const request=new Request('https://example.com/api/chat',{headers:{'x-vercel-oidc-token':'test-not-a-real-token'}});let response=await GET(request);assert.equal((await response.json()).mode,'ai-available');
+  delete process.env.VERCEL;response=await GET(request);assert.equal((await response.json()).mode,'local');
+ }finally{if(saved==null)delete process.env.VERCEL;else process.env.VERCEL=saved;}
+});
