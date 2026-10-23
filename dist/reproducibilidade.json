@@ -111,6 +111,11 @@
   ],
   "code": [
     {
+      "path": ".gitattributes",
+      "bytes": 187,
+      "sha256": "49e714e134814f0a5f4b3034da5a180aaadb577c3f185ae2be7f7aafb9dea22a"
+    },
+    {
       "path": "analysis_config.json",
       "bytes": 581,
       "sha256": "8ab69bdfa03b16ea9fcfc84c96e14f0c03fc3541a237588bce29f2214287d425"
@@ -161,6 +166,11 @@
       "sha256": "105b4140266d271f73bfa696ef61056b1d352b58ef85cc2c7450bd12f47a08be"
     },
     {
+      "path": "dist/vercel.json",
+      "bytes": 507,
+      "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
+    },
+    {
       "path": "etl_national.py",
       "bytes": 6603,
       "sha256": "0e174d8d7829c126b3be29d2024e2feb26510a1f11ce70c87c168a1282966046"
@@ -182,8 +192,8 @@
     },
     {
       "path": "make_manifest.py",
-      "bytes": 2245,
-      "sha256": "7aba799348c8f2c18011e9cafc51d0e2d7382f9d9ce0981f9b6180aa5b44dea9"
+      "bytes": 2643,
+      "sha256": "6184a36fb3a2f5adf5f9039911e408e02c2bc2ebbc018705f66210916326910f"
     },
     {
       "path": "normalize_times.py",
@@ -229,14 +239,14 @@
       "path": "train_models.py",
       "bytes": 17997,
       "sha256": "94e3926673b9ba4b39003db09d48875bff97166199a7eda38c163fe35a23994e"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 507,
+      "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
     }
   ],
   "outputs": [
-    {
-      "path": "dist/acidentes-ro.csv",
-      "bytes": 10100262,
-      "sha256": "ae29a3f9b2789b8f13935e9e683157ee07d02bc664c11e93247e875c01ee586c"
-    },
     {
       "path": "dist/analysis.js",
       "bytes": 6955,
@@ -268,9 +278,14 @@
       "sha256": "b689fa4a821aa99218660d8b1b3c573214b556a6a0c369fd5121c0266f419f5b"
     },
     {
-      "path": "dist/data.json",
-      "bytes": 15367785,
-      "sha256": "002bc69c8e856fbdd3ef65827566876e7685d0f137c991bc7d212f319a7d1fc9"
+      "path": "dist/figuras/confiabilidade.svg",
+      "bytes": 4662,
+      "sha256": "2690d0bb73f45b61270733c35af1f2f2264685be2ff1674e1121c97694dc6d4a"
+    },
+    {
+      "path": "dist/figuras/hipotese-central.svg",
+      "bytes": 2766,
+      "sha256": "da47a35fd76a482bd7e573f8893f700807b7d1837ba4ddf5848a05d8604a4931"
     },
     {
       "path": "dist/index.html",
@@ -308,9 +323,29 @@
       "sha256": "3837234ff2af2a3ff95b3c4d6690440cb1feb80e2d4ebf83c63a639f80965204"
     },
     {
-      "path": "dist/vercel.json",
-      "bytes": 507,
-      "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
+      "path": "dist/vendor/chart.umd.min.js",
+      "bytes": 208522,
+      "sha256": "48444a82d4edcb5bec0f1965faacdde18d9c17db3063d042abada2f705c9f54a"
+    },
+    {
+      "path": "dist/vendor/leaflet.css",
+      "bytes": 14145,
+      "sha256": "337bfca5cabd03b39815b2700febe2b3b7edf55921c59cd49f88ecb328212303"
+    },
+    {
+      "path": "dist/vendor/leaflet.js",
+      "bytes": 147552,
+      "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a"
+    },
+    {
+      "path": "dist/vendor/LICENSE-Chart.js.md",
+      "bytes": 1093,
+      "sha256": "41a84aa2caba645f966a18d9c2056b73e6d3a81d80bc0046bc0011a2634d4cce"
+    },
+    {
+      "path": "dist/vendor/LICENSE-Leaflet.txt",
+      "bytes": 1369,
+      "sha256": "bbc959aaef7488b38942e7f05cfd1244351f8bce54261951ea17dd7cf60f894b"
     }
   ],
   "determinism": "Semantic results reproducible with fixed seed and versions; generation timestamps and model/PDF serialization can change binary hashes. Compare hashes of inputs and metric values separately.",
