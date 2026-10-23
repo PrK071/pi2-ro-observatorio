@@ -1,0 +1,42 @@
+{
+  "quarantine": {
+    "veiculos_sem_acidente": 38926
+  },
+  "dashboard": {
+    "accidents": 104666,
+    "deaths": 3320,
+    "sourceRows": 104666,
+    "reconciled": true,
+    "vitimasQuantityReconciled": 199531,
+    "veiculosQuantityReconciled": 174901
+  },
+  "acidentes": {
+    "parquetNullValues": 0,
+    "rows": 8106410,
+    "emptyKeys": 0,
+    "unlinkedLocalityKeys": 0,
+    "invalidClockValues": 0
+  },
+  "localidades": {
+    "parquetNullValues": 0,
+    "rows": 514924,
+    "emptyKeys": 0
+  },
+  "vitimas": {
+    "parquetNullValues": 0,
+    "rows": 12282662,
+    "emptyKeys": 0,
+    "unlinkedAccidentKeys": 0
+  },
+  "veiculos": {
+    "parquetNullValues": 0,
+    "rows": 10584738,
+    "emptyKeys": 0,
+    "unlinkedAccidentKeys": 0
+  },
+  "clima": {
+    "parquetNullValues": 0,
+    "rows": 4966920,
+    "duplicateStationDateHours": 0
+  }
+}

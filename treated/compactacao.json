@@ -1,0 +1,47 @@
+{
+  "clima": {
+    "rows": 4966920,
+    "csvGzipBytes": 113445972,
+    "parquetBytes": 72866901,
+    "removedDerivedOrJoinColumns": []
+  },
+  "acidentes": {
+    "rows": 8106410,
+    "csvGzipBytes": 398983745,
+    "parquetBytes": 238113259,
+    "removedDerivedOrJoinColumns": [
+      "ano_acidente",
+      "mes_acidente",
+      "mes_ano_acidente"
+    ],
+    "timeNormalized": true
+  },
+  "localidades": {
+    "rows": 514924,
+    "csvGzipBytes": 7380116,
+    "parquetBytes": 2728902,
+    "removedDerivedOrJoinColumns": [
+      "mes_ano_referencia"
+    ]
+  },
+  "vitimas": {
+    "rows": 12282662,
+    "csvGzipBytes": 313636117,
+    "parquetBytes": 77274360,
+    "removedDerivedOrJoinColumns": [
+      "chv_localidade",
+      "data_acidente",
+      "uf_acidente",
+      "ano_acidente",
+      "mes_acidente",
+      "mes_ano_acidente"
+    ]
+  },
+  "veiculos": {
+    "rows": 10584738,
+    "csvGzipBytes": 60845216,
+    "parquetBytes": 52972053,
+    "removedDerivedOrJoinColumns": [],
+    "quarantinedRows": 38926
+  }
+}

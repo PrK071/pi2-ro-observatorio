@@ -1,0 +1,9 @@
+raw/
+work/
+tools/
+treated/
+.venv/
+__pycache__/
+dist/data.json
+dist/acidentes-ro.csv
+deployment*.json

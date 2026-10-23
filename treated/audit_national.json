@@ -1,0 +1,210 @@
+{
+  "sources": [
+    {
+      "table": "acidentes",
+      "archive": "08-2025.zip",
+      "source": "Acidentes_DadosAbertos_20251212.csv",
+      "identicalArchives": [],
+      "read": 7967426,
+      "retainedNewKeys": 7967426,
+      "duplicatesOrOlder": 0,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "acidentes",
+      "archive": "08-2024.zip",
+      "source": "Acidentes_DadosAbertos_20241212.csv",
+      "identicalArchives": [],
+      "read": 6496108,
+      "retainedNewKeys": 136393,
+      "duplicatesOrOlder": 6359715,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "acidentes",
+      "archive": "03-2024.zip",
+      "source": "Acidentes_DadosAbertos_20240902.csv",
+      "identicalArchives": [],
+      "read": 5622416,
+      "retainedNewKeys": 2574,
+      "duplicatesOrOlder": 5619842,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "acidentes",
+      "archive": "04-2023.zip",
+      "source": "Acidentes_DadosAbertos_20230613.csv",
+      "identicalArchives": [
+        "06-2023.zip",
+        "12-2023.zip"
+      ],
+      "read": 4754543,
+      "retainedNewKeys": 17,
+      "duplicatesOrOlder": 4754526,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "localidades",
+      "archive": "08-2025.zip",
+      "source": "Localidade_DadosAbertos_20251212.csv",
+      "identicalArchives": [],
+      "read": 514924,
+      "retainedNewKeys": 514924,
+      "duplicatesOrOlder": 0,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "localidades",
+      "archive": "08-2024.zip",
+      "source": "Localidade_DadosAbertos_20241212.csv",
+      "identicalArchives": [],
+      "read": 447760,
+      "retainedNewKeys": 0,
+      "duplicatesOrOlder": 447760,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "localidades",
+      "archive": "03-2024.zip",
+      "source": "Localidade_DadosAbertos_20240902.csv",
+      "identicalArchives": [],
+      "read": 402984,
+      "retainedNewKeys": 0,
+      "duplicatesOrOlder": 402984,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "localidades",
+      "archive": "04-2023.zip",
+      "source": "Localidade_DadosAbertos_20230613.csv",
+      "identicalArchives": [
+        "06-2023.zip",
+        "12-2023.zip"
+      ],
+      "read": 347014,
+      "retainedNewKeys": 0,
+      "duplicatesOrOlder": 347014,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "vitimas",
+      "archive": "08-2025.zip",
+      "source": "Vitimas_DadosAbertos_20251212.csv",
+      "identicalArchives": [],
+      "read": 12067664,
+      "retainedNewKeys": 12067664,
+      "duplicatesOrOlder": 0,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "vitimas",
+      "archive": "08-2024.zip",
+      "source": "Vitimas_DadosAbertos_20241212.csv",
+      "identicalArchives": [],
+      "read": 10022592,
+      "retainedNewKeys": 210798,
+      "duplicatesOrOlder": 9811794,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "vitimas",
+      "archive": "03-2024.zip",
+      "source": "Vitimas_DadosAbertos_20240902.csv",
+      "identicalArchives": [],
+      "read": 8986644,
+      "retainedNewKeys": 4172,
+      "duplicatesOrOlder": 8982472,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "vitimas",
+      "archive": "04-2023.zip",
+      "source": "Vitimas_DadosAbertos_20230613.csv",
+      "identicalArchives": [
+        "06-2023.zip",
+        "12-2023.zip"
+      ],
+      "read": 7560678,
+      "retainedNewKeys": 28,
+      "duplicatesOrOlder": 7560650,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "veiculos",
+      "archive": "08-2025.zip",
+      "source": "TipoVeiculo_DadosAbertos_20251212.csv",
+      "identicalArchives": [],
+      "read": 9585945,
+      "retainedNewKeys": 9585945,
+      "duplicatesOrOlder": 0,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "veiculos",
+      "archive": "08-2024.zip",
+      "source": "TipoVeiculo_DadosAbertos_20241212.csv",
+      "identicalArchives": [],
+      "read": 7908754,
+      "retainedNewKeys": 933711,
+      "duplicatesOrOlder": 6975043,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "veiculos",
+      "archive": "03-2024.zip",
+      "source": "TipoVeiculo_DadosAbertos_20240902.csv",
+      "identicalArchives": [],
+      "read": 6704865,
+      "retainedNewKeys": 93883,
+      "duplicatesOrOlder": 6610982,
+      "malformed": 0,
+      "missingKey": 0
+    },
+    {
+      "table": "veiculos",
+      "archive": "04-2023.zip",
+      "source": "TipoVeiculo_DadosAbertos_20230613.csv",
+      "identicalArchives": [
+        "06-2023.zip",
+        "12-2023.zip"
+      ],
+      "read": 5658317,
+      "retainedNewKeys": 10125,
+      "duplicatesOrOlder": 5648192,
+      "malformed": 0,
+      "missingKey": 0
+    }
+  ],
+  "counts": {
+    "acidentes": 8106410,
+    "localidades": 514924,
+    "vitimas": 12282662,
+    "veiculos": 10584738
+  },
+  "normalization": "UTF-8, uppercase, no accents, collapsed whitespace; missing values explicitly NAO_INFORMADO; latest snapshot wins by key",
+  "generated": "2026-10-23T09:10:40.331619+00:00",
+  "countsBeforeQuarantine": {
+    "acidentes": 8106410,
+    "localidades": 514924,
+    "vitimas": 12282662,
+    "veiculos": 10623664
+  },
+  "quarantineCounts": {
+    "veiculos_sem_acidente": 38926
+  },
+  "quarantineReason": "num_acidente sem correspondencia em todas as edicoes de acidentes recebidas"
+}
