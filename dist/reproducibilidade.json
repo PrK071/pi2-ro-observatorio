@@ -162,8 +162,8 @@
     },
     {
       "path": "deploy_files.py",
-      "bytes": 957,
-      "sha256": "45833f7d613452343763cbfda85b6afa7c3c915491ff39997792107eb6e5e51c"
+      "bytes": 930,
+      "sha256": "105b4140266d271f73bfa696ef61056b1d352b58ef85cc2c7450bd12f47a08be"
     },
     {
       "path": "dist/vercel.json",
@@ -260,7 +260,7 @@
     {
       "path": "dist/app.js",
       "bytes": 26495,
-      "sha256": "4536bf966934f5127c97f50519b5643baba848623afcb48d10f16c057fbbecbf"
+      "sha256": "2ebebdae6248ff99f251eb9f3d517030abd59dc87aa930a2e3ad7f64aabce2f6"
     },
     {
       "path": "dist/artigo-baixada-santista.pdf",
@@ -295,7 +295,7 @@
     {
       "path": "dist/index.html",
       "bytes": 16898,
-      "sha256": "804654f429d9807647ae936c3c1bd476a67951b961b23169cede940af9481ade"
+      "sha256": "f6ce16a9b5d440cc0f590855fc72f3dd21b3789d7a5f4604951831b465f0bcd8"
     },
     {
       "path": "dist/interactions.js",
@@ -315,7 +315,7 @@
     {
       "path": "dist/research-ui.js",
       "bytes": 9222,
-      "sha256": "c69366473fed0abcc3ec156169f8a14bd2b168d3e0843de71047a408dd1856a6"
+      "sha256": "51ad7dd05528fda81adda07f0b01043f69357574f4f114b77006e7d8327cdff8"
     },
     {
       "path": "dist/research.json.gz",
@@ -324,8 +324,8 @@
     },
     {
       "path": "dist/style.css",
-      "bytes": 20207,
-      "sha256": "ccbf3a65f7fdbb64b2c84b29eb3ef29ca05b5b1e16e3ed67d2c3e3819bf6d0a3"
+      "bytes": 24263,
+      "sha256": "d3c134c9526686ff6db7da8ae353610b4a3da2a76f49e49bdc73ce824f475222"
     },
     {
       "path": "dist/vendor/chart.umd.min.js",
