@@ -1,77 +1,93 @@
 # Observatório da Baixada Santista
 
-Dashboard de sinistros de trânsito e clima nos nove municípios da Região Metropolitana da Baixada Santista (RMBS), adaptado ao relatório técnico-científico do PI2 da FATEC. O nome do repositório e o endereço de hospedagem foram mantidos para preservar os links existentes.
+Sinistros de trânsito, clima, Haversine, ETL e modelagem preditiva nos nove municípios da RMBS. Esta edição inclui artigo científico, conferência das fórmulas e experimentos cronológicos efetivamente treinados. O nome do repositório foi preservado para manter os links anteriores.
 
-**[Abrir o dashboard](https://pi2-ro-observatorio.vercel.app/)**
+## Resultado da conferência do texto de referência
 
-## O que está implementado
+A hipótese original compara **chuva medida nas três horas anteriores > 5 mm** com **≤ 5 mm**. Ela não é equivalente ao indicador combinado de pista molhada do dashboard anterior.
 
-- Mapa Leaflet com cartografia Esri, hotspots agregados, camada de eventos fatais e filtro espacial por raio de 2 km.
-- Seis indicadores: sinistros, eventos fatais, letalidade por evento, sinistros com vítimas identificadas, condição molhada/chuva e rodovias.
-- Filtros de ano, mês, município, tipo, condição de pista/chuva, logradouro e área. As seleções atualizam indicadores, mapa, gráficos, síntese científica e respostas analíticas.
-- Série mensal com sinistros e média da precipitação horária associada aos registros; gráficos de municípios, severidade e tipologia.
-- H1: tabela 2×2, Odds Ratio, IC95%, qui-quadrado de Pearson e p-valor recalculados em cada recorte. Células nulas/zero, grupos ausentes e frequências esperadas pequenas são tratados explicitamente.
-- H2: proporção de eventos rodoviários por condição da pista/chuva, com teste de associação.
-- H3: contagens e médias por dia de calendário no verão turístico e nos demais períodos; interpretação exploratória, sem alegar controle meteorológico ou causalidade.
-- Agente analítico local com intenções predefinidas, sem API externa. Responde com os números dos filtros ativos e identifica o contexto de cada resposta.
-- Exportação CSV da seleção com prevenção de fórmulas em campos textuais, layout responsivo e controles acessíveis por teclado.
+| Componente central | N | OR | IC95% | p bilateral |
+| --- | ---: | ---: | --- | ---: |
+| Proporção rodoviária | 8.023 | 1,219 | 0,939–1,581 | 0,1361 |
+| Fatalidade por evento | 8.688 | 0,811 | 0,397–1,655 | 0,5645 |
 
-## Cobertura real, diferente das métricas do relatório
+A hipótese composta não foi sustentada nesta edição. Não se demonstrou ausência de efeito ou causalidade. A análise de tipo de via também não demonstra deslocamento espacial de hotspots. P-valores ajustados de Holm, tabelas municipais e análises complementares estão em `dist/modelos.json`.
 
-| Item | Base disponível |
-| --- | --- |
-| Escopo solicitado | Janeiro de 2022 a outubro de 2025 |
-| Acidentes recebidos | 01/01/2022 a 31/08/2025 |
-| Sinistros únicos | 31.493 |
-| Sinistros fatais | 911 |
-| Óbitos | 961 |
-| Municípios | Santos, São Vicente, Praia Grande, Guarujá, Cubatão, Bertioga, Itanhaém, Peruíbe, Mongaguá |
-| INMET fornecido | 2023, estações costeiras A765 (Bertioga) e A712 (Iguape) |
+Haversine implementa `a = sin²(Δφ/2) + cos(φ1)cos(φ2)sin²(Δλ/2)` e `d = 2R asin(sqrt(a))`, com graus convertidos para radianos e R = 6.371 km. A raiz cobre toda a soma. Ela é usada para vincular a estação entre duas candidatas até 100 km e para o filtro espacial público. A precipitação anterior soma exclusivamente `t−1h`, `t−2h` e `t−3h`, exigindo três medidas válidas.
 
-Setembro e outubro de 2025 são apresentados como meses sem cobertura, sem convertê-los em meses com zero sinistros. Os totais de 508.575, OR 1,264 e AUCs do documento de referência **não foram apresentados como resultados desta base**. Mongaguá usa o código IBGE correto, **3531100**, distinto de Peruíbe, 3537602: [IBGE](https://www.ibge.gov.br/cidades-e-estados/sp/mongagua.html).
+## Cobertura e denominadores
 
-A existência de vítimas é estabelecida pelas categorias LEVE, GRAVE ou OBITO da tabela de pessoas ou pela contagem numérica de eventos fatais. Um evento é classificado sem vítimas apenas quando a quantidade de pessoas SEM FERIMENTO reconcilia com todos os envolvidos, sem gravidade desconhecida. O campo agregado `qtde_feridosilesos` não permite distinguir feridos de ilesos. A proporção de vítimas classificáveis é informada no painel; os demais eventos não entram artificialmente no grupo sem vítimas.
+- 31.493 sinistros, 911 **eventos fatais**, 961 **óbitos em pessoas**.
+- Período observado: 01/01/2022–31/08/2025. Meses posteriores não viram zeros.
+- Nove municípios, com Mongaguá 3531100 e Peruíbe 3537602.
+- INMET disponível: 2023, estações A765 (Bertioga) e A712 (Iguape).
+- 8.701 eventos com chuva horária vinculada; 8.688 com três horas anteriores completas; 381 após > 5 mm.
+- Cubo público: 30.867 grupos, cuja soma de `n` reconcilia os 31.493 eventos. Contagem de grupos não substitui `n`.
+- Gravidade de vítimas classificável em 5.530 eventos. “Feridos/ilesos” não é tratado como feridos; desconhecidos não viram casos sem vítima.
 
-O OR compara a gravidade **entre sinistros registrados**, sem estimar incidência de acidentes, risco por viagem ou efeito causal da chuva. O selo positivo exige IC95% acima de 1 e p < 0,05, com frequências esperadas de pelo menos 5 e células positivas. Amostras com informações completas podem apresentar viés de seleção.
+Os totais de 1.692.810 registros e a AUC 0,8790 do texto de referência não foram reproduzidos neste recorte.
 
-## Executar
+## Dashboard e artigo
 
-O painel publicado é estático e funciona sem instalação de dependências ou chave de API. Leaflet 1.9.4 e Chart.js 4.5.1 estão incluídos em `dist/vendor/`; a cartografia e as fontes tipográficas precisam de conexão à internet. O processamento dos filtros acontece no navegador sobre o cubo regional comprimido.
+O dashboard contém mapa, filtros cruzados, tabelas 2×2 recalculadas, Fisher para tabelas esparsas, comparação de modelos, confiabilidade, teste da hipótese original, demonstração de Haversine e sequência do ETL. O raio espacial é ajustável. A comparação global dos modelos e o modelo diário regional são explicitamente fixos; os demais resultados usam os filtros ativos.
+
+Os gráficos interativos permitem clicar novamente na seleção para removê-la. Os botões locais limpam somente a dimensão do gráfico; **Voltar/Refazer** recuperam a sequência de filtros, camadas, séries ocultas e experimento. A seleção de um mês na série temporal mantém o ano/mês escolhidos manualmente como contexto e não deixa filtros residuais ao removê-la. Os gráficos de referência preservam as alternativas antes de seu próprio filtro, conforme indicado nas notas; indicadores e testes usam a interseção completa dos filtros.
+
+- [Artigo editável em Markdown](docs/artigo-baixada-santista.md)
+- [Artigo em HTML](dist/artigo.html)
+- [Artigo em PDF](dist/artigo-baixada-santista.pdf)
+- [Conferência das fórmulas](docs/auditoria-formulas.md)
+- [Resultados e configurações](dist/modelos.json)
+- [Manifesto SHA-256](dist/reproducibilidade.json)
+- [Auditoria numérica](dist/auditoria-calculos.json)
 
 ```sh
 python -m http.server 8879 --bind 127.0.0.1 --directory dist
 ```
 
-Abra [localhost:8879](http://127.0.0.1:8879) em navegador atualizado com suporte a `DecompressionStream`. A configuração Vercel publica `dist/`, sem compilação.
+Abrir `http://127.0.0.1:8879/`. O navegador precisa de `DecompressionStream` para ler o cubo gzip. Leaflet e Chart.js estão incluídos em `dist/vendor/`; a cartografia depende de conexão. O painel é estático e o agente analítico usa intenções locais, sem API de IA.
 
-## Reproduzir a base regional
+## Modelagem executada
 
-O ETL nacional original e sua documentação foram preservados em [docs/historico-rondonia.md](docs/historico-rondonia.md). Os Parquets nacionais e os arquivos brutos permanecem locais e fora do Git. Para regenerar a versão regional após produzir os Parquets nacionais:
+**Contexto:** treino 2022–2023, validação 2024 e teste jan–ago/2025. **Clima:** treino jan–jun/2023, validação jul–set e teste out–dez. Prevalência constante, regressão logística L2 e Random Forest são comparadas. O modelo é selecionado por Average Precision na validação; limiares são definidos na validação. Não há reajuste no teste. A semente é 42.
+
+No teste de 2025, a logística selecionada apresenta AUC 0,765, AP 0,131 e Brier 0,03119. O Brier da prevalência constante é 0,02656: o modelo selecionado não melhora esse erro probabilístico. A precisão no limiar congelado é 6,31%, com sensibilidade 63,87%. Escores são experimentais e condicionais a um sinistro já registrado, sem prever incidência futura.
+
+O experimento climático também inclui ablação na mesma amostra, retirando as variáveis meteorológicas adicionais. Não houve ganho pontual com sua inclusão. A categoria combinada de pista/chuva permanece no controle e essa comparação não prova efeito causal. Há forte mudança de preenchimento ao longo dos anos: modelos podem aprender atalhos administrativos associados à fatalidade. Esses limites são apresentados no artigo e no painel.
+
+O modelo complementar de contagem ajusta Poisson em 3.227 município-dias de 2023, com 745 células sem evento registrado, 24 observações de chuva exigidas por dia e erros agrupados em 53 semanas. Inclui município, mês, dia da semana, tendência, chuva diária e interação com verão turístico. Não há evidência suficiente da interação; sem fluxo de tráfego, estima contagens diárias e não risco por viagem.
+
+## Reproduzir
+
+Usar Python 3.13 e Node.js 22. Os dados brutos, os Parquets nacionais, os CSVs intermediários e os modelos joblib permanecem locais e fora do Git. É necessário obter as mesmas edições dos insumos e conferir os hashes; apenas baixar outra edição pública pode alterar os resultados.
 
 ```sh
 python -m pip install -r requirements.txt
-python extract_rmbs.py
-python build_research.py
-node --test tests/analysis.test.cjs
+# Com os Parquets auditados disponíveis:
+python run_research.py
+# Ou desde os ZIPs recebidos, em um diretório de trabalho limpo:
+python run_research.py --from-raw
 ```
 
-`extract_rmbs.py` seleciona os nove códigos IBGE, UF SP e o período solicitado nos Parquets auditados. A extração de pessoas usa semijunção por identificador; os indicadores dos eventos nunca são somados após uma junção que os multiplique. Os arquivos intermediários são `treated/{acidentes,vitimas,localidades}_rmbs.csv`.
+Sequência nacional: `etl_national.py` → `climate_worker.py` → `compact.py` → `normalize_times.py` → `quarantine.py` → `build_station_catalog.py`.
 
-`build_research.py` gera `dist/research.json.gz` e `dist/metodologia.json`. A junção meteorológica usa a estação costeira mais próxima do ponto registrado, até 100 km, no horário BRT. Quando não há hora válida, usa o centro de referência da fase do dia. A chuva anterior soma **as três horas estritamente anteriores**, e exige uma janela completa. Não há imputação de chuva ausente por zero, nem simulação de cobertura meteorológica para 2022/2024/2025. Cada grupo preserva se a hora foi aproximada ou registrada.
+Sequência regional: `extract_rmbs.py` → `build_research.py` → `train_models.py` → `build_article.py` → `audit_research.py` → `make_manifest.py`.
 
-Condição molhada: pista informada MOLHADA, chuva horária acima de 0,2 mm ou chuva anterior acima de 0,5 mm. Condição seca/sem indício: pista informada SECA ou ambas as medidas climáticas conhecidas sem exceder os limites. Sem essas evidências, condição desconhecida. Isto é uma aproximação meteorológica e não uma medição da aderência da pista.
+As configurações estão em `analysis_config.json`. O manifesto registra hashes dos ZIPs, insumos, código, modelos locais e saídas. Carimbos de geração e serializações podem alterar os hashes de saídas entre execuções; comparar insumos, configuração e métricas além dos bytes.
 
-Rodovias: tipo ESTADUAL/FEDERAL, código SP/BR ou nome explícito de eixo rodoviário. A identificação evita confundir Avenida Padre Anchieta com Rodovia Anchieta. O mapa descarta coordenadas ausentes, zero ou fora do envelope regional e agrega pontos a 0,01°; esse envelope é uma verificação aproximada, não uma validação por polígono municipal. Não publica identificadores de acidentes, números de endereço nem coordenadas individuais exatas.
+## Verificações
 
-## Limites de implementação
+```sh
+node --test tests/analysis.test.cjs tests/research.test.cjs
+python audit_research.py
+```
 
-A arquitetura estática do projeto existente foi mantida. Não há backend FastAPI em produção: as consultas e testes estatísticos são executados no navegador, com DuckDB usado na preparação da base. O chat usa intenções locais, não Gemini. Não há modelo preditivo treinado neste recorte; por isso o dashboard não exibe probabilidades individuais nem AUCs importadas do relatório. A análise H3 não incorpora feriados nem exposição ao tráfego e não testa uma hipótese de contagem ajustada por chuva.
+Quinze testes JavaScript cobrem fórmulas, arcos conhecidos, tabelas 2×2, Fisher municipal, filtros, denominadores, índices de fatalidade e métricas de previsões de teste comparadas com SciPy/scikit-learn. A auditoria Python reconcilia os totais e reconstrói a distribuição da chuva anterior com coordenadas originais e uma implementação independente de Haversine. Não executa nem altera o grande ETL nacional durante a conferência regional.
 
-As limitações de cobertura são apresentadas na interface e no download da metodologia. Os testes numéricos verificam uma tabela 2×2 de referência, valores desconhecidos, grupos ausentes, interseção dos filtros, calendário bissexto, contagens reconciliadas e ausência de identificadores individuais no cubo publicado.
+Os testes de navegador em `tests/chart-navigation.cjs` conferem cliques reais nos gráficos, remoção de seleção, histórico, legendas, mapa, filtros combinados e visualização móvel. Com o servidor HTTP ativo e Playwright instalado, executar `node --test tests/chart-navigation.cjs`. O caminho do módulo, do navegador e do servidor podem ser informados por `PLAYWRIGHT_MODULE`, `BROWSER_EXECUTABLE` e `DASHBOARD_URL`.
 
-## Fontes
+## Fontes e histórico
 
-- [RENAEST / SENATRAN](https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/renaest): fonte descrita no relatório de referência; a análise usa os arquivos nacionais fornecidos e auditados neste projeto.
-- [INMET — dados históricos](https://portal.inmet.gov.br/dadoshistoricos).
-- [IBGE — códigos municipais](https://www.ibge.gov.br/explica/codigos-dos-municipios.php).
-- [Leaflet — referência](https://leafletjs.com/reference.html), [Chart.js — API](https://www.chartjs.org/docs/latest/developers/api.html).
+As referências bibliográficas verificadas estão no artigo. Fontes oficiais: [RENAEST](https://dados.transportes.gov.br/sk/dataset/renaest), [INMET](https://portal.inmet.gov.br/dadoshistoricos) e [IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php). O [histórico de Rondônia](docs/historico-rondonia.md) permanece como documentação da etapa anterior.
+
+A atualização nesta pasta não publica automaticamente o site hospedado.

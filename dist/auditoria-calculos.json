@@ -1,0 +1,57 @@
+{
+  "checks": [
+    {
+      "check": "reconcile_n",
+      "passed": true,
+      "detail": {
+        "source": 31493,
+        "published": 31493
+      }
+    },
+    {
+      "check": "reconcile_fatal",
+      "passed": true,
+      "detail": {
+        "source": 911,
+        "published": 911
+      }
+    },
+    {
+      "check": "reconcile_deaths",
+      "passed": true,
+      "detail": {
+        "source": 961,
+        "published": 961
+      }
+    },
+    {
+      "check": "haversine_vs_sklearn",
+      "passed": true,
+      "detail": {
+        "maxErrorKm": 1.8189894035458565e-12,
+        "radiusKm": 6371
+      }
+    },
+    {
+      "check": "three_strictly_previous_hours_and_nearest_station",
+      "passed": true,
+      "detail": {
+        "events": 8688,
+        "sourceCoordinates": "unrounded",
+        "oracle": "sklearn haversine, independent distribution rebuild"
+      }
+    },
+    {
+      "check": "climate_input_exists",
+      "passed": true,
+      "detail": "Parquet"
+    },
+    {
+      "check": "javascript_oracles",
+      "passed": true,
+      "detail": "15 numerical tests; SciPy and sklearn comparisons"
+    }
+  ],
+  "allPassed": true,
+  "total": 7
+}

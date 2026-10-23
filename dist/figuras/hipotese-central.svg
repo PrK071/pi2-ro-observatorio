@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="450" height="165" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 165" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="450" height="165"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-165)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 262.857143,28 L 262.857143,145 Z" style="stroke: rgb(55%,63%,59%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 3;"/>
+			<text x="8" y="110" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,220) scale(1,-1)">Rodovia</text>
+			<path d="M 253.311916,113 L 354.170827,113 Z" style="stroke: rgb(13%,34%,26%); stroke-linecap: butt; stroke-width: 2;"/>
+			<circle cx="297.2125798571691" cy="113" r="4" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<text x="272.2125798571691" y="126" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,252) scale(1,-1)">1,219</text>
+			<text x="8" y="62" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,124) scale(1,-1)">Fatalidade</text>
+			<path d="M 168.166844,65 L 365.845761,65 Z" style="stroke: rgb(13%,34%,26%); stroke-linecap: butt; stroke-width: 2;"/>
+			<circle cx="233.1735969675385" cy="65" r="4" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<text x="208.1735969675385" y="78" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,156) scale(1,-1)">0,811</text>
+			<path d="M 145,28 L 420,28 Z" style="stroke: rgb(50%,50%,50%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="177.28571428571428" y="12" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,24) scale(1,-1)">0,5</text>
+			<text x="255.85714285714283" y="12" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,24) scale(1,-1)">1</text>
+			<text x="334.42857142857144" y="12" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,24) scale(1,-1)">1,5</text>
+			<text x="413.0" y="12" style="font-family: Helvetica; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,24) scale(1,-1)">2</text>
+		</g>
+	</g>
+</svg>

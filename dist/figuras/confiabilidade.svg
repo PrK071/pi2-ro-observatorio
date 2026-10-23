@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="450" height="250" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 250" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="450" height="250"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-250)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 55,35 L 395,35 Z" style="stroke: rgb(88%,90%,88%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="49" y="18" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">0</text>
+			<text x="22" y="32" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,64) scale(1,-1)">0</text>
+			<path d="M 55,81.25 L 395,81.25 Z" style="stroke: rgb(88%,90%,88%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="134.0" y="18" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">0,25</text>
+			<text x="22" y="78.25" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,156) scale(1,-1)">0,25</text>
+			<path d="M 55,127.5 L 395,127.5 Z" style="stroke: rgb(88%,90%,88%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="219.0" y="18" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">0,5</text>
+			<text x="22" y="124.5" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,249) scale(1,-1)">0,5</text>
+			<path d="M 55,173.75 L 395,173.75 Z" style="stroke: rgb(88%,90%,88%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="304.0" y="18" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">0,75</text>
+			<text x="22" y="170.75" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,341) scale(1,-1)">0,75</text>
+			<path d="M 55,220 L 395,220 Z" style="stroke: rgb(88%,90%,88%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="389" y="18" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">1</text>
+			<text x="22" y="217" style="font-family: Times-Roman; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,434) scale(1,-1)">1</text>
+			<path d="M 55,35 L 395,220 Z" style="stroke: rgb(55%,63%,59%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 3;"/>
+			<circle cx="70.7618887437151" cy="36.973333333333336" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="102.85624358353765" cy="43.35568101623147" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="135.07889730397793" cy="50.25265957446808" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="167.28203170243899" cy="55.18181818181818" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="202.3067150078533" cy="65.83333333333333" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="243.51037730501528" cy="220.0" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="337.0916799021383" cy="220.0" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<circle cx="372.3536688208789" cy="220.0" r="3.5" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0; fill: rgb(13%,34%,26%); fill-rule: evenodd;"/>
+			<text x="155" y="0" style="font-family: Times-Roman; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,0) scale(1,-1)">Escore médio por faixa</text>
+			<text x="55" y="235" style="font-family: Times-Roman; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,470) scale(1,-1)">Frequência observada de fatalidade</text>
+		</g>
+	</g>
+</svg>

@@ -35,7 +35,7 @@ def read(name):
 def distance(a, b):
     lat1, lon1, lat2, lon2 = map(math.radians, (*a, *b))
     v = math.sin((lat2-lat1)/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin((lon2-lon1)/2)**2
-    return 6371 * 2 * math.asin(math.sqrt(min(1, v)))
+    return 6371 * 2 * math.asin(math.sqrt(max(0, min(1, v))))
 
 
 def load_climate():
@@ -79,7 +79,8 @@ def main():
             counts[2] += count
 
     fields = ['date','city','type','phase','weekday','road','wet','victim',
-              'lat','lng','rain','rain3h','temp','season','climateMethod','street','district']
+              'lat','lng','rain','rain3h','temp','season','climateMethod','street','district',
+              'stationCode','stationDistanceKm']
     cube = collections.defaultdict(lambda: [0, 0, 0, 0])
     audit = collections.Counter()
     for a in read('acidentes'):
@@ -103,9 +104,11 @@ def main():
             audit['withoutValidCoordinates'] += n
         rain = rain3h = temp = None
         climate_method = None
+        station_code = station_km = None
         if valid_geo and date.year == 2023:
             station, km = min(((code, distance((lat,lng), point)) for code,point in stations.items()), key=lambda x:x[1])
             if km <= 100:
+                station_code, station_km = station, round(km, 3)
                 clock = a['hora_acidente']
                 if re.fullmatch(r'([01]\d|2[0-3])[0-5]\d[0-5]\d', clock):
                     hour = int(clock[:2])
@@ -132,7 +135,7 @@ def main():
                round(lat,2) if lat is not None else None,round(lng,2) if lng is not None else None,
                round(rain,2) if rain is not None else None,round(rain3h,2) if rain3h is not None else None,
                round(temp,2) if temp is not None else None,season,climate_method,
-               a['end_acidente'],a['bairro_acidente'])
+               a['end_acidente'],a['bairro_acidente'],station_code,station_km)
         values = cube[key]
         for i,value in enumerate((n,int(a['qtde_obitos']),involved,fatal)):
             values[i] += value
@@ -142,14 +145,18 @@ def main():
         audit['climateMatched'] += n if rain is not None else 0
 
     dates = [k[0] for k in cube]
-    data = {'version':2,'scope':'RMBS','fields':fields+['n','deaths','involved','fatal'],
-            'records':[list(k)+v for k,v in cube.items()], 'audit':dict(audit),
+    data = {'version':3,'scope':'RMBS','fields':fields+['n','deaths','involved','fatal'],
+            'records':[list(k)+v for k,v in sorted(cube.items(), key=lambda item: json.dumps(item[0]))], 'audit':dict(audit),
             'period':[min(dates),max(dates)],'requestedPeriod':['2022-01-01','2025-10-31'],
             'cities':cities,'climateYears':[2023],
             'methodology':{'timezone':'UTC-03:00','stationMaxDistanceKm':100,
                            'stations':['A765 — Bertioga','A712 — Iguape'],
                            'coordinatePrecisionDegrees':.01,'rainWindow':'three strictly preceding hours',
-                           'missingClimate':'unknown, never zero-imputed','victimSource':'vitimas.gravidade_lesao + numeric fatal events'},
+                           'missingClimate':'unknown, never zero-imputed','victimSource':'vitimas.gravidade_lesao + numeric fatal events',
+                           'spatialDistance':'Haversine; degrees converted to radians; R=6371 km',
+                           'distanceFormula':'a=sin²(Δφ/2)+cos(φ1)cos(φ2)sin²(Δλ/2); d=2R asin(sqrt(a))',
+                           'distancePrecision':'Station matching uses original coordinates; browser radius uses rounded public coordinates',
+                           'stationSelection':'Nearest among two supplied coastal stations, not the entire INMET network'},
             'generated':dt.datetime.now(dt.timezone.utc).isoformat()}
     content = json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode()
     with gzip.GzipFile(filename=str(O/'research.json.gz'), mode='wb',mtime=0) as f:

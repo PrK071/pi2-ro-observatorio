@@ -1,7 +1,11 @@
 """Reads only the static files intended for deployment; emits hashes or base64 chunks."""
 import pathlib,sys,hashlib,json,base64
 P=pathlib.Path(__file__).parent/'dist'
-FILES=['index.html','style.css','app.js','analysis.js','vercel.json','research.json.gz','metodologia.json','vendor/leaflet.js','vendor/leaflet.css','vendor/chart.umd.min.js']
+FILES=['index.html','style.css','app.js','analysis.js','interactions.js','research-ui.js','vercel.json',
+       'research.json.gz','metodologia.json','modelos.json','reproducibilidade.json','auditoria-calculos.json',
+       'artigo.html','auditoria-formulas.html','artigo-baixada-santista.pdf',
+       'figuras/hipotese-central.svg','figuras/confiabilidade.svg',
+       'vendor/leaflet.js','vendor/leaflet.css','vendor/chart.umd.min.js']
 if len(sys.argv)==1:
     print(json.dumps([{'file':f,'size':(P/f).stat().st_size,'sha':hashlib.sha1((P/f).read_bytes()).hexdigest()} for f in FILES]))
 else:

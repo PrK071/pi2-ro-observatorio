@@ -1,0 +1,3024 @@
+{
+  "config": {
+    "seed": 42,
+    "primary": {
+      "train_end": "2023-12-31",
+      "validation_end": "2024-12-31",
+      "test_end": "2025-08-31"
+    },
+    "climate": {
+      "start": "2023-01-01",
+      "train_end": "2023-06-30",
+      "validation_end": "2023-09-30",
+      "test_end": "2023-12-31"
+    },
+    "random_forest": {
+      "n_estimators": 250,
+      "max_depth": 8,
+      "min_samples_leaf": 30
+    },
+    "logistic": {
+      "C": 1.0,
+      "max_iter": 2000
+    },
+    "bootstrap_repetitions": 200,
+    "station_max_distance_km": 100,
+    "earth_radius_km": 6371,
+    "hourly_rain_threshold_mm": 0.2,
+    "previous_3h_rain_threshold_mm": 0.5,
+    "central_hypothesis_rain3h_threshold_mm": 5
+  },
+  "versions": {
+    "python": "3.13.7",
+    "numpy": "2.3.4",
+    "scipy": "1.16.3",
+    "sklearn": "1.7.2"
+  },
+  "hypotheses": {
+    "regional": {
+      "h1": {
+        "a": 1035,
+        "b": 75,
+        "c": 3498,
+        "d": 249,
+        "n": 4857,
+        "odds": 0.9823327615780446,
+        "ci": [
+          0.7519059641029338,
+          1.2833754492436036
+        ],
+        "p": 0.896015131658254,
+        "test": "Pearson sem correção",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 0.017081664170678974,
+        "expectedMin": 74.04570722668313
+      },
+      "h2": {
+        "a": 1004,
+        "b": 2194,
+        "c": 3224,
+        "d": 8945,
+        "n": 15367,
+        "odds": 1.2696452766511872,
+        "ci": [
+          1.1663682353918097,
+          1.3820670690514496
+        ],
+        "p": 3.335805937707623e-08,
+        "test": "Pearson sem correção",
+        "decision": "associação positiva",
+        "chi": 30.50166207911148,
+        "expectedMin": 879.8818246892693
+      }
+    },
+    "byCity": {
+      "BERTIOGA": {
+        "total": 1785,
+        "fatal": 73,
+        "h1": {
+          "a": 64,
+          "b": 5,
+          "c": 178,
+          "d": 14,
+          "n": 261,
+          "odds": 1.006741573033708,
+          "ci": [
+            0.34867189447500047,
+            2.906826190853344
+          ],
+          "p": 0.990090750634966,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.0001542494846530632,
+          "expectedMin": 5.022988505747127,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 128,
+          "b": 103,
+          "c": 407,
+          "d": 353,
+          "n": 991,
+          "odds": 1.0778368836621264,
+          "ci": [
+            0.8016610390473902,
+            1.4491565527033283
+          ],
+          "p": 0.6196525127408219,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.2463562616305025,
+          "expectedMin": 106.29263370332997,
+          "pHolm": 1
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 447,
+          "highRain": 20,
+          "road": {
+            "a": 11,
+            "b": 7,
+            "c": 148,
+            "d": 254,
+            "n": 420,
+            "odds": 2.6969111969111967,
+            "ci": [
+              1.023293504624357,
+              7.107765241503184
+            ],
+            "p": 0.037608141370690684,
+            "test": "Pearson sem correção",
+            "decision": "associação positiva",
+            "chi": 4.322657657997873,
+            "expectedMin": 6.814285714285714,
+            "pHolm": 0.07521628274138137
+          },
+          "fatality": {
+            "a": 1,
+            "b": 19,
+            "c": 22,
+            "d": 405,
+            "n": 447,
+            "odds": 0.9688995215311005,
+            "ci": [
+              0.12396221546428149,
+              7.573003429369105
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.0009070738867233012,
+            "expectedMin": 1.029082774049217,
+            "pHolm": 1
+          }
+        }
+      },
+      "CUBATAO": {
+        "total": 2257,
+        "fatal": 89,
+        "h1": {
+          "a": 97,
+          "b": 5,
+          "c": 245,
+          "d": 12,
+          "n": 359,
+          "odds": 0.950204081632653,
+          "ci": [
+            0.3261052449840581,
+            2.768700628520991
+          ],
+          "p": 1.0,
+          "test": "Fisher bilateral",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.008764876398117063,
+          "expectedMin": 4.83008356545961,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 316,
+          "b": 80,
+          "c": 749,
+          "d": 260,
+          "n": 1405,
+          "odds": 1.3711615487316422,
+          "ci": [
+            1.033211381659001,
+            1.8196508730878993
+          ],
+          "p": 0.028406864853565528,
+          "test": "Pearson sem correção",
+          "decision": "associação positiva",
+          "chi": 4.80320378817993,
+          "expectedMin": 95.82918149466192,
+          "pHolm": 0.1988480539749587
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 659,
+          "highRain": 29,
+          "road": {
+            "a": 24,
+            "b": 4,
+            "c": 396,
+            "d": 206,
+            "n": 630,
+            "odds": 3.121212121212121,
+            "ci": [
+              1.0686465908155809,
+              9.116171042258687
+            ],
+            "p": 0.028724435507238275,
+            "test": "Pearson sem correção",
+            "decision": "associação positiva",
+            "chi": 4.78405315614618,
+            "expectedMin": 9.333333333333334,
+            "pHolm": 0.05744887101447655
+          },
+          "fatality": {
+            "a": 1,
+            "b": 28,
+            "c": 28,
+            "d": 602,
+            "n": 659,
+            "odds": 0.7678571428571429,
+            "ci": [
+              0.10081013145217406,
+              5.848664051355319
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.06539598655333886,
+            "expectedMin": 1.2761760242792108,
+            "pHolm": 1
+          }
+        }
+      },
+      "GUARUJA": {
+        "total": 5105,
+        "fatal": 106,
+        "h1": {
+          "a": 164,
+          "b": 6,
+          "c": 542,
+          "d": 30,
+          "n": 742,
+          "odds": 1.5129151291512914,
+          "ci": [
+            0.6189468953179387,
+            3.6980752392967537
+          ],
+          "p": 0.3607436877498047,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.8353026243877775,
+          "expectedMin": 8.247978436657682,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 47,
+          "b": 409,
+          "c": 106,
+          "d": 1719,
+          "n": 2281,
+          "odds": 1.863565068967108,
+          "ci": [
+            1.300155962914025,
+            2.671121669503916
+          ],
+          "p": 0.0005922986322274215,
+          "test": "Pearson sem correção",
+          "decision": "associação positiva",
+          "chi": 11.800026964140637,
+          "expectedMin": 30.58658483121438,
+          "pHolm": 0.004738389057819372
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 1392,
+          "highRain": 73,
+          "road": {
+            "a": 4,
+            "b": 56,
+            "c": 62,
+            "d": 1143,
+            "n": 1265,
+            "odds": 1.316820276497696,
+            "ci": [
+              0.46260642252575446,
+              3.748360498602743
+            ],
+            "p": 0.5489957472774554,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.2675312260755177,
+            "expectedMin": 3.130434782608696,
+            "pHolm": 1
+          },
+          "fatality": {
+            "a": 1,
+            "b": 72,
+            "c": 20,
+            "d": 1299,
+            "n": 1392,
+            "odds": 0.9020833333333333,
+            "ci": [
+              0.11938264217945391,
+              6.816353913951379
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.009982815746738295,
+            "expectedMin": 1.1012931034482758,
+            "pHolm": 1
+          }
+        }
+      },
+      "ITANHAEM": {
+        "total": 1471,
+        "fatal": 84,
+        "h1": {
+          "a": 31,
+          "b": 1,
+          "c": 175,
+          "d": 21,
+          "n": 228,
+          "odds": 3.72,
+          "ci": [
+            0.48266425411090985,
+            28.670861540163113
+          ],
+          "p": 0.32816274410864205,
+          "test": "Fisher bilateral",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 1.8174095322153567,
+          "expectedMin": 3.087719298245614,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 69,
+          "b": 72,
+          "c": 291,
+          "d": 303,
+          "n": 735,
+          "odds": 0.997852233676976,
+          "ci": [
+            0.6911128279096548,
+            1.4407330323555991
+          ],
+          "p": 0.990845870462259,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.00013163550397591903,
+          "expectedMin": 69.06122448979592,
+          "pHolm": 1
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 447,
+          "highRain": 18,
+          "road": {
+            "a": 7,
+            "b": 9,
+            "c": 165,
+            "d": 243,
+            "n": 424,
+            "odds": 1.1454545454545455,
+            "ci": [
+              0.41830708014606505,
+              3.13660986862649
+            ],
+            "p": 0.7914620194401826,
+            "test": "Pearson sem correção",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.06991401211647445,
+            "expectedMin": 6.490566037735849,
+            "pHolm": 1
+          },
+          "fatality": {
+            "a": 1,
+            "b": 17,
+            "c": 22,
+            "d": 407,
+            "n": 447,
+            "odds": 1.088235294117647,
+            "ci": [
+              0.13842985245523462,
+              8.554918136218381
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.006464157253738851,
+            "expectedMin": 0.9261744966442953,
+            "pHolm": 1
+          }
+        }
+      },
+      "MONGAGUA": {
+        "total": 920,
+        "fatal": 38,
+        "h1": {
+          "a": 23,
+          "b": 1,
+          "c": 119,
+          "d": 5,
+          "n": 148,
+          "odds": 0.9663865546218487,
+          "ci": [
+            0.10783136826470584,
+            8.66077272302926
+          ],
+          "p": 1.0,
+          "test": "Fisher bilateral",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.0009339189257408283,
+          "expectedMin": 0.972972972972973,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 52,
+          "b": 32,
+          "c": 224,
+          "d": 183,
+          "n": 491,
+          "odds": 1.3275669642857142,
+          "ci": [
+            0.8200517992254577,
+            2.1491740476972465
+          ],
+          "p": 0.24804007312457055,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 1.3343090756639786,
+          "expectedMin": 36.782077393075355,
+          "pHolm": 0.9921602924982822
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 231,
+          "highRain": 10,
+          "road": {
+            "a": 6,
+            "b": 3,
+            "c": 78,
+            "d": 132,
+            "n": 219,
+            "odds": 3.3846153846153846,
+            "ci": [
+              0.8231027330549918,
+              13.917608145045238
+            ],
+            "p": 0.08932407120319,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 3.1815419501133793,
+            "expectedMin": 3.452054794520548,
+            "pHolm": 0.17864814240638
+          },
+          "fatality": {
+            "a": 0,
+            "b": 10,
+            "c": 11,
+            "d": 210,
+            "n": 231,
+            "odds": null,
+            "ci": null,
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.5226244343891403,
+            "expectedMin": 0.47619047619047616,
+            "pHolm": 1
+          }
+        }
+      },
+      "PERUIBE": {
+        "total": 1088,
+        "fatal": 52,
+        "h1": {
+          "a": 32,
+          "b": 2,
+          "c": 114,
+          "d": 2,
+          "n": 150,
+          "odds": 0.2807017543859649,
+          "ci": [
+            0.0380330687016381,
+            2.0717096359875082
+          ],
+          "p": 0.22124033360850237,
+          "test": "Fisher bilateral",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 1.7515768707104946,
+          "expectedMin": 0.9066666666666666,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 21,
+          "b": 74,
+          "c": 88,
+          "d": 346,
+          "n": 529,
+          "odds": 1.115786240786241,
+          "ci": [
+            0.651427196809218,
+            1.9111559069470432
+          ],
+          "p": 0.6897701635691773,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.15933428675904882,
+          "expectedMin": 19.574669187145556,
+          "pHolm": 1
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 287,
+          "highRain": 12,
+          "road": {
+            "a": 1,
+            "b": 10,
+            "c": 43,
+            "d": 209,
+            "n": 263,
+            "odds": 0.48604651162790696,
+            "ci": [
+              0.06061867414129152,
+              3.8971688974097343
+            ],
+            "p": 0.6969668112055143,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.480895018799751,
+            "expectedMin": 1.8403041825095057,
+            "pHolm": 1
+          },
+          "fatality": {
+            "a": 0,
+            "b": 12,
+            "c": 10,
+            "d": 265,
+            "n": 287,
+            "odds": null,
+            "ci": null,
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.45211683623235965,
+            "expectedMin": 0.4181184668989547,
+            "pHolm": 1
+          }
+        }
+      },
+      "PRAIA GRANDE": {
+        "total": 5428,
+        "fatal": 169,
+        "h1": {
+          "a": 144,
+          "b": 17,
+          "c": 596,
+          "d": 64,
+          "n": 821,
+          "odds": 0.9095933675483616,
+          "ci": [
+            0.5170224278118939,
+            1.6002402406206329
+          ],
+          "p": 0.7422542261055405,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 0.1081552372373631,
+          "expectedMin": 15.884287454323996,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 129,
+          "b": 309,
+          "c": 713,
+          "d": 1427,
+          "n": 2578,
+          "odds": 0.8355369762660166,
+          "ci": [
+            0.667684207374591,
+            1.0455871668027794
+          ],
+          "p": 0.11600902893576391,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 2.470391457044884,
+          "expectedMin": 143.05508145849495,
+          "pHolm": 0.5800451446788195
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 1517,
+          "highRain": 56,
+          "road": {
+            "a": 10,
+            "b": 37,
+            "c": 352,
+            "d": 1005,
+            "n": 1404,
+            "odds": 0.7716523341523341,
+            "ci": [
+              0.3797466725454169,
+              1.568011961267498
+            ],
+            "p": 0.47247887625658613,
+            "test": "Pearson sem correção",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.5161727116222571,
+            "expectedMin": 12.118233618233619,
+            "pHolm": 0.9449577525131723
+          },
+          "fatality": {
+            "a": 1,
+            "b": 55,
+            "c": 35,
+            "d": 1426,
+            "n": 1517,
+            "odds": 0.7407792207792208,
+            "ci": [
+              0.09965719256035993,
+              5.506414939452592
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.08659461183384175,
+            "expectedMin": 1.3289386947923534,
+            "pHolm": 1
+          }
+        }
+      },
+      "SANTOS": {
+        "total": 7656,
+        "fatal": 146,
+        "h1": {
+          "a": 272,
+          "b": 24,
+          "c": 846,
+          "d": 55,
+          "n": 1197,
+          "odds": 0.7368006304176516,
+          "ci": [
+            0.4475288478974181,
+            1.2130506704414414
+          ],
+          "p": 0.22832779613037685,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 1.4512480609085403,
+          "expectedMin": 19.53550543024227,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 99,
+          "b": 713,
+          "c": 289,
+          "d": 2570,
+          "n": 3671,
+          "odds": 1.2347554317494673,
+          "ci": [
+            0.9685220485945095,
+            1.5741727082489223
+          ],
+          "p": 0.08831569475630233,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 2.904809366212449,
+          "expectedMin": 85.82293652955597,
+          "pHolm": 0.529894168537814
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 2087,
+          "highRain": 84,
+          "road": {
+            "a": 2,
+            "b": 66,
+            "c": 127,
+            "d": 1724,
+            "n": 1919,
+            "odds": 0.4113576712001909,
+            "ci": [
+              0.09960331145472615,
+              1.6988906411225064
+            ],
+            "p": 0.31923907885117553,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 1.607367534775937,
+            "expectedMin": 4.571130797290255,
+            "pHolm": 0.6384781577023511
+          },
+          "fatality": {
+            "a": 1,
+            "b": 83,
+            "c": 34,
+            "d": 1969,
+            "n": 2087,
+            "odds": 0.6977321048901488,
+            "ci": [
+              0.09436115042098735,
+              5.159221650249818
+            ],
+            "p": 1.0,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.12566515615909252,
+            "expectedMin": 1.4087206516530906,
+            "pHolm": 1
+          }
+        }
+      },
+      "SAO VICENTE": {
+        "total": 5783,
+        "fatal": 154,
+        "h1": {
+          "a": 208,
+          "b": 14,
+          "c": 683,
+          "d": 46,
+          "n": 951,
+          "odds": 1.000627483790002,
+          "ci": [
+            0.5393234703344786,
+            1.8565024820724942
+          ],
+          "p": 0.9984128186368063,
+          "test": "Pearson sem correção",
+          "decision": "sem evidência suficiente de associação",
+          "chi": 3.957068428948126e-06,
+          "expectedMin": 14.006309148264984,
+          "pHolm": 1
+        },
+        "h2": {
+          "a": 143,
+          "b": 402,
+          "c": 357,
+          "d": 1784,
+          "n": 2686,
+          "odds": 1.7776105467062446,
+          "ci": [
+            1.4235530700281442,
+            2.2197270493742822
+          ],
+          "p": 3.0319868838844134e-07,
+          "test": "Pearson sem correção",
+          "decision": "associação positiva",
+          "chi": 26.22922748637126,
+          "expectedMin": 101.45197319434102,
+          "pHolm": 2.728788195495972e-06
+        },
+        "central": {
+          "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+          "eligible": 1621,
+          "highRain": 79,
+          "road": {
+            "a": 13,
+            "b": 56,
+            "c": 208,
+            "d": 1202,
+            "n": 1479,
+            "odds": 1.3415178571428572,
+            "ci": [
+              0.720864197504497,
+              2.4965453510707007
+            ],
+            "p": 0.35226535594585373,
+            "test": "Pearson sem correção",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.865279895992199,
+            "expectedMin": 10.310344827586206,
+            "pHolm": 0.7045307118917075
+          },
+          "fatality": {
+            "a": 2,
+            "b": 77,
+            "c": 32,
+            "d": 1510,
+            "n": 1621,
+            "odds": 1.2256493506493507,
+            "ci": [
+              0.28841693813884023,
+              5.208488587532356
+            ],
+            "p": 0.6802193979792301,
+            "test": "Fisher bilateral",
+            "decision": "sem evidência suficiente de associação",
+            "chi": 0.07623691067599905,
+            "expectedMin": 1.6570018507094386,
+            "pHolm": 0.7045307118917075
+          }
+        }
+      }
+    },
+    "central": {
+      "exposure": "rain3h > 5 mm; comparação <= 5 mm; três horas estritamente anteriores completas",
+      "eligible": 8688,
+      "highRain": 381,
+      "road": {
+        "a": 78,
+        "b": 248,
+        "c": 1579,
+        "d": 6118,
+        "n": 8023,
+        "odds": 1.2186255081819852,
+        "ci": [
+          0.9392576464871393,
+          1.5810870795100156
+        ],
+        "p": 0.13608655503852415,
+        "test": "Pearson sem correção",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 2.221661292600079,
+        "expectedMin": 67.32917861149195,
+        "pHolm": 0.2721731100770483
+      },
+      "fatality": {
+        "a": 8,
+        "b": 373,
+        "c": 214,
+        "d": 8093,
+        "n": 8688,
+        "odds": 0.8111047079752449,
+        "ci": [
+          0.39742536854979743,
+          1.6553821153899833
+        ],
+        "p": 0.5644529440450885,
+        "test": "Pearson sem correção",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 0.3320525849507445,
+        "expectedMin": 9.73549723756906,
+        "pHolm": 0.5644529440450885
+      }
+    },
+    "sensitivity": {
+      "year2023": {
+        "a": 171,
+        "b": 7,
+        "c": 502,
+        "d": 13,
+        "n": 693,
+        "odds": 0.6326124075128059,
+        "ci": [
+          0.24832802705033974,
+          1.6115718507199446
+        ],
+        "p": 0.3332877516104386,
+        "test": "Pearson sem correção",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 0.9360809948664301,
+        "expectedMin": 5.137085137085137
+      },
+      "recordedHour": {
+        "a": 162,
+        "b": 7,
+        "c": 482,
+        "d": 13,
+        "n": 664,
+        "odds": 0.6241849436870184,
+        "ci": [
+          0.24481494237523702,
+          1.591434085458727
+        ],
+        "p": 0.3195397823723751,
+        "test": "Pearson sem correção",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 0.9908292525014928,
+        "expectedMin": 5.090361445783133
+      },
+      "weatherOnlyExposure": {
+        "a": 121,
+        "b": 5,
+        "c": 525,
+        "d": 15,
+        "n": 666,
+        "odds": 0.6914285714285714,
+        "ci": [
+          0.24653451333018683,
+          1.9391746126331004
+        ],
+        "p": 0.5595020101409336,
+        "test": "Fisher bilateral",
+        "decision": "sem evidência suficiente de associação",
+        "chi": 0.49706988058381274,
+        "expectedMin": 3.7837837837837838
+      }
+    }
+  },
+  "primary": {
+    "status": "trained",
+    "target": "P(sinistro fatal | sinistro registrado, contexto)",
+    "features": [
+      "city",
+      "phase",
+      "weekday",
+      "road",
+      "wet",
+      "monthSin",
+      "monthCos",
+      "lat",
+      "lng"
+    ],
+    "selection": "AP de validação; desempate por menor Brier; inclui baseline",
+    "selected": "logistic",
+    "thresholdRule": "F1 máximo na validação; baseline fixo 0,5",
+    "splits": {
+      "train": {
+        "n": 17210,
+        "positive": 481,
+        "start": "2022-01-01",
+        "end": "2023-12-31"
+      },
+      "validation": {
+        "n": 8607,
+        "positive": 275,
+        "start": "2024-01-01",
+        "end": "2024-12-31"
+      },
+      "test": {
+        "n": 5676,
+        "positive": 155,
+        "start": "2025-01-01",
+        "end": "2025-08-31"
+      }
+    },
+    "models": {
+      "baseline": {
+        "validation": {
+          "n": 8607,
+          "positive": 275,
+          "prevalence": 0.03195073777158127,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.03195073777158127,
+          "brier": 0.030945903097602985,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 8332,
+            "fp": 0,
+            "fn": 275,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.02794886693782684,
+              "observed": 0.03195073777158127,
+              "n": 8607
+            }
+          ]
+        },
+        "test": {
+          "n": 5676,
+          "positive": 155,
+          "prevalence": 0.02730796335447498,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.02730796335447498,
+          "brier": 0.026562649249308797,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 5521,
+            "fp": 0,
+            "fn": 155,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.027948866937826843,
+              "observed": 0.02730796335447498,
+              "n": 5676
+            }
+          ]
+        }
+      },
+      "logistic": {
+        "validation": {
+          "n": 8607,
+          "positive": 275,
+          "prevalence": 0.03195073777158127,
+          "rocAuc": 0.94855060446035,
+          "averagePrecision": 0.33799815147827195,
+          "brier": 0.02500444952502745,
+          "threshold": 0.11750712175122327,
+          "precision": 0.2928082191780822,
+          "recall": 0.6218181818181818,
+          "confusion": {
+            "tn": 7919,
+            "fp": 413,
+            "fn": 104,
+            "tp": 171
+          },
+          "calibration": [
+            {
+              "mean": 0.007973572097975352,
+              "observed": 0.010557110150089036,
+              "n": 7862
+            },
+            {
+              "mean": 0.1385300748058946,
+              "observed": 0.2125984251968504,
+              "n": 508
+            },
+            {
+              "mean": 0.24665591795000602,
+              "observed": 0.27741935483870966,
+              "n": 155
+            },
+            {
+              "mean": 0.3409969621825711,
+              "observed": 0.45454545454545453,
+              "n": 55
+            },
+            {
+              "mean": 0.4352404075183066,
+              "observed": 0.5,
+              "n": 16
+            },
+            {
+              "mean": 0.5222968693591747,
+              "observed": 0.25,
+              "n": 4
+            },
+            {
+              "mean": 0.7445461596686362,
+              "observed": 1.0,
+              "n": 2
+            },
+            {
+              "mean": 0.8611972491063787,
+              "observed": 1.0,
+              "n": 4
+            },
+            {
+              "mean": 0.9053426318907047,
+              "observed": 1.0,
+              "n": 1
+            }
+          ]
+        },
+        "test": {
+          "n": 5676,
+          "positive": 155,
+          "prevalence": 0.02730796335447498,
+          "rocAuc": 0.7652616695198977,
+          "averagePrecision": 0.1311045637980723,
+          "brier": 0.03119259171049579,
+          "threshold": 0.11750712175122327,
+          "precision": 0.06313775510204081,
+          "recall": 0.6387096774193548,
+          "confusion": {
+            "tn": 4052,
+            "fp": 1469,
+            "fn": 56,
+            "tp": 99
+          },
+          "calibration": [
+            {
+              "mean": 0.04635849630504445,
+              "observed": 0.010666666666666666,
+              "n": 3750
+            },
+            {
+              "mean": 0.14075365759864014,
+              "observed": 0.04516584333098095,
+              "n": 1417
+            },
+            {
+              "mean": 0.23552616854111152,
+              "observed": 0.08244680851063829,
+              "n": 376
+            },
+            {
+              "mean": 0.3302412697130558,
+              "observed": 0.10909090909090909,
+              "n": 110
+            },
+            {
+              "mean": 0.433255044140745,
+              "observed": 0.16666666666666666,
+              "n": 18
+            },
+            {
+              "mean": 0.5544422861912214,
+              "observed": 1.0,
+              "n": 3
+            },
+            {
+              "mean": 0.8296814114768775,
+              "observed": 1.0,
+              "n": 1
+            },
+            {
+              "mean": 0.9333931435908204,
+              "observed": 1.0,
+              "n": 1
+            }
+          ],
+          "ci95DayBootstrap": {
+            "rocAuc": [
+              0.7289212968692798,
+              0.8066966153147774
+            ],
+            "averagePrecision": [
+              0.09953542149361587,
+              0.17912968997199039
+            ],
+            "brier": [
+              0.028028535435550166,
+              0.03460295343892224
+            ]
+          }
+        }
+      },
+      "random_forest": {
+        "validation": {
+          "n": 8607,
+          "positive": 275,
+          "prevalence": 0.03195073777158127,
+          "rocAuc": 0.9207268799371535,
+          "averagePrecision": 0.2577798383164175,
+          "brier": 0.028161493630960148,
+          "threshold": 0.08681627420070906,
+          "precision": 0.23191094619666047,
+          "recall": 0.45454545454545453,
+          "confusion": {
+            "tn": 7918,
+            "fp": 414,
+            "fn": 150,
+            "tp": 125
+          },
+          "calibration": [
+            {
+              "mean": 0.018637414736344077,
+              "observed": 0.022837119381343644,
+              "n": 8276
+            },
+            {
+              "mean": 0.11940241733752034,
+              "observed": 0.2598187311178248,
+              "n": 331
+            }
+          ]
+        },
+        "test": {
+          "n": 5676,
+          "positive": 155,
+          "prevalence": 0.02730796335447498,
+          "rocAuc": 0.6026426956313431,
+          "averagePrecision": 0.09632023136450008,
+          "brier": 0.028615707782856676,
+          "threshold": 0.08681627420070906,
+          "precision": 0.03592181722134179,
+          "recall": 0.43870967741935485,
+          "confusion": {
+            "tn": 3696,
+            "fp": 1825,
+            "fn": 87,
+            "tp": 68
+          },
+          "calibration": [
+            {
+              "mean": 0.05852438734366664,
+              "observed": 0.02378815080789946,
+              "n": 4456
+            },
+            {
+              "mean": 0.11370463772636849,
+              "observed": 0.04016393442622951,
+              "n": 1220
+            }
+          ]
+        }
+      }
+    },
+    "byCity": {
+      "BERTIOGA": {
+        "n": 317,
+        "positive": 6,
+        "prevalence": 0.01892744479495268,
+        "rocAuc": 0.9394426580921758,
+        "averagePrecision": 0.3429339477726574,
+        "brier": 0.02982276743813759,
+        "threshold": 0.11750712175122327,
+        "precision": 0.047619047619047616,
+        "recall": 1.0,
+        "confusion": {
+          "tn": 191,
+          "fp": 120,
+          "fn": 0,
+          "tp": 6
+        },
+        "calibration": [
+          {
+            "mean": 0.058500753986016854,
+            "observed": 0.0,
+            "n": 179
+          },
+          {
+            "mean": 0.1517518096651739,
+            "observed": 0.0,
+            "n": 85
+          },
+          {
+            "mean": 0.25572465899280794,
+            "observed": 0.10526315789473684,
+            "n": 38
+          },
+          {
+            "mean": 0.355915361859014,
+            "observed": 0.0,
+            "n": 11
+          },
+          {
+            "mean": 0.4211289402256935,
+            "observed": 0.3333333333333333,
+            "n": 3
+          },
+          {
+            "mean": 0.5391844565865348,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "CUBATAO": {
+        "n": 385,
+        "positive": 17,
+        "prevalence": 0.04415584415584416,
+        "rocAuc": 0.7958759590792838,
+        "averagePrecision": 0.20353006772867868,
+        "brier": 0.0448650970447722,
+        "threshold": 0.11750712175122327,
+        "precision": 0.0948905109489051,
+        "recall": 0.7647058823529411,
+        "confusion": {
+          "tn": 244,
+          "fp": 124,
+          "fn": 4,
+          "tp": 13
+        },
+        "calibration": [
+          {
+            "mean": 0.05402950547825524,
+            "observed": 0.00881057268722467,
+            "n": 227
+          },
+          {
+            "mean": 0.1447917502942233,
+            "observed": 0.08333333333333333,
+            "n": 108
+          },
+          {
+            "mean": 0.23312397484430572,
+            "observed": 0.058823529411764705,
+            "n": 34
+          },
+          {
+            "mean": 0.3346996280926413,
+            "observed": 0.23076923076923078,
+            "n": 13
+          },
+          {
+            "mean": 0.43052138446665594,
+            "observed": 0.3333333333333333,
+            "n": 3
+          }
+        ]
+      },
+      "GUARUJA": {
+        "n": 930,
+        "positive": 20,
+        "prevalence": 0.021505376344086023,
+        "rocAuc": 0.7353571428571429,
+        "averagePrecision": 0.05527121951903663,
+        "brier": 0.024307741381002886,
+        "threshold": 0.11750712175122327,
+        "precision": 0.032467532467532464,
+        "recall": 0.25,
+        "confusion": {
+          "tn": 761,
+          "fp": 149,
+          "fn": 15,
+          "tp": 5
+        },
+        "calibration": [
+          {
+            "mean": 0.04204464083543437,
+            "observed": 0.015151515151515152,
+            "n": 726
+          },
+          {
+            "mean": 0.14219175655720026,
+            "observed": 0.038461538461538464,
+            "n": 182
+          },
+          {
+            "mean": 0.23926664906840509,
+            "observed": 0.09523809523809523,
+            "n": 21
+          },
+          {
+            "mean": 0.3202183334873721,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "ITANHAEM": {
+        "n": 254,
+        "positive": 17,
+        "prevalence": 0.06692913385826772,
+        "rocAuc": 0.7438570364854802,
+        "averagePrecision": 0.14394696762986733,
+        "brier": 0.0675913199191619,
+        "threshold": 0.11750712175122327,
+        "precision": 0.11904761904761904,
+        "recall": 0.8823529411764706,
+        "confusion": {
+          "tn": 126,
+          "fp": 111,
+          "fn": 2,
+          "tp": 15
+        },
+        "calibration": [
+          {
+            "mean": 0.05988642332351565,
+            "observed": 0.017699115044247787,
+            "n": 113
+          },
+          {
+            "mean": 0.15202143861690717,
+            "observed": 0.11578947368421053,
+            "n": 95
+          },
+          {
+            "mean": 0.24600147343594284,
+            "observed": 0.06666666666666667,
+            "n": 30
+          },
+          {
+            "mean": 0.35615784443744697,
+            "observed": 0.07692307692307693,
+            "n": 13
+          },
+          {
+            "mean": 0.4718269552225349,
+            "observed": 0.3333333333333333,
+            "n": 3
+          }
+        ]
+      },
+      "MONGAGUA": {
+        "n": 196,
+        "positive": 5,
+        "prevalence": 0.025510204081632654,
+        "rocAuc": 0.6586387434554973,
+        "averagePrecision": 0.09712181337181339,
+        "brier": 0.03519016753533534,
+        "threshold": 0.11750712175122327,
+        "precision": 0.04285714285714286,
+        "recall": 0.6,
+        "confusion": {
+          "tn": 124,
+          "fp": 67,
+          "fn": 2,
+          "tp": 3
+        },
+        "calibration": [
+          {
+            "mean": 0.05143310721657056,
+            "observed": 0.01652892561983471,
+            "n": 121
+          },
+          {
+            "mean": 0.14584739920120493,
+            "observed": 0.02127659574468085,
+            "n": 47
+          },
+          {
+            "mean": 0.2449055630152049,
+            "observed": 0.05,
+            "n": 20
+          },
+          {
+            "mean": 0.34927963527447786,
+            "observed": 0.14285714285714285,
+            "n": 7
+          },
+          {
+            "mean": 0.42581865900296706,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "PERUIBE": {
+        "n": 211,
+        "positive": 13,
+        "prevalence": 0.061611374407582936,
+        "rocAuc": 0.8461538461538461,
+        "averagePrecision": 0.39680994467998615,
+        "brier": 0.052495211756976835,
+        "threshold": 0.11750712175122327,
+        "precision": 0.12345679012345678,
+        "recall": 0.7692307692307693,
+        "confusion": {
+          "tn": 127,
+          "fp": 71,
+          "fn": 3,
+          "tp": 10
+        },
+        "calibration": [
+          {
+            "mean": 0.05983754048975036,
+            "observed": 0.01694915254237288,
+            "n": 118
+          },
+          {
+            "mean": 0.1477366109962047,
+            "observed": 0.02,
+            "n": 50
+          },
+          {
+            "mean": 0.24212665635594635,
+            "observed": 0.2,
+            "n": 25
+          },
+          {
+            "mean": 0.3198415179532444,
+            "observed": 0.23076923076923078,
+            "n": 13
+          },
+          {
+            "mean": 0.4252977491321059,
+            "observed": 0.0,
+            "n": 3
+          },
+          {
+            "mean": 0.5620712009935648,
+            "observed": 1.0,
+            "n": 2
+          }
+        ]
+      },
+      "PRAIA GRANDE": {
+        "n": 982,
+        "positive": 29,
+        "prevalence": 0.029531568228105907,
+        "rocAuc": 0.7738177081448783,
+        "averagePrecision": 0.17730386615647947,
+        "brier": 0.030687097218204614,
+        "threshold": 0.11750712175122327,
+        "precision": 0.07531380753138076,
+        "recall": 0.6206896551724138,
+        "confusion": {
+          "tn": 732,
+          "fp": 221,
+          "fn": 11,
+          "tp": 18
+        },
+        "calibration": [
+          {
+            "mean": 0.046306983579386986,
+            "observed": 0.01195814648729447,
+            "n": 669
+          },
+          {
+            "mean": 0.13642373646643208,
+            "observed": 0.04602510460251046,
+            "n": 239
+          },
+          {
+            "mean": 0.22718493803588763,
+            "observed": 0.10344827586206896,
+            "n": 58
+          },
+          {
+            "mean": 0.31070664446523505,
+            "observed": 0.16666666666666666,
+            "n": 12
+          },
+          {
+            "mean": 0.41929415973405637,
+            "observed": 0.0,
+            "n": 2
+          },
+          {
+            "mean": 0.8296814114768775,
+            "observed": 1.0,
+            "n": 1
+          },
+          {
+            "mean": 0.9333931435908204,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "SANTOS": {
+        "n": 1371,
+        "positive": 22,
+        "prevalence": 0.016046681254558718,
+        "rocAuc": 0.6997439180537772,
+        "averagePrecision": 0.09458602084137324,
+        "brier": 0.02202660904108072,
+        "threshold": 0.11750712175122327,
+        "precision": 0.038461538461538464,
+        "recall": 0.5909090909090909,
+        "confusion": {
+          "tn": 1024,
+          "fp": 325,
+          "fn": 9,
+          "tp": 13
+        },
+        "calibration": [
+          {
+            "mean": 0.04128901676199781,
+            "observed": 0.007478632478632479,
+            "n": 936
+          },
+          {
+            "mean": 0.13581817475057908,
+            "observed": 0.028901734104046242,
+            "n": 346
+          },
+          {
+            "mean": 0.2270490682374668,
+            "observed": 0.046153846153846156,
+            "n": 65
+          },
+          {
+            "mean": 0.31506548253663175,
+            "observed": 0.08695652173913043,
+            "n": 23
+          },
+          {
+            "mean": 0.44973311485724243,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "SAO VICENTE": {
+        "n": 1030,
+        "positive": 26,
+        "prevalence": 0.02524271844660194,
+        "rocAuc": 0.7249080600674227,
+        "averagePrecision": 0.05865185252595698,
+        "brier": 0.03130184775106885,
+        "threshold": 0.11750712175122327,
+        "precision": 0.05387205387205387,
+        "recall": 0.6153846153846154,
+        "confusion": {
+          "tn": 723,
+          "fp": 281,
+          "fn": 10,
+          "tp": 16
+        },
+        "calibration": [
+          {
+            "mean": 0.046756922692795286,
+            "observed": 0.009077155824508321,
+            "n": 661
+          },
+          {
+            "mean": 0.13868137286979648,
+            "observed": 0.052830188679245285,
+            "n": 265
+          },
+          {
+            "mean": 0.23086176283282892,
+            "observed": 0.07058823529411765,
+            "n": 85
+          },
+          {
+            "mean": 0.32542483525703436,
+            "observed": 0.0,
+            "n": 17
+          },
+          {
+            "mean": 0.41906280703205895,
+            "observed": 0.0,
+            "n": 2
+          }
+        ]
+      }
+    },
+    "trainPrevalence": 0.027948866937826843,
+    "threshold": 0.11750712175122327,
+    "bootstrap": "IC percentil; reamostragem de dias do teste; não cobre incerteza do treinamento nem dependência entre dias"
+  },
+  "climate": {
+    "status": "trained",
+    "target": "P(sinistro fatal | sinistro registrado, contexto)",
+    "features": [
+      "city",
+      "phase",
+      "weekday",
+      "road",
+      "wet",
+      "stationCode",
+      "climateMethod",
+      "monthSin",
+      "monthCos",
+      "lat",
+      "lng",
+      "rain",
+      "rain3h",
+      "temp",
+      "stationDistanceKm"
+    ],
+    "selection": "AP de validação; desempate por menor Brier; inclui baseline",
+    "selected": "logistic",
+    "thresholdRule": "F1 máximo na validação; baseline fixo 0,5",
+    "splits": {
+      "train": {
+        "n": 4355,
+        "positive": 107,
+        "start": "2023-01-01",
+        "end": "2023-06-30"
+      },
+      "validation": {
+        "n": 2178,
+        "positive": 64,
+        "start": "2023-07-01",
+        "end": "2023-09-30"
+      },
+      "test": {
+        "n": 2168,
+        "positive": 51,
+        "start": "2023-10-01",
+        "end": "2023-12-31"
+      }
+    },
+    "models": {
+      "baseline": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.02938475665748393,
+          "brier": 0.028544479811804597,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 2114,
+            "fp": 0,
+            "fn": 64,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.02456946039035591,
+              "observed": 0.02938475665748393,
+              "n": 2178
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.0235239852398524,
+          "brier": 0.02297170037657792,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 2117,
+            "fp": 0,
+            "fn": 51,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.02456946039035591,
+              "observed": 0.0235239852398524,
+              "n": 2168
+            }
+          ]
+        }
+      },
+      "logistic": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.9703908467360454,
+          "averagePrecision": 0.5046332002330636,
+          "brier": 0.021084901610307915,
+          "threshold": 0.35126667432521486,
+          "precision": 0.4810126582278481,
+          "recall": 0.59375,
+          "confusion": {
+            "tn": 2073,
+            "fp": 41,
+            "fn": 26,
+            "tp": 38
+          },
+          "calibration": [
+            {
+              "mean": 0.00624692536831231,
+              "observed": 0.0,
+              "n": 1804
+            },
+            {
+              "mean": 0.1495728491314869,
+              "observed": 0.04819277108433735,
+              "n": 166
+            },
+            {
+              "mean": 0.24688729514746474,
+              "observed": 0.10989010989010989,
+              "n": 91
+            },
+            {
+              "mean": 0.3415080544837544,
+              "observed": 0.3,
+              "n": 60
+            },
+            {
+              "mean": 0.44027365597465135,
+              "observed": 0.3870967741935484,
+              "n": 31
+            },
+            {
+              "mean": 0.5389290033016334,
+              "observed": 0.42857142857142855,
+              "n": 14
+            },
+            {
+              "mean": 0.6483945584870335,
+              "observed": 0.8571428571428571,
+              "n": 7
+            },
+            {
+              "mean": 0.7393271338998307,
+              "observed": 0.8,
+              "n": 5
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.9608306241722007,
+          "averagePrecision": 0.3702656031104071,
+          "brier": 0.019007587219206014,
+          "threshold": 0.35126667432521486,
+          "precision": 0.5714285714285714,
+          "recall": 0.0784313725490196,
+          "confusion": {
+            "tn": 2114,
+            "fp": 3,
+            "fn": 47,
+            "tp": 4
+          },
+          "calibration": [
+            {
+              "mean": 0.007641489046117832,
+              "observed": 0.01102588686481304,
+              "n": 2086
+            },
+            {
+              "mean": 0.13598644158528808,
+              "observed": 0.328125,
+              "n": 64
+            },
+            {
+              "mean": 0.23835040464832513,
+              "observed": 0.2222222222222222,
+              "n": 9
+            },
+            {
+              "mean": 0.3410388332275316,
+              "observed": 0.5,
+              "n": 4
+            },
+            {
+              "mean": 0.4457465556665974,
+              "observed": 0.5,
+              "n": 4
+            },
+            {
+              "mean": 0.6091103605474174,
+              "observed": 1.0,
+              "n": 1
+            }
+          ],
+          "ci95DayBootstrap": {
+            "rocAuc": [
+              0.9453567178692355,
+              0.9746108851201122
+            ],
+            "averagePrecision": [
+              0.24401967474675715,
+              0.5290382374546666
+            ],
+            "brier": [
+              0.013085274766837442,
+              0.02416520524400839
+            ]
+          }
+        }
+      },
+      "random_forest": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.9574451572847682,
+          "averagePrecision": 0.47645696945886973,
+          "brier": 0.024349420314692546,
+          "threshold": 0.13369576641321065,
+          "precision": 0.6666666666666666,
+          "recall": 0.40625,
+          "confusion": {
+            "tn": 2101,
+            "fp": 13,
+            "fn": 38,
+            "tp": 26
+          },
+          "calibration": [
+            {
+              "mean": 0.01545850898047726,
+              "observed": 0.012713936430317848,
+              "n": 2045
+            },
+            {
+              "mean": 0.1259214277646083,
+              "observed": 0.2857142857142857,
+              "n": 133
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.9381616605073773,
+          "averagePrecision": 0.24783748880314987,
+          "brier": 0.020698850677939095,
+          "threshold": 0.13369576641321065,
+          "precision": 0.5714285714285714,
+          "recall": 0.0784313725490196,
+          "confusion": {
+            "tn": 2114,
+            "fp": 3,
+            "fn": 47,
+            "tp": 4
+          },
+          "calibration": [
+            {
+              "mean": 0.016470502701990075,
+              "observed": 0.01793298725814063,
+              "n": 2119
+            },
+            {
+              "mean": 0.11962384567896052,
+              "observed": 0.2653061224489796,
+              "n": 49
+            }
+          ]
+        }
+      }
+    },
+    "byCity": {
+      "BERTIOGA": {
+        "n": 128,
+        "positive": 6,
+        "prevalence": 0.046875,
+        "rocAuc": 0.9153005464480874,
+        "averagePrecision": 0.24518999518999518,
+        "brier": 0.042045596850722074,
+        "threshold": 0.35126667432521486,
+        "precision": 0.0,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 120,
+          "fp": 2,
+          "fn": 6,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.013156013809552312,
+            "observed": 0.017857142857142856,
+            "n": 112
+          },
+          {
+            "mean": 0.130461242438103,
+            "observed": 0.3333333333333333,
+            "n": 9
+          },
+          {
+            "mean": 0.23148487252877442,
+            "observed": 0.25,
+            "n": 4
+          },
+          {
+            "mean": 0.31343149554966143,
+            "observed": 0.0,
+            "n": 1
+          },
+          {
+            "mean": 0.4522429349872508,
+            "observed": 0.0,
+            "n": 2
+          }
+        ]
+      },
+      "CUBATAO": {
+        "n": 160,
+        "positive": 7,
+        "prevalence": 0.04375,
+        "rocAuc": 0.6834733893557423,
+        "averagePrecision": 0.0806900061276053,
+        "brier": 0.04222955026550525,
+        "threshold": 0.35126667432521486,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 153,
+          "fp": 0,
+          "fn": 7,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.02611039004409412,
+            "observed": 0.0472972972972973,
+            "n": 148
+          },
+          {
+            "mean": 0.13402335335772572,
+            "observed": 0.0,
+            "n": 12
+          }
+        ]
+      },
+      "GUARUJA": {
+        "n": 372,
+        "positive": 3,
+        "prevalence": 0.008064516129032258,
+        "rocAuc": 0.9945799457994581,
+        "averagePrecision": 0.5317460317460317,
+        "brier": 0.006599611727736151,
+        "threshold": 0.35126667432521486,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 369,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.0018881527234623366,
+            "observed": 0.0027100271002710027,
+            "n": 369
+          },
+          {
+            "mean": 0.1347533102678535,
+            "observed": 0.6666666666666666,
+            "n": 3
+          }
+        ]
+      },
+      "ITANHAEM": {
+        "n": 94,
+        "positive": 6,
+        "prevalence": 0.06382978723404255,
+        "rocAuc": 0.9564393939393939,
+        "averagePrecision": 0.6694444444444444,
+        "brier": 0.04148653854087398,
+        "threshold": 0.35126667432521486,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "confusion": {
+          "tn": 88,
+          "fp": 0,
+          "fn": 4,
+          "tp": 2
+        },
+        "calibration": [
+          {
+            "mean": 0.01733366119780524,
+            "observed": 0.022988505747126436,
+            "n": 87
+          },
+          {
+            "mean": 0.12210605498649141,
+            "observed": 0.6666666666666666,
+            "n": 3
+          },
+          {
+            "mean": 0.24578299872430207,
+            "observed": 0.0,
+            "n": 2
+          },
+          {
+            "mean": 0.4701948661165165,
+            "observed": 1.0,
+            "n": 1
+          },
+          {
+            "mean": 0.6091103605474174,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "MONGAGUA": {
+        "n": 65,
+        "positive": 3,
+        "prevalence": 0.046153846153846156,
+        "rocAuc": 0.9139784946236559,
+        "averagePrecision": 0.2619047619047619,
+        "brier": 0.04143921604674385,
+        "threshold": 0.35126667432521486,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 62,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.011432135268937441,
+            "observed": 0.04918032786885246,
+            "n": 61
+          },
+          {
+            "mean": 0.14626009417836805,
+            "observed": 0.0,
+            "n": 4
+          }
+        ]
+      },
+      "PERUIBE": {
+        "n": 86,
+        "positive": 3,
+        "prevalence": 0.03488372093023256,
+        "rocAuc": 0.9317269076305221,
+        "averagePrecision": 0.28327228327228327,
+        "brier": 0.03019150992708839,
+        "threshold": 0.35126667432521486,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 83,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.008116660688065372,
+            "observed": 0.012658227848101266,
+            "n": 79
+          },
+          {
+            "mean": 0.1453265174027828,
+            "observed": 0.3333333333333333,
+            "n": 6
+          },
+          {
+            "mean": 0.2578471212056074,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "PRAIA GRANDE": {
+        "n": 371,
+        "positive": 7,
+        "prevalence": 0.018867924528301886,
+        "rocAuc": 0.9646781789638932,
+        "averagePrecision": 0.47721960579103434,
+        "brier": 0.01479815226734507,
+        "threshold": 0.35126667432521486,
+        "precision": 0.0,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 363,
+          "fp": 1,
+          "fn": 7,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.008041198564174595,
+            "observed": 0.00558659217877095,
+            "n": 358
+          },
+          {
+            "mean": 0.13279367003683218,
+            "observed": 0.36363636363636365,
+            "n": 11
+          },
+          {
+            "mean": 0.34442055765239193,
+            "observed": 0.5,
+            "n": 2
+          }
+        ]
+      },
+      "SANTOS": {
+        "n": 531,
+        "positive": 8,
+        "prevalence": 0.015065913370998116,
+        "rocAuc": 0.9875717017208413,
+        "averagePrecision": 0.7065934065934066,
+        "brier": 0.011352247038678862,
+        "threshold": 0.35126667432521486,
+        "precision": 1.0,
+        "recall": 0.125,
+        "confusion": {
+          "tn": 523,
+          "fp": 0,
+          "fn": 7,
+          "tp": 1
+        },
+        "calibration": [
+          {
+            "mean": 0.0034478685043078995,
+            "observed": 0.0057251908396946565,
+            "n": 524
+          },
+          {
+            "mean": 0.15754901186192014,
+            "observed": 0.6666666666666666,
+            "n": 6
+          },
+          {
+            "mean": 0.4083054865753714,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "SAO VICENTE": {
+        "n": 361,
+        "positive": 8,
+        "prevalence": 0.0221606648199446,
+        "rocAuc": 0.9798158640226629,
+        "averagePrecision": 0.6816398635477583,
+        "brier": 0.016362653464858518,
+        "threshold": 0.35126667432521486,
+        "precision": 1.0,
+        "recall": 0.125,
+        "confusion": {
+          "tn": 353,
+          "fp": 0,
+          "fn": 7,
+          "tp": 1
+        },
+        "calibration": [
+          {
+            "mean": 0.00682060163748608,
+            "observed": 0.005747126436781609,
+            "n": 348
+          },
+          {
+            "mean": 0.1287098820752923,
+            "observed": 0.4,
+            "n": 10
+          },
+          {
+            "mean": 0.23490051653280858,
+            "observed": 0.5,
+            "n": 2
+          },
+          {
+            "mean": 0.3618827220556811,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      }
+    },
+    "trainPrevalence": 0.024569460390355912,
+    "threshold": 0.35126667432521486,
+    "bootstrap": "IC percentil; reamostragem de dias do teste; não cobre incerteza do treinamento nem dependência entre dias"
+  },
+  "climateControl": {
+    "status": "trained",
+    "target": "P(sinistro fatal | sinistro registrado, contexto)",
+    "features": [
+      "city",
+      "phase",
+      "weekday",
+      "road",
+      "wet",
+      "monthSin",
+      "monthCos",
+      "lat",
+      "lng"
+    ],
+    "selection": "AP de validação; desempate por menor Brier; inclui baseline",
+    "selected": "logistic",
+    "thresholdRule": "F1 máximo na validação; baseline fixo 0,5",
+    "splits": {
+      "train": {
+        "n": 4355,
+        "positive": 107,
+        "start": "2023-01-01",
+        "end": "2023-06-30"
+      },
+      "validation": {
+        "n": 2178,
+        "positive": 64,
+        "start": "2023-07-01",
+        "end": "2023-09-30"
+      },
+      "test": {
+        "n": 2168,
+        "positive": 51,
+        "start": "2023-10-01",
+        "end": "2023-12-31"
+      }
+    },
+    "models": {
+      "baseline": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.02938475665748393,
+          "brier": 0.028544479811804597,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 2114,
+            "fp": 0,
+            "fn": 64,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.02456946039035591,
+              "observed": 0.02938475665748393,
+              "n": 2178
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.5,
+          "averagePrecision": 0.0235239852398524,
+          "brier": 0.02297170037657792,
+          "threshold": 0.5,
+          "precision": null,
+          "recall": 0.0,
+          "confusion": {
+            "tn": 2117,
+            "fp": 0,
+            "fn": 51,
+            "tp": 0
+          },
+          "calibration": [
+            {
+              "mean": 0.02456946039035591,
+              "observed": 0.0235239852398524,
+              "n": 2168
+            }
+          ]
+        }
+      },
+      "logistic": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.975172954115421,
+          "averagePrecision": 0.5775303818923055,
+          "brier": 0.0217415926572642,
+          "threshold": 0.3820726979386117,
+          "precision": 0.5393258426966292,
+          "recall": 0.75,
+          "confusion": {
+            "tn": 2073,
+            "fp": 41,
+            "fn": 16,
+            "tp": 48
+          },
+          "calibration": [
+            {
+              "mean": 0.004546646322091524,
+              "observed": 0.0,
+              "n": 1747
+            },
+            {
+              "mean": 0.15138707817370722,
+              "observed": 0.03184713375796178,
+              "n": 157
+            },
+            {
+              "mean": 0.24349801371716787,
+              "observed": 0.046511627906976744,
+              "n": 129
+            },
+            {
+              "mean": 0.34529402406570636,
+              "observed": 0.17391304347826086,
+              "n": 69
+            },
+            {
+              "mean": 0.4394965534471875,
+              "observed": 0.4166666666666667,
+              "n": 48
+            },
+            {
+              "mean": 0.5440489846912491,
+              "observed": 0.7142857142857143,
+              "n": 14
+            },
+            {
+              "mean": 0.6499687445316306,
+              "observed": 0.9166666666666666,
+              "n": 12
+            },
+            {
+              "mean": 0.7768054043207833,
+              "observed": 0.0,
+              "n": 2
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.9664943918049033,
+          "averagePrecision": 0.4657724792869561,
+          "brier": 0.018125653291015176,
+          "threshold": 0.3820726979386117,
+          "precision": 1.0,
+          "recall": 0.0392156862745098,
+          "confusion": {
+            "tn": 2117,
+            "fp": 0,
+            "fn": 49,
+            "tp": 2
+          },
+          "calibration": [
+            {
+              "mean": 0.008614357338317986,
+              "observed": 0.008645533141210375,
+              "n": 2082
+            },
+            {
+              "mean": 0.13816736228618337,
+              "observed": 0.31746031746031744,
+              "n": 63
+            },
+            {
+              "mean": 0.23110414959118758,
+              "observed": 0.5714285714285714,
+              "n": 14
+            },
+            {
+              "mean": 0.34048817336065806,
+              "observed": 0.5,
+              "n": 8
+            },
+            {
+              "mean": 0.6320003955790979,
+              "observed": 1.0,
+              "n": 1
+            }
+          ],
+          "ci95DayBootstrap": {
+            "rocAuc": [
+              0.95032577472548,
+              0.9790103018472943
+            ],
+            "averagePrecision": [
+              0.3077738477935206,
+              0.5928922319807441
+            ],
+            "brier": [
+              0.01265904562150347,
+              0.02342622943235379
+            ]
+          }
+        }
+      },
+      "random_forest": {
+        "validation": {
+          "n": 2178,
+          "positive": 64,
+          "prevalence": 0.02938475665748393,
+          "rocAuc": 0.9602205534531694,
+          "averagePrecision": 0.29621116933816277,
+          "brier": 0.025021599152294974,
+          "threshold": 0.08676791552946098,
+          "precision": 0.2914572864321608,
+          "recall": 0.90625,
+          "confusion": {
+            "tn": 1973,
+            "fp": 141,
+            "fn": 6,
+            "tp": 58
+          },
+          "calibration": [
+            {
+              "mean": 0.015442072675570972,
+              "observed": 0.0163855421686747,
+              "n": 2075
+            },
+            {
+              "mean": 0.11459072142508242,
+              "observed": 0.2912621359223301,
+              "n": 103
+            }
+          ]
+        },
+        "test": {
+          "n": 2168,
+          "positive": 51,
+          "prevalence": 0.0235239852398524,
+          "rocAuc": 0.9469884316504117,
+          "averagePrecision": 0.2218499750509824,
+          "brier": 0.020712668891256142,
+          "threshold": 0.08676791552946098,
+          "precision": 0.2111111111111111,
+          "recall": 0.37254901960784315,
+          "confusion": {
+            "tn": 2046,
+            "fp": 71,
+            "fn": 32,
+            "tp": 19
+          },
+          "calibration": [
+            {
+              "mean": 0.015432628005218631,
+              "observed": 0.018867924528301886,
+              "n": 2120
+            },
+            {
+              "mean": 0.11629917142994216,
+              "observed": 0.22916666666666666,
+              "n": 48
+            }
+          ]
+        }
+      }
+    },
+    "byCity": {
+      "BERTIOGA": {
+        "n": 128,
+        "positive": 6,
+        "prevalence": 0.046875,
+        "rocAuc": 0.9310109289617488,
+        "averagePrecision": 0.5744894502516453,
+        "brier": 0.034714994238964555,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 122,
+          "fp": 0,
+          "fn": 6,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.014396079848150011,
+            "observed": 0.017241379310344827,
+            "n": 116
+          },
+          {
+            "mean": 0.14783666594278022,
+            "observed": 0.125,
+            "n": 8
+          },
+          {
+            "mean": 0.2213646968177603,
+            "observed": 1.0,
+            "n": 2
+          },
+          {
+            "mean": 0.3267505601067063,
+            "observed": 0.5,
+            "n": 2
+          }
+        ]
+      },
+      "CUBATAO": {
+        "n": 160,
+        "positive": 7,
+        "prevalence": 0.04375,
+        "rocAuc": 0.6956115779645192,
+        "averagePrecision": 0.08092656985911356,
+        "brier": 0.04184803417367973,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 153,
+          "fp": 0,
+          "fn": 7,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.03232800559532192,
+            "observed": 0.046052631578947366,
+            "n": 152
+          },
+          {
+            "mean": 0.1484119856655413,
+            "observed": 0.0,
+            "n": 8
+          }
+        ]
+      },
+      "GUARUJA": {
+        "n": 372,
+        "positive": 3,
+        "prevalence": 0.008064516129032258,
+        "rocAuc": 0.9963866305329719,
+        "averagePrecision": 0.8095238095238095,
+        "brier": 0.0064284090673200536,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 369,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.0018270007889984229,
+            "observed": 0.002717391304347826,
+            "n": 368
+          },
+          {
+            "mean": 0.13576358129864033,
+            "observed": 0.5,
+            "n": 4
+          }
+        ]
+      },
+      "ITANHAEM": {
+        "n": 94,
+        "positive": 6,
+        "prevalence": 0.06382978723404255,
+        "rocAuc": 0.9678030303030303,
+        "averagePrecision": 0.6971250971250971,
+        "brier": 0.04167732954678176,
+        "threshold": 0.3820726979386117,
+        "precision": 1.0,
+        "recall": 0.16666666666666666,
+        "confusion": {
+          "tn": 88,
+          "fp": 0,
+          "fn": 5,
+          "tp": 1
+        },
+        "calibration": [
+          {
+            "mean": 0.017657493757823352,
+            "observed": 0.012048192771084338,
+            "n": 83
+          },
+          {
+            "mean": 0.12228255877903282,
+            "observed": 0.42857142857142855,
+            "n": 7
+          },
+          {
+            "mean": 0.21720394681149477,
+            "observed": 0.0,
+            "n": 1
+          },
+          {
+            "mean": 0.33095133752174194,
+            "observed": 0.5,
+            "n": 2
+          },
+          {
+            "mean": 0.6320003955790979,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "MONGAGUA": {
+        "n": 65,
+        "positive": 3,
+        "prevalence": 0.046153846153846156,
+        "rocAuc": 0.9301075268817205,
+        "averagePrecision": 0.30357142857142855,
+        "brier": 0.041183420123125716,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 62,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.009677914883644426,
+            "observed": 0.03389830508474576,
+            "n": 59
+          },
+          {
+            "mean": 0.1477686507617971,
+            "observed": 0.25,
+            "n": 4
+          },
+          {
+            "mean": 0.2160248152123467,
+            "observed": 0.0,
+            "n": 1
+          },
+          {
+            "mean": 0.3057582592556699,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "PERUIBE": {
+        "n": 86,
+        "positive": 3,
+        "prevalence": 0.03488372093023256,
+        "rocAuc": 0.9357429718875502,
+        "averagePrecision": 0.2935897435897436,
+        "brier": 0.029222243505297597,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 83,
+          "fp": 0,
+          "fn": 3,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.007970948347521285,
+            "observed": 0.012987012987012988,
+            "n": 77
+          },
+          {
+            "mean": 0.13736988939511643,
+            "observed": 0.25,
+            "n": 8
+          },
+          {
+            "mean": 0.24231562366888995,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "PRAIA GRANDE": {
+        "n": 371,
+        "positive": 7,
+        "prevalence": 0.018867924528301886,
+        "rocAuc": 0.9772370486656201,
+        "averagePrecision": 0.5307953950811093,
+        "brier": 0.014311157745350024,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 364,
+          "fp": 0,
+          "fn": 7,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.009473525028965918,
+            "observed": 0.0028011204481792717,
+            "n": 357
+          },
+          {
+            "mean": 0.13712532316022735,
+            "observed": 0.4,
+            "n": 10
+          },
+          {
+            "mean": 0.2497811214722514,
+            "observed": 0.6666666666666666,
+            "n": 3
+          },
+          {
+            "mean": 0.3802136290322967,
+            "observed": 0.0,
+            "n": 1
+          }
+        ]
+      },
+      "SANTOS": {
+        "n": 531,
+        "positive": 8,
+        "prevalence": 0.015065913370998116,
+        "rocAuc": 0.9890057361376673,
+        "averagePrecision": 0.7550032175032175,
+        "brier": 0.01092983950310038,
+        "threshold": 0.3820726979386117,
+        "precision": null,
+        "recall": 0.0,
+        "confusion": {
+          "tn": 523,
+          "fp": 0,
+          "fn": 8,
+          "tp": 0
+        },
+        "calibration": [
+          {
+            "mean": 0.0037451845216674128,
+            "observed": 0.003838771593090211,
+            "n": 521
+          },
+          {
+            "mean": 0.13166685200740302,
+            "observed": 0.5,
+            "n": 6
+          },
+          {
+            "mean": 0.22271709605740084,
+            "observed": 0.6666666666666666,
+            "n": 3
+          },
+          {
+            "mean": 0.33318270871477373,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      },
+      "SAO VICENTE": {
+        "n": 361,
+        "positive": 8,
+        "prevalence": 0.0221606648199446,
+        "rocAuc": 0.9893767705382435,
+        "averagePrecision": 0.7788690476190476,
+        "brier": 0.015359985886355142,
+        "threshold": 0.3820726979386117,
+        "precision": 1.0,
+        "recall": 0.125,
+        "confusion": {
+          "tn": 353,
+          "fp": 0,
+          "fn": 7,
+          "tp": 1
+        },
+        "calibration": [
+          {
+            "mean": 0.0077230143874763325,
+            "observed": 0.0028653295128939827,
+            "n": 349
+          },
+          {
+            "mean": 0.13552928908254752,
+            "observed": 0.5,
+            "n": 8
+          },
+          {
+            "mean": 0.2332298874531391,
+            "observed": 0.6666666666666666,
+            "n": 3
+          },
+          {
+            "mean": 0.389346994625628,
+            "observed": 1.0,
+            "n": 1
+          }
+        ]
+      }
+    },
+    "trainPrevalence": 0.024569460390355912,
+    "threshold": 0.3820726979386117,
+    "bootstrap": "IC percentil; reamostragem de dias do teste; não cobre incerteza do treinamento nem dependência entre dias"
+  },
+  "missingnessByYear": [
+    {
+      "year": "2022",
+      "fatal": 0,
+      "n": 8050,
+      "lat": 0.662608695652174,
+      "road": 0.8272049689440993,
+      "wet": 0.28298136645962735,
+      "victim": 0.48472049689440994
+    },
+    {
+      "year": "2022",
+      "fatal": 1,
+      "n": 225,
+      "lat": 0.7422222222222222,
+      "road": 0.6133333333333333,
+      "wet": 0.8133333333333334,
+      "victim": 0.0
+    },
+    {
+      "year": "2023",
+      "fatal": 0,
+      "n": 8679,
+      "lat": 0.02120059914736721,
+      "road": 0.06832584399124324,
+      "wet": 0.010139416983523447,
+      "victim": 0.9457310750086415
+    },
+    {
+      "year": "2023",
+      "fatal": 1,
+      "n": 256,
+      "lat": 0.1328125,
+      "road": 0.5390625,
+      "wet": 0.1328125,
+      "victim": 0.0
+    },
+    {
+      "year": "2024",
+      "fatal": 0,
+      "n": 8332,
+      "lat": 0.011521843494959194,
+      "road": 0.0027604416706673066,
+      "wet": 0.30676908305328854,
+      "victim": 1.0
+    },
+    {
+      "year": "2024",
+      "fatal": 1,
+      "n": 275,
+      "lat": 0.12727272727272726,
+      "road": 0.6218181818181818,
+      "wet": 1.0,
+      "victim": 0.0
+    },
+    {
+      "year": "2025",
+      "fatal": 0,
+      "n": 5521,
+      "lat": 0.0014490128599891324,
+      "road": 0.8849846042383627,
+      "wet": 0.38905995290708206,
+      "victim": 1.0
+    },
+    {
+      "year": "2025",
+      "fatal": 1,
+      "n": 155,
+      "lat": 0.12258064516129032,
+      "road": 0.6193548387096774,
+      "wet": 0.9354838709677419,
+      "victim": 0.0
+    }
+  ],
+  "countModel": {
+    "nCityDays": 3227,
+    "accidents": 8754,
+    "zeroCityDays": 745,
+    "excludedIncompleteWeatherCityDays": 58,
+    "clustersWeeks": 53,
+    "designRank": 30,
+    "parameters": 30,
+    "converged": true,
+    "pearsonDispersion": 1.3286249350090813,
+    "features": [
+      "intercept",
+      "tourist",
+      "log1p_rain",
+      "tourist_x_lograin",
+      "trend",
+      "city_CUBATAO",
+      "city_GUARUJA",
+      "city_ITANHAEM",
+      "city_MONGAGUA",
+      "city_PERUIBE",
+      "city_PRAIA GRANDE",
+      "city_SANTOS",
+      "city_SAO VICENTE",
+      "month_2",
+      "month_3",
+      "month_4",
+      "month_5",
+      "month_6",
+      "month_7",
+      "month_8",
+      "month_9",
+      "month_10",
+      "month_11",
+      "month_12",
+      "weekday_1",
+      "weekday_2",
+      "weekday_3",
+      "weekday_4",
+      "weekday_5",
+      "weekday_6"
+    ],
+    "effects": {
+      "tourist": {
+        "coefficient": 0.11494526658457829,
+        "irr": 1.1218120352874228,
+        "ci": [
+          0.9418551141623271,
+          1.3361526880224766
+        ],
+        "p": 0.19757262390069308
+      },
+      "log1p_rain": {
+        "coefficient": 0.0036125982071228157,
+        "irr": 1.0036191315050502,
+        "ci": [
+          0.9805593249132581,
+          1.0272212354026151
+        ],
+        "p": 0.7606594115066447
+      },
+      "tourist_x_lograin": {
+        "coefficient": -0.013352007877108364,
+        "irr": 0.98673673477679,
+        "ci": [
+          0.9236972739785301,
+          1.054078442349709
+        ],
+        "p": 0.6918093860193371
+      }
+    },
+    "cityAnchors": {
+      "BERTIOGA": {
+        "lat": -23.807413919413918,
+        "lng": -46.07059340659341,
+        "station": "A765",
+        "distanceKm": 8.48263344121497
+      },
+      "CUBATAO": {
+        "lat": -23.8973713033954,
+        "lng": -46.42415662650602,
+        "station": "A765",
+        "distanceKm": 29.148937238924365
+      },
+      "GUARUJA": {
+        "lat": -23.97623146819703,
+        "lng": -46.25426829268293,
+        "station": "A765",
+        "distanceKm": 18.46625358594685
+      },
+      "ITANHAEM": {
+        "lat": -24.179251290877797,
+        "lng": -46.803838209982786,
+        "station": "A765",
+        "distanceKm": 76.71100947668181
+      },
+      "MONGAGUA": {
+        "lat": -24.11360931435964,
+        "lng": -46.6662871927555,
+        "station": "A765",
+        "distanceKm": 60.96593444879156
+      },
+      "PERUIBE": {
+        "lat": -24.299831649831653,
+        "lng": -46.98597081930415,
+        "station": "A712",
+        "distanceKm": 70.13754592399899
+      },
+      "PRAIA GRANDE": {
+        "lat": -24.020596412556053,
+        "lng": -46.471251121076236,
+        "station": "A765",
+        "distanceKm": 38.641840906943884
+      },
+      "SANTOS": {
+        "lat": -23.953007650621615,
+        "lng": -46.333310487727125,
+        "station": "A765",
+        "distanceKm": 22.75928166151576
+      },
+      "SAO VICENTE": {
+        "lat": -23.96457612641469,
+        "lng": -46.41070040572283,
+        "station": "A765",
+        "distanceKm": 30.271215685099666
+      }
+    },
+    "stationMethod": "Nearest of two supplied stations to accident-weighted public-coordinate reference point per city; fixed across days",
+    "offset": "none: counts per calendar day; traffic volume unavailable",
+    "covariance": "sandwich clustered by Monday-based calendar week (joint across municipalities); normal approximation",
+    "calendar": "365 days in 2023 × 9 cities; retain only station-days with all 24 hourly readings; zero = no recorded accident, not proof of complete reporting"
+  },
+  "geography": {
+    "stations": {
+      "A712": {
+        "lat": -24.67166666,
+        "lng": -47.54583333
+      },
+      "A765": {
+        "lat": -23.84472221,
+        "lng": -46.14333333
+      }
+    },
+    "matched": 8701
+  }
+}

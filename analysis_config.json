@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "primary": {"train_end": "2023-12-31", "validation_end": "2024-12-31", "test_end": "2025-08-31"},
+  "climate": {"start": "2023-01-01", "train_end": "2023-06-30", "validation_end": "2023-09-30", "test_end": "2023-12-31"},
+  "random_forest": {"n_estimators": 250, "max_depth": 8, "min_samples_leaf": 30},
+  "logistic": {"C": 1.0, "max_iter": 2000},
+  "bootstrap_repetitions": 200,
+  "station_max_distance_km": 100,
+  "earth_radius_km": 6371,
+  "hourly_rain_threshold_mm": 0.2,
+  "previous_3h_rain_threshold_mm": 0.5
+  ,"central_hypothesis_rain3h_threshold_mm": 5
+}

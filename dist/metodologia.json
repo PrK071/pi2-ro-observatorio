@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "scope": "RMBS",
   "fields": [
     "date",
@@ -19,17 +19,22 @@
     "climateMethod",
     "street",
     "district",
+    "stationCode",
+    "stationDistanceKm",
     "n",
     "deaths",
     "involved",
-    "fatal"
+    "fatal",
+    "fatalScore",
+    "climateScore",
+    "climateControlScore"
   ],
   "audit": {
+    "withoutValidCoordinates": 5877,
     "accidents": 31493,
     "wetKnown": 23786,
     "victimKnown": 5530,
-    "climateMatched": 8701,
-    "withoutValidCoordinates": 5877
+    "climateMatched": 8701
   },
   "period": [
     "2022-01-01",
@@ -63,7 +68,12 @@
     "coordinatePrecisionDegrees": 0.01,
     "rainWindow": "three strictly preceding hours",
     "missingClimate": "unknown, never zero-imputed",
-    "victimSource": "vitimas.gravidade_lesao + numeric fatal events"
+    "victimSource": "vitimas.gravidade_lesao + numeric fatal events",
+    "spatialDistance": "Haversine; degrees converted to radians; R=6371 km",
+    "distanceFormula": "a=sin²(Δφ/2)+cos(φ1)cos(φ2)sin²(Δλ/2); d=2R asin(sqrt(a))",
+    "distancePrecision": "Station matching uses original coordinates; browser radius uses rounded public coordinates",
+    "stationSelection": "Nearest among two supplied coastal stations, not the entire INMET network",
+    "prediction": "Frozen train/validation/test chronological splits; only test scores published; see modelos.json"
   },
-  "generated": "2026-10-23T11:35:21.469318+00:00"
+  "generated": "2026-10-23T16:11:56.059489+00:00"
 }
