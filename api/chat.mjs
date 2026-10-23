@@ -37,7 +37,8 @@ export async function POST(request){
       const reason=[401,402,403].includes(error.status)?'activation_required':error.name==='TimeoutError'?'timeout':'temporarily_unavailable';
       // Only status/code are logged; never headers, tokens or conversation contents.
       console.warn('analytical_assistant_fallback',{status:error.status||0,code:error.code||error.name});
-      return json({text:local.text,mode:'local',reason,scope:local.scope,plan:local.plan,sources:['metodologia.json','artigo.html']});
+      const codes=['customer_verification_required','insufficient_funds','quota_for_entity_exceeded','invalid_api_key','authentication_error','forbidden','invalid_token','permission_denied','rate_limit_exceeded'];
+      return json({text:local.text,mode:'local',reason,service:{status:error.status||0,code:codes.includes(error.code)?error.code:'unavailable'},scope:local.scope,plan:local.plan,sources:['metodologia.json','artigo.html']});
     }
     return json({error:error instanceof SyntaxError?'Mensagem inválida.':engine?'A seleção enviada é inválida. Inicie uma nova conversa.':'Os dados estão indisponíveis agora. Tente novamente.'},engine?400:503);
   }

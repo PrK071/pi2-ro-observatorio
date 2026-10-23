@@ -122,8 +122,8 @@
     },
     {
       "path": "api/chat.mjs",
-      "bytes": 3801,
-      "sha256": "df4ce5d29251d9cf4daf08d0b8465121d7d80e004af28820bad90a8cfbbca164"
+      "bytes": 4105,
+      "sha256": "e49f83ed06e32077f4b5e449ff8c32c1e186f69748af956c8039066c0de6a3e9"
     },
     {
       "path": "audit_research.py",
@@ -257,8 +257,8 @@
     },
     {
       "path": "tests/assistant.test.cjs",
-      "bytes": 7620,
-      "sha256": "096e4fc896bb203aab92d5c975e9473bd06f85dbf0d7aadd4c3c448c401d9ae0"
+      "bytes": 7948,
+      "sha256": "a397898fd3083eebe38a0e7e7601e0edf267ad7f6dda4681deb2ad1040cb369c"
     },
     {
       "path": "tests/chart-navigation.cjs",
@@ -304,8 +304,8 @@
     },
     {
       "path": "dist/assistant.js",
-      "bytes": 21548,
-      "sha256": "130b59fd6c10580c6082acccd6280b54f3ebac1f081a56a2fde189e88e5c7809"
+      "bytes": 21818,
+      "sha256": "20c310a82b0486514e1facdafe0f4c829cc33dca79eb2c25f9c726fa60884948"
     },
     {
       "path": "dist/auditoria-calculos.json",

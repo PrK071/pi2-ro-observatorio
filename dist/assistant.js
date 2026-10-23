@@ -112,7 +112,10 @@ const AnalyticalAssistant = (() => {
       const q=norm(question),p=infer(question,previous),e=query(p,filters),s=e.total;
       if(/^(oi|ola|bom dia|boa tarde|boa noite|tudo bem|e ai)$/.test(q))return {text:'Olá! Pode perguntar do seu jeito. Posso comparar cidades e anos, consultar acidentes e mortes, explicar os testes e conversar sobre o estudo. Por exemplo: “quantos acidentes aconteceram em Santos em 2023?”',plan:p,scope:'Conversa',evidence:e};
       let text='';
-      if(['haversine','etl','definitions','references','coverage'].includes(p.topic))text=knowledge[p.topic];
+      if(['haversine','etl','definitions','references','coverage'].includes(p.topic)){
+        text=knowledge[p.topic];
+        if(p.topic==='definitions'&&e.groups.length&&/compar|quant|numero|total/.test(q))text=e.groups.map(g=>g.label+': '+number(g.n)+' sinistros, '+number(g.fatal)+' eventos fatais e '+number(g.deaths)+' óbitos em pessoas.').join('\n')+'\n\n'+text;
+      }
       else if(p.topic==='models'){
         const t=report?.primary?.models[report.primary.selected]?.test;
         text=knowledge.models+(t?' No teste de jan–ago/2025, a regressão logística alcançou AUC '+number(t.rocAuc,3)+', AP '+number(t.averagePrecision,3)+' e Brier '+number(t.brier,5)+'. O Brier da referência constante foi '+number(report.primary.models.baseline.test.brier,5)+', menor e portanto melhor.':'');

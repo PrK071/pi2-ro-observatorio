@@ -53,6 +53,9 @@ test('definitions, models, ETL and methodology can be explained',()=>{
  assert.match(engine.localAnswer('qual foi a AUC do modelo?').text,/0,765/);
  assert.equal(engine.study('models').primary.models.logistic.test.rocAuc,report.primary.models.logistic.test.rocAuc);
 });
+test('a comparison plus a definition answers both parts locally',()=>{
+ const a=engine.localAnswer('Compare Santos e São Vicente em 2024 por número de mortes. Explique a diferença entre óbitos e eventos fatais.');assert.match(a.text,/Santos:/);assert.match(a.text,/São Vicente:/);assert.match(a.text,/contam pessoas/);
+});
 test('unknown categorical query inputs and injected fields cannot run code',()=>{
  assert.throws(()=>engine.query({cities:['SAO PAULO']}),/Categoria desconhecida/);
  assert.throws(()=>engine.query({years:'2023'}),/Lista inválida/);
