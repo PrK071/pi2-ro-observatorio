@@ -162,8 +162,8 @@
     },
     {
       "path": "deploy_files.py",
-      "bytes": 930,
-      "sha256": "105b4140266d271f73bfa696ef61056b1d352b58ef85cc2c7450bd12f47a08be"
+      "bytes": 957,
+      "sha256": "45833f7d613452343763cbfda85b6afa7c3c915491ff39997792107eb6e5e51c"
     },
     {
       "path": "dist/vercel.json",
@@ -192,8 +192,8 @@
     },
     {
       "path": "make_manifest.py",
-      "bytes": 2643,
-      "sha256": "6184a36fb3a2f5adf5f9039911e408e02c2bc2ebbc018705f66210916326910f"
+      "bytes": 2762,
+      "sha256": "66ffcbe5f4f77e2a596e5ebcbbac97a6181cc2993848eecaec122e3d1f2f1d3a"
     },
     {
       "path": "normalize_times.py",
@@ -209,6 +209,11 @@
       "path": "README.md",
       "bytes": 8229,
       "sha256": "14edfd5d4e6110e7458659208743e0ba494237503ef712e7a38fc5b4ab2a6666"
+    },
+    {
+      "path": "referencia-dashboard.png",
+      "bytes": 1493215,
+      "sha256": "5b239b856eea5113fd3a511ea5516c21f5a41a7eb220a71c0b7b8f90a65af133"
     },
     {
       "path": "requirements.txt",
@@ -319,8 +324,8 @@
     },
     {
       "path": "dist/style.css",
-      "bytes": 18750,
-      "sha256": "3837234ff2af2a3ff95b3c4d6690440cb1feb80e2d4ebf83c63a639f80965204"
+      "bytes": 20207,
+      "sha256": "ccbf3a65f7fdbb64b2c84b29eb3ef29ca05b5b1e16e3ed67d2c3e3819bf6d0a3"
     },
     {
       "path": "dist/vendor/chart.umd.min.js",

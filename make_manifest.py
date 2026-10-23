@@ -12,9 +12,12 @@ treated=[R/'treated'/n for n in ['acidentes_br.parquet','vitimas_br.parquet','lo
 scripts=list(R.glob('*.py'))+list((R/'tests').glob('*.cjs'))+[R/'analysis_config.json',R/'requirements.txt',R/'README.md',R/'.gitattributes',R/'vercel.json',R/'dist/vercel.json']
 # Historical Rondônia exports are local intermediates excluded from Git and
 # deployment. Configuration is code, not a publicly served research artifact.
-excluded={'reproducibilidade.json','data.json','acidentes-ro.csv','vercel.json'}
+excluded={'reproducibilidade.json','data.json','acidentes-ro.csv','vercel.json','referencia-dashboard.png'}
 public=[p for p in (R/'dist').iterdir() if p.is_file() and p.name not in excluded]
 public+=list((R/'dist/figuras').glob('*.svg'))+[p for p in (R/'dist/vendor').iterdir() if p.is_file()]
+reference=R/'referencia-dashboard.png'
+if reference.exists():
+    scripts.append(reference)
 d={'schemaVersion':1,'scope':'RMBS','sourceEdition':'Local supplied archives, not a live or automatically updated source',
    'environment':{'python':platform.python_version(),'numpy':numpy.__version__,'scipy':scipy.__version__,'sklearn':sklearn.__version__,'duckdb':duckdb.__version__},
    'entrypoint':'python run_research.py [--from-raw]','raw':[entry(p) for p in raw],
