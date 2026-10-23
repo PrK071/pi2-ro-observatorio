@@ -1,0 +1,69 @@
+{
+  "version": 2,
+  "scope": "RMBS",
+  "fields": [
+    "date",
+    "city",
+    "type",
+    "phase",
+    "weekday",
+    "road",
+    "wet",
+    "victim",
+    "lat",
+    "lng",
+    "rain",
+    "rain3h",
+    "temp",
+    "season",
+    "climateMethod",
+    "street",
+    "district",
+    "n",
+    "deaths",
+    "involved",
+    "fatal"
+  ],
+  "audit": {
+    "accidents": 31493,
+    "wetKnown": 23786,
+    "victimKnown": 5530,
+    "climateMatched": 8701,
+    "withoutValidCoordinates": 5877
+  },
+  "period": [
+    "2022-01-01",
+    "2025-08-31"
+  ],
+  "requestedPeriod": [
+    "2022-01-01",
+    "2025-10-31"
+  ],
+  "cities": {
+    "3548500": "SANTOS",
+    "3551009": "SAO VICENTE",
+    "3541000": "PRAIA GRANDE",
+    "3518701": "GUARUJA",
+    "3513504": "CUBATAO",
+    "3506359": "BERTIOGA",
+    "3522109": "ITANHAEM",
+    "3537602": "PERUIBE",
+    "3531100": "MONGAGUA"
+  },
+  "climateYears": [
+    2023
+  ],
+  "methodology": {
+    "timezone": "UTC-03:00",
+    "stationMaxDistanceKm": 100,
+    "stations": [
+      "A765 — Bertioga",
+      "A712 — Iguape"
+    ],
+    "coordinatePrecisionDegrees": 0.01,
+    "rainWindow": "three strictly preceding hours",
+    "missingClimate": "unknown, never zero-imputed",
+    "victimSource": "vitimas.gravidade_lesao + numeric fatal events"
+  },
+  "generated": "2026-10-23T11:35:21.469318+00:00"
+}

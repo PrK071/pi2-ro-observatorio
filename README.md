@@ -1,88 +1,77 @@
-# Observatório RO
+# Observatório da Baixada Santista
 
-Dashboard de acidentes de trânsito de Rondônia com ETL nacional dos dados fornecidos e do INMET 2023.
+Dashboard de sinistros de trânsito e clima nos nove municípios da Região Metropolitana da Baixada Santista (RMBS), adaptado ao relatório técnico-científico do PI2 da FATEC. O nome do repositório e o endereço de hospedagem foram mantidos para preservar os links existentes.
 
-**[Acessar o dashboard](https://pi2-ro-observatorio.vercel.app/)**
+**[Abrir o dashboard](https://pi2-ro-observatorio.vercel.app/)**
 
-O painel reúne 104.666 acidentes, 199.531 pessoas envolvidas e 3.320 óbitos, de janeiro de 2018 a agosto de 2025. O ano de 2025 é parcial. Os cinco Parquets nacionais principais somam aproximadamente 444 MB.
+## O que está implementado
 
-## Executar o dashboard
+- Mapa Leaflet com cartografia Esri, hotspots agregados, camada de eventos fatais e filtro espacial por raio de 2 km.
+- Seis indicadores: sinistros, eventos fatais, letalidade por evento, sinistros com vítimas identificadas, condição molhada/chuva e rodovias.
+- Filtros de ano, mês, município, tipo, condição de pista/chuva, logradouro e área. As seleções atualizam indicadores, mapa, gráficos, síntese científica e respostas analíticas.
+- Série mensal com sinistros e média da precipitação horária associada aos registros; gráficos de municípios, severidade e tipologia.
+- H1: tabela 2×2, Odds Ratio, IC95%, qui-quadrado de Pearson e p-valor recalculados em cada recorte. Células nulas/zero, grupos ausentes e frequências esperadas pequenas são tratados explicitamente.
+- H2: proporção de eventos rodoviários por condição da pista/chuva, com teste de associação.
+- H3: contagens e médias por dia de calendário no verão turístico e nos demais períodos; interpretação exploratória, sem alegar controle meteorológico ou causalidade.
+- Agente analítico local com intenções predefinidas, sem API externa. Responde com os números dos filtros ativos e identifica o contexto de cada resposta.
+- Exportação CSV da seleção com prevenção de fórmulas em campos textuais, layout responsivo e controles acessíveis por teclado.
 
-O dashboard usa HTML, CSS e JavaScript e já inclui os agregados compactados necessários à execução, sem etapa de compilação:
+## Cobertura real, diferente das métricas do relatório
+
+| Item | Base disponível |
+| --- | --- |
+| Escopo solicitado | Janeiro de 2022 a outubro de 2025 |
+| Acidentes recebidos | 01/01/2022 a 31/08/2025 |
+| Sinistros únicos | 31.493 |
+| Sinistros fatais | 911 |
+| Óbitos | 961 |
+| Municípios | Santos, São Vicente, Praia Grande, Guarujá, Cubatão, Bertioga, Itanhaém, Peruíbe, Mongaguá |
+| INMET fornecido | 2023, estações costeiras A765 (Bertioga) e A712 (Iguape) |
+
+Setembro e outubro de 2025 são apresentados como meses sem cobertura, sem convertê-los em meses com zero sinistros. Os totais de 508.575, OR 1,264 e AUCs do documento de referência **não foram apresentados como resultados desta base**. Mongaguá usa o código IBGE correto, **3531100**, distinto de Peruíbe, 3537602: [IBGE](https://www.ibge.gov.br/cidades-e-estados/sp/mongagua.html).
+
+A existência de vítimas é estabelecida pelas categorias LEVE, GRAVE ou OBITO da tabela de pessoas ou pela contagem numérica de eventos fatais. Um evento é classificado sem vítimas apenas quando a quantidade de pessoas SEM FERIMENTO reconcilia com todos os envolvidos, sem gravidade desconhecida. O campo agregado `qtde_feridosilesos` não permite distinguir feridos de ilesos. A proporção de vítimas classificáveis é informada no painel; os demais eventos não entram artificialmente no grupo sem vítimas.
+
+O OR compara a gravidade **entre sinistros registrados**, sem estimar incidência de acidentes, risco por viagem ou efeito causal da chuva. O selo positivo exige IC95% acima de 1 e p < 0,05, com frequências esperadas de pelo menos 5 e células positivas. Amostras com informações completas podem apresentar viés de seleção.
+
+## Executar
+
+O painel publicado é estático e funciona sem instalação de dependências ou chave de API. Leaflet 1.9.4 e Chart.js 4.5.1 estão incluídos em `dist/vendor/`; a cartografia e as fontes tipográficas precisam de conexão à internet. O processamento dos filtros acontece no navegador sobre o cubo regional comprimido.
 
 ```sh
 python -m http.server 8879 --bind 127.0.0.1 --directory dist
 ```
 
-Abra [http://127.0.0.1:8879](http://127.0.0.1:8879) em um navegador atual com suporte a `DecompressionStream`. Para publicar na Vercel, importe o repositório: `vercel.json` configura `dist/` como diretório de saída.
+Abra [localhost:8879](http://127.0.0.1:8879) em navegador atualizado com suporte a `DecompressionStream`. A configuração Vercel publica `dist/`, sem compilação.
 
-## Conteúdo versionado
+## Reproduzir a base regional
 
-O repositório inclui o código do ETL, o dashboard, os agregados de publicação e os relatórios de auditoria. Os arquivos nacionais completos, os ZIPs brutos, o ambiente Python e o banco de trabalho são gerados localmente.
-
-Consulte o [resumo da base](treated/RESUMO.md), a [validação](treated/validacao.json) e as [consultas SQL](treated/consultas.sql).
-
-## Entregas
-
-- `treated/*_br.csv.gz`: bases nacionais completas, tratadas, em UTF-8, separadas por ponto e vírgula.
-- `treated/*_br.parquet`: modelo compacto com compressão Zstandard. Campos derivados de data são removidos; em vítimas, os atributos do acidente são obtidos pela chave `num_acidente`.
-- `treated/*_ro.csv`: recortes tratados de Rondônia, mantendo os campos de origem.
-- `treated/audit_national.json`: contagens por fonte, duplicatas, arquivos idênticos e rejeições.
-- `treated/compactacao.json`: quantidades de linhas e tamanhos dos arquivos finais.
-- `treated/veiculos_sem_acidente.*`: registros sem acidente correspondente, separados para revisão e preservados em quarentena.
-- `dist/`: dashboard estático e agregados de publicação. Não contém endereços nem identificadores individuais dos acidentes.
-
-## Regras de tratamento
-
-1. Os ZIPs originais são preservados. Arquivos internos são identificados pelo nome, tamanho e CRC. Cópias idênticas são processadas uma única vez.
-2. A edição mais recente, identificada pela data no nome interno do CSV, prevalece sobre as anteriores. O nome externo do ZIP não é utilizado como data de atualização.
-3. Categorias são convertidas para maiúsculas, sem acentos, com espaços normalizados. Ponto e vírgula dentro de um valor é substituído por vírgula para manter o intercâmbio tabular. Não se aplica correspondência aproximada de nomes, para evitar fundir localidades distintas.
-4. Campos vazios e indicadores textuais de ausência recebem `NAO_INFORMADO`. As sentinelas meteorológicas `-9999` também recebem esse marcador. Ausência não é substituída por zero. Os arquivos de intercâmbio não contêm campos vazios.
-5. Acidentes são identificados por `num_acidente`; localidades por `chv_localidade`. Pessoas e veículos conservam as dimensões descritivas da origem como chave composta. A quantidade mais recente prevalece para a mesma chave. Detalhes de versões antigas não são somados aos detalhes mais recentes do mesmo acidente.
-6. Registros sem chave obrigatória ou com estrutura incompatível são rejeitados e contabilizados. Campos opcionais ausentes não provocam a exclusão integral do registro.
-7. Identificadores, CEPs, códigos IBGE e horários são mantidos como texto para preservar zeros à esquerda. Horários fora do padrão HHMMSS válido, como 999999, são convertidos para NAO_INFORMADO nas saídas finais. Datas são ISO. No clima, o horário é UTC e os decimais são padronizados com ponto.
-8. O INMET é consolidado em uma única tabela nacional de observações horárias. Estação e código WMO acompanham cada observação. O dashboard usa apenas RO e o período climático disponível, 2023.
-
-## Métricas do dashboard
-
-- Acidentes: soma de `qtde_acidente`, após deduplicação.
-- Pessoas envolvidas: soma de `qtde_envolvidos` na tabela de acidentes.
-- Óbitos: soma de `qtde_obitos` na tabela de acidentes.
-- Acidentes com óbito: soma de `qtde_acid_com_obitos`.
-- Óbitos por 100 acidentes: `100 * óbitos / acidentes`. Não é uma taxa populacional.
-- Feridos/ilesos: categoria agregada da origem; não deve ser interpretada como somente feridos.
-- Perfis: somas das quantidades da tabela de vítimas ou veículos, sem unir os detalhes diretamente à tabela de acidentes antes de calcular os indicadores principais. Isso evita multiplicar os totais pelo número de linhas de detalhe.
-- Chuva: soma das precipitações horárias válidas de cada estação. Na opção de todas as estações, média dos totais mensais das estações com observações.
-- Temperatura: média das observações horárias válidas, ponderada pela quantidade de horas.
-
-## Limites
-
-A fonte de acidentes é identificada pelos arquivos fornecidos, sem atribuição a um órgão não confirmado. A cobertura depende dos registros recebidos; o último período pode ser parcial. Não se interpola clima ausente nem se atribui causalidade à comparação de chuva e acidentes. A condição meteorológica não foi preenchida nos registros de acidentes de RO, e o filtro correspondente fica desativado. Os filtros de ano e município controlam os perfis de pessoas. O painel climático mantém 2023 e seu próprio seletor de estação, com cobertura explícita das horas válidas. Os rótulos de gravidade originais são preservados quando divergem das contagens numéricas; os indicadores de óbitos usam as contagens numéricas.
-
-## Reprodução
-
-Recomendado: Python 3.13. O ETL usa a biblioteca padrão e DuckDB. Instale a dependência:
+O ETL nacional original e sua documentação foram preservados em [docs/historico-rondonia.md](docs/historico-rondonia.md). Os Parquets nacionais e os arquivos brutos permanecem locais e fora do Git. Para regenerar a versão regional após produzir os Parquets nacionais:
 
 ```sh
 python -m pip install -r requirements.txt
+python extract_rmbs.py
+python build_research.py
+node --test tests/analysis.test.cjs
 ```
 
-Extraia o ZIP original para `raw/`, preservando a estrutura interna `PI2-RO/Dados Acidentes/` e `PI2-RO/Dados Clima/INMET/`. Execute:
+`extract_rmbs.py` seleciona os nove códigos IBGE, UF SP e o período solicitado nos Parquets auditados. A extração de pessoas usa semijunção por identificador; os indicadores dos eventos nunca são somados após uma junção que os multiplique. Os arquivos intermediários são `treated/{acidentes,vitimas,localidades}_rmbs.csv`.
 
-```sh
-python etl_national.py
-python climate_worker.py
-python compact.py
-python normalize_times.py
-python quarantine.py
-python build_data.py
-python finalize.py
-```
+`build_research.py` gera `dist/research.json.gz` e `dist/metodologia.json`. A junção meteorológica usa a estação costeira mais próxima do ponto registrado, até 100 km, no horário BRT. Quando não há hora válida, usa o centro de referência da fase do dia. A chuva anterior soma **as três horas estritamente anteriores**, e exige uma janela completa. Não há imputação de chuva ausente por zero, nem simulação de cobertura meteorológica para 2022/2024/2025. Cada grupo preserva se a hora foi aproximada ou registrada.
 
-O teste usa arquivos sintéticos temporários e verifica prioridade entre versões, recuperação histórica, normalização, tratamento de ausências e identificação de ZIPs idênticos:
+Condição molhada: pista informada MOLHADA, chuva horária acima de 0,2 mm ou chuva anterior acima de 0,5 mm. Condição seca/sem indício: pista informada SECA ou ambas as medidas climáticas conhecidas sem exceder os limites. Sem essas evidências, condição desconhecida. Isto é uma aproximação meteorológica e não uma medição da aderência da pista.
 
-```sh
-python check_etl.py
-```
+Rodovias: tipo ESTADUAL/FEDERAL, código SP/BR ou nome explícito de eixo rodoviário. A identificação evita confundir Avenida Padre Anchieta com Rodovia Anchieta. O mapa descarta coordenadas ausentes, zero ou fora do envelope regional e agrega pontos a 0,01°; esse envelope é uma verificação aproximada, não uma validação por polígono municipal. Não publica identificadores de acidentes, números de endereço nem coordenadas individuais exatas.
 
-A execução completa pode exigir vários GB de espaço temporário. O SQLite é um banco de trabalho, utilizado na deduplicação e conferência. Após todas as validações, ele pode ser removido para liberar espaço. Os CSVs e Parquets são os arquivos finais para intercâmbio e análise.
+## Limites de implementação
+
+A arquitetura estática do projeto existente foi mantida. Não há backend FastAPI em produção: as consultas e testes estatísticos são executados no navegador, com DuckDB usado na preparação da base. O chat usa intenções locais, não Gemini. Não há modelo preditivo treinado neste recorte; por isso o dashboard não exibe probabilidades individuais nem AUCs importadas do relatório. A análise H3 não incorpora feriados nem exposição ao tráfego e não testa uma hipótese de contagem ajustada por chuva.
+
+As limitações de cobertura são apresentadas na interface e no download da metodologia. Os testes numéricos verificam uma tabela 2×2 de referência, valores desconhecidos, grupos ausentes, interseção dos filtros, calendário bissexto, contagens reconciliadas e ausência de identificadores individuais no cubo publicado.
+
+## Fontes
+
+- [RENAEST / SENATRAN](https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/renaest): fonte descrita no relatório de referência; a análise usa os arquivos nacionais fornecidos e auditados neste projeto.
+- [INMET — dados históricos](https://portal.inmet.gov.br/dadoshistoricos).
+- [IBGE — códigos municipais](https://www.ibge.gov.br/explica/codigos-dos-municipios.php).
+- [Leaflet — referência](https://leafletjs.com/reference.html), [Chart.js — API](https://www.chartjs.org/docs/latest/developers/api.html).
