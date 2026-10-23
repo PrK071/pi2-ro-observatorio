@@ -10,6 +10,7 @@ def entry(p):
 raw=sorted((R/'raw').rglob('*.zip'))
 treated=[R/'treated'/n for n in ['acidentes_br.parquet','vitimas_br.parquet','localidades_br.parquet','clima_br.parquet','estacoes_br.csv','acidentes_rmbs.csv','vitimas_rmbs.csv','localidades_rmbs.csv','contagens_diarias_2023.csv','model_primary.joblib','model_climate.joblib','model_climate_control.joblib']]
 scripts=list(R.glob('*.py'))+list((R/'tests').glob('*.cjs'))+[R/'analysis_config.json',R/'requirements.txt',R/'README.md',R/'.gitattributes',R/'vercel.json',R/'dist/vercel.json']
+scripts+=list(R.glob('*.mjs'))+list((R/'api').glob('*.mjs'))+list((R/'lib').glob('*.mjs'))+list((R/'docs').glob('agente-*.md'))
 # Historical Rondônia exports are local intermediates excluded from Git and
 # deployment. Configuration is code, not a publicly served research artifact.
 excluded={'reproducibilidade.json','data.json','acidentes-ro.csv','vercel.json','referencia-dashboard.png'}

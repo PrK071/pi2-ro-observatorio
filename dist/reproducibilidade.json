@@ -121,6 +121,11 @@
       "sha256": "8ab69bdfa03b16ea9fcfc84c96e14f0c03fc3541a237588bce29f2214287d425"
     },
     {
+      "path": "api/chat.mjs",
+      "bytes": 3530,
+      "sha256": "237c226c5489a5235268e55e7a29c7d518523f4d819899699b0cf1b7787efbb3"
+    },
+    {
       "path": "audit_research.py",
       "bytes": 3633,
       "sha256": "f499d4eb35ba5268c9ee966d35c9b60a455255ad3cdbe0ed8af3095c8ff7b4a1"
@@ -162,13 +167,23 @@
     },
     {
       "path": "deploy_files.py",
-      "bytes": 930,
-      "sha256": "105b4140266d271f73bfa696ef61056b1d352b58ef85cc2c7450bd12f47a08be"
+      "bytes": 958,
+      "sha256": "b98688e677794cb1e886bf2cc1ff15694e804466f27518c1e9f578869d49c381"
+    },
+    {
+      "path": "dev-server.mjs",
+      "bytes": 1905,
+      "sha256": "6330e5e0af83a485a5d635f63054dfe521dc51aeec692d7b6d489ad9a3fca381"
     },
     {
       "path": "dist/vercel.json",
       "bytes": 507,
       "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
+    },
+    {
+      "path": "docs/agente-analitico.md",
+      "bytes": 4813,
+      "sha256": "09ab2a496072ec74bf96eedbeddda64e10d6fb65d2fa99a46c6998f20f808801"
     },
     {
       "path": "etl_national.py",
@@ -191,9 +206,14 @@
       "sha256": "ea35e116493f3fcdf39d9124a8461f57cc61371861c43ff0a42869a8453d316b"
     },
     {
+      "path": "lib/chat-agent.mjs",
+      "bytes": 9332,
+      "sha256": "61d3aebafa4871a2bf20c04154c117504e29c91effb91bbae4163de902c3ddf8"
+    },
+    {
       "path": "make_manifest.py",
-      "bytes": 2762,
-      "sha256": "66ffcbe5f4f77e2a596e5ebcbbac97a6181cc2993848eecaec122e3d1f2f1d3a"
+      "bytes": 2890,
+      "sha256": "2072abf1d8d863cef55bd54d3aca406c440b1585211f088673e51c623b347137"
     },
     {
       "path": "normalize_times.py",
@@ -207,8 +227,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8229,
-      "sha256": "14edfd5d4e6110e7458659208743e0ba494237503ef712e7a38fc5b4ab2a6666"
+      "bytes": 8852,
+      "sha256": "570fb6bd7db990891d44d98def3fa0d4426af54924d46827483c6e77c2058ca0"
     },
     {
       "path": "referencia-dashboard.png",
@@ -231,6 +251,16 @@
       "sha256": "67497752e76eb91583015e28e0fcd5a98fed39bc031ffffdebbfb2da38fe5380"
     },
     {
+      "path": "tests/assistant-browser.cjs",
+      "bytes": 3068,
+      "sha256": "ca7eb5fc687e3ee95f3a48f09003591aae963e48831a8b96c837809241663e79"
+    },
+    {
+      "path": "tests/assistant.test.cjs",
+      "bytes": 7035,
+      "sha256": "15943e6b1e4b2d49388fc3e110eda4cb48d7dee9b86f9a3f9d0676e4d47f1238"
+    },
+    {
       "path": "tests/chart-navigation.cjs",
       "bytes": 12527,
       "sha256": "8340a8d2caba3890a3098c71606f91eab1bb137e37d47423be9aa554f440dd2e"
@@ -247,8 +277,8 @@
     },
     {
       "path": "vercel.json",
-      "bytes": 507,
-      "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
+      "bytes": 679,
+      "sha256": "2acee64073fbb42151494976da6e2a97923cae658a8d0945cb619cf1f1fcb7e8"
     }
   ],
   "outputs": [
@@ -259,8 +289,8 @@
     },
     {
       "path": "dist/app.js",
-      "bytes": 26495,
-      "sha256": "2ebebdae6248ff99f251eb9f3d517030abd59dc87aa930a2e3ad7f64aabce2f6"
+      "bytes": 22534,
+      "sha256": "165e4c1ecb708993635f7c96b8a30389c2b367bcf29d0b06a53dbf867e39c5f3"
     },
     {
       "path": "dist/artigo-baixada-santista.pdf",
@@ -273,6 +303,11 @@
       "sha256": "f22033dd29f7c7ef957d5c95dd6382e693cf8cd9a44c80a1478415c4fb4a5d23"
     },
     {
+      "path": "dist/assistant.js",
+      "bytes": 21548,
+      "sha256": "130b59fd6c10580c6082acccd6280b54f3ebac1f081a56a2fde189e88e5c7809"
+    },
+    {
       "path": "dist/auditoria-calculos.json",
       "bytes": 1163,
       "sha256": "c6302a35ae5eaef4dca0bd2aa0f772850ea29475203f4c773f4d93dff356d4cf"
@@ -281,6 +316,11 @@
       "path": "dist/auditoria-formulas.html",
       "bytes": 6196,
       "sha256": "b689fa4a821aa99218660d8b1b3c573214b556a6a0c369fd5121c0266f419f5b"
+    },
+    {
+      "path": "dist/chat-ui.js",
+      "bytes": 4280,
+      "sha256": "08b335d1ec12482d835e0f8ccbfd1c2c46410f5181053078827e81b22a31f67d"
     },
     {
       "path": "dist/figuras/confiabilidade.svg",
@@ -294,8 +334,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 16898,
-      "sha256": "f6ce16a9b5d440cc0f590855fc72f3dd21b3789d7a5f4604951831b465f0bcd8"
+      "bytes": 17504,
+      "sha256": "846dd57d82d4da7166b713216f1664c23465091b9ad238192f66a9c9d176dc90"
     },
     {
       "path": "dist/interactions.js",
@@ -324,8 +364,8 @@
     },
     {
       "path": "dist/style.css",
-      "bytes": 24263,
-      "sha256": "d3c134c9526686ff6db7da8ae353610b4a3da2a76f49e49bdc73ce824f475222"
+      "bytes": 25236,
+      "sha256": "aab69597d9d1047e01a58bd31bbf177cdc6747270009beb3d18215ecf415294b"
     },
     {
       "path": "dist/vendor/chart.umd.min.js",

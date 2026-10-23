@@ -50,3 +50,12 @@ th{color:#d2cfd7;background:#16171b}.method-grid h3{color:#dddde1}.seasonrow,.me
 .barrow.selected,.type-item.selected{outline-color:#aaa4b4;background:#ffffff08}.inline-buttons button.selected{background:#28272d;border-color:#77727f;color:#e0dde5}
 .filter-navigation button:not(:disabled){background:#17181d}.method-links a:hover,header a:hover,.sidebottom a:hover{color:#e5e2ea}
 @media(min-width:1001px){.hero-grid{grid-template-columns:minmax(0,1.02fr) minmax(0,1fr)}.map-panel #map{height:clamp(345px,31vw,440px)}.hero-right .kpi{min-height:112px}.titleline{margin-top:35px;margin-bottom:26px}}
+
+/* Conversational analyst, matching the near-black observatory. */
+.assistant-controls{display:flex;gap:8px;margin:-6px 0 12px}.assistant-controls button{height:30px;border:1px solid #303138;font-size:9px}
+#assistant .chat-messages{height:310px;max-height:55vh;min-height:230px;scrollbar-color:#4d4e56 transparent}
+#assistant .message{font-size:11px;overflow-wrap:anywhere}.message-content{white-space:pre-wrap}.message small{overflow-wrap:anywhere}
+#assistant{scroll-margin-top:110px}#chatForm{align-items:flex-end}#chatInput{min-height:58px;max-height:160px;resize:vertical;line-height:1.7;font-family:var(--font)}
+#chatSend{height:40px;min-width:40px}.chat-sources{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:9px}
+#assistantStatus{min-height:30px;color:#a7a8b1}.message.user{white-space:pre-wrap}
+@media(max-width:760px){#assistant .chat-messages{height:350px;max-height:55vh}#chatInput{font-size:16px;line-height:1.5}.chat-sources a{padding:4px 0}}

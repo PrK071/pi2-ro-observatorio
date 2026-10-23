@@ -97,30 +97,6 @@ function refreshDashboard(){
   window.dashboardState={filters:{...activeFilters},stats:currentStats};
   updateInteractionControls();
 }
-function answer(message){
-  const q=message.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(),s=currentStats;
-  if(!s.total)return 'Não há registros neste recorte. Remova um filtro para explorar os dados.';
-  if(/probabilidade|prever|previsao|random forest|modelo|auc/.test(q))return $('modelSummary').textContent+' '+$('modelCaution').textContent;
-  if(/haversine|distancia|estacao/.test(q))return $('haversineResult').textContent+' '+$('stationCoverage').textContent;
-  if(/5 mm|hipotese central|chuva acumulada|fatalidade.*chuva/.test(q))return $('centralSummary').textContent+' '+$('centralResults').textContent+' '+$('centralDecision').textContent;
-  if(/odds|hipotese|h1|chance|risco|p.valor/.test(q))return $('h1Text').textContent+' Amostra utilizada: '+fmt(s.h1.n)+' de '+fmt(s.total)+' sinistros.';
-  if(/anchieta|imigrantes/.test(q)){
-    const rainOnly=/chuva|molhad|precip/.test(q),base=chosen.filter(r=>r.road===1&&(!rainOnly||r.wet===1));
-    const corridors=[['Anchieta (SP-150)',/\bSP[ -]?150\b|^(?:RODOVIA\s+)?ANCHIETA\b/],['Imigrantes (SP-160)',/\bSP[ -]?160\b|^(?:RODOVIA\s+)?IMIGRANTES\b/]];
-    return 'Comparação dos eixos no recorte'+(rainOnly?' molhado/com indício de chuva':'')+': '+corridors.map(([name,re])=>{const s=A.stats(base.filter(r=>re.test(r.street)));return name+': '+fmt(s.total)+' sinistros, '+fmt(s.fatal)+' fatais e '+fmt(s.deaths)+' óbitos';}).join('; ')+'. Os eixos são reconhecidos pelo nome informado e código da rodovia; ausência de nome pode limitar a cobertura.';
-  }
-  if(/rodovia|h2/.test(q))return $('h2Text').textContent+'\nVias rodoviárias com mais eventos fatais: '+A.group(chosen.filter(r=>r.road===1&&r.street!=='NAO_INFORMADO'),'street','fatal').filter(x=>x[1]>0).slice(0,4).map(([k,v])=>pretty(k)+' ('+fmt(v)+')').join('; ')+'.';
-  if(/sazon|verao|feriado|turis|h3/.test(q))return $('h3Text').textContent;
-  if(/fatal|fatais|obito|letal|hotspot/.test(q))return `${fmt(s.fatal)} sinistros fatais e ${fmt(s.deaths)} óbitos, com letalidade de ${pct(s.fatalRate)}. Municípios com mais eventos fatais: `+A.group(chosen,'city','fatal').slice(0,5).map(([k,v])=>pretty(k)+' ('+fmt(v)+')').join('; ')+'.';
-  if(/tipo|colis|atropel|tombamento/.test(q))return 'Tipos mais frequentes neste recorte: '+A.group(chosen,'type').slice(0,5).map(([k,v])=>pretty(k)+' ('+fmt(v)+')').join('; ')+'. Para examinar apenas chuva, selecione Molhada / indício de chuva.';
-  if(/chuva|precip|molhada|seca/.test(q))return `${fmt(s.wet)} sinistros classificados como molhados/com indício de chuva, entre ${fmt(s.wetKnown)} com condição conhecida. ${fmt(A.stats(base).total-A.stats(base).wetKnown)} permanecem desconhecidos. O clima associado cobre somente 2023; os demais anos dependem do registro da pista. `+$('h1Text').textContent;
-  if(/municip|cidade|onde/.test(q))return 'Municípios com mais sinistros neste recorte: '+A.group(chosen,'city').slice(0,5).map(([k,v])=>pretty(k)+' ('+fmt(v)+')').join('; ')+'.';
-  if(/cobertura|dado|fonte|periodo|metodo/.test(q))return $('methodCoverage').textContent+' As fontes e os critérios estão em Dados e método.';
-  return `${fmt(s.total)} sinistros, ${fmt(s.fatal)} fatais e ${fmt(s.victims)} com vítimas identificadas no recorte atual. Posso responder sobre Odds Ratio, chuva, rodovias, municípios, tipos e sazonalidade. Para relações adicionais, exporte a seleção para análise.`;
-}
-function chat(message){
-  for(const [cls,body] of [['user',message],['bot',answer(message)]]){const el=document.createElement('div');el.className='message '+cls;if(cls==='bot'){const label=document.createElement('small');label.textContent='RECORTE: '+(activeFilters.municipio?pretty(activeFilters.municipio):'Baixada Santista')+' · '+(activeFilters.ano||'2022–2025')+' · '+fmt(currentStats.total)+' sinistros';el.append(label);}el.append(document.createTextNode(body));$('chatMessages').append(el);}$('chatMessages').scrollTop=$('chatMessages').scrollHeight;
-}
 function download(){
   const csv=A.csv(chosen,D.fields);
   const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='baixada-santista-recorte.csv';a.hidden=true;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);

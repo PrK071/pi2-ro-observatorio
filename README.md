@@ -45,7 +45,9 @@ Os gráficos interativos permitem clicar novamente na seleção para removê-la.
 python -m http.server 8879 --bind 127.0.0.1 --directory dist
 ```
 
-Abrir `http://127.0.0.1:8879/`. O navegador precisa de `DecompressionStream` para ler o cubo gzip. Leaflet e Chart.js estão incluídos em `dist/vendor/`; a cartografia depende de conexão. O painel é estático e o agente analítico usa intenções locais, sem API de IA.
+Abrir `http://127.0.0.1:8879/`. O navegador precisa de `DecompressionStream` para ler o cubo gzip. Leaflet e Chart.js estão incluídos em `dist/vendor/`; a cartografia depende de conexão. O frontend é estático. Para servir também a função do agente conversacional, usar `node dev-server.mjs` no lugar do servidor Python.
+
+O agente interpreta perguntas livres com IA quando o Vercel AI Gateway está disponível, consulta os dados por ferramentas validadas e mantém contexto para comparações e perguntas seguintes. Sem o serviço, há consulta local com interpretação limitada, identificada na interface. A seleção de cidades e períodos na pergunta não modifica os filtros do painel. A autenticação no servidor usa OIDC da implantação ou `AI_GATEWAY_API_KEY` já configurada; não há chave no navegador. Ver [funcionamento e reprodução do agente](docs/agente-analitico.md).
 
 ## Modelagem executada
 

@@ -1,6 +1,13 @@
 {
   "version": 2,
   "outputDirectory": "dist",
+  "functions": {
+    "api/chat.mjs": {
+      "includeFiles": "dist/{research.json.gz,modelos.json}",
+      "maxDuration": 60,
+      "supportsCancellation": true
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
