@@ -115,5 +115,5 @@ document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>{document.querySelec
   for(const [id,key] of [['streetOptions','street'],['districtOptions','district']])for(const value of [...new Set(rows.map(r=>r[key]))].sort()){if(value==='NAO_INFORMADO')continue;const o=document.createElement('option');o.value=value;$(id).append(o);}
   $('coverageText').textContent=`Base observada: jan/2022–ago/2025 · ${fmt(D.audit.accidents)} sinistros · 9 municípios. Set/out de 2025 não recebidos. INMET: somente 2023.`;
   $('methodCoverage').textContent=`${fmt(D.audit.accidents)} sinistros no recorte dos nove códigos IBGE, de 01/01/2022 a 31/08/2025. O escopo solicitado termina em outubro de 2025, mas a fonte recebida termina em agosto. O código de Mongaguá é 3531100. A contagem de 508.575 do relatório de referência não foi reproduzida nesta base.`;
-  await initResearch();installInteractionControls();$('app').hidden=false;initMap();refreshDashboard();fitMap();window.dashboardReady=true;
+  await Promise.all([initResearch(),initAssistantData()]);installInteractionControls();$('app').hidden=false;initMap();refreshDashboard();fitMap();window.dashboardReady=true;
 }catch(e){$('status').hidden=false;$('status').textContent='Não foi possível carregar o painel: '+e.message+' Recarregue a página ou confira a base publicada.';console.error(e);}})();

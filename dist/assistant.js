@@ -1,9 +1,10 @@
 'use strict';
 // Shared, deterministic access to the public analytical cube. No generated code or SQL.
 const AnalyticalAssistant = (() => {
+  const M=typeof module!=='undefined'?require('./mobility.js'):MobilityAnalytics;
   const norm = text => String(text ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const number = (n,d=0) => n == null || !Number.isFinite(n) ? 'indisponível' : n.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
-  const pretty = value => ({'SAO VICENTE':'São Vicente','GUARUJA':'Guarujá','CUBATAO':'Cubatão','ITANHAEM':'Itanhaém','PERUIBE':'Peruíbe','MONGAGUA':'Mongaguá','NAO_INFORMADO':'Não informado','MANHA':'Manhã'}[value] || String(value).toLocaleLowerCase('pt-BR').replace(/(^|\s)\S/g,c=>c.toUpperCase()));
+  const pretty = value => ({'SAO VICENTE':'São Vicente','GUARUJA':'Guarujá','CUBATAO':'Cubatão','ITANHAEM':'Itanhaém','PERUIBE':'Peruíbe','MONGAGUA':'Mongaguá','NAO_INFORMADO':'Não informado','MANHA':'Manhã','AUTOMOVEL':'Automóvel','ONIBUS':'Ônibus','MICRO-ONIBUS':'Micro-ônibus','CAMINHAO':'Caminhão','CAMINHAO-TRATOR':'Caminhão-trator','CARROCA':'Carroça','UTILITARIO':'Utilitário','VEICULO ARTICULADO':'Veículo articulado','VEICULO DE SERVICO':'Veículo de serviço'}[value] || String(value).toLocaleLowerCase('pt-BR').replace(/(^|\s)\S/g,c=>c.toUpperCase()));
   const knowledge = {
     coverage:'O observatório reúne os nove municípios da Baixada Santista. A fonte recebida cobre 01/01/2022 a 31/08/2025. INMET está disponível apenas em 2023, nas estações A765 Bertioga e A712 Iguape. Ausência de informação não vira zero. O cubo agrega eventos: use a soma de n, nunca a contagem de linhas.',
     definitions:'Sinistro fatal é um evento com pelo menos um óbito; óbitos contam pessoas. Um evento pode ter várias mortes. Letalidade por evento = 100 × sinistros fatais / total de sinistros. Com vítimas considera somente eventos com gravidade classificável. Não há fluxo de tráfego para calcular risco por viagem ou por km percorrido.',
@@ -12,14 +13,17 @@ const AnalyticalAssistant = (() => {
     haversine:'Haversine calcula distância de arco: a = sen²(Δφ/2) + cos(φ₁)cos(φ₂)sen²(Δλ/2); d = 2R asin(√a), com R = 6.371 km e ângulos em radianos. Não é distância rodoviária. No ETL seleciona a mais próxima das duas estações fornecidas, limitada a 100 km. No mapa, o filtro usa coordenadas arredondadas a 0,01°.',
     etl:'A reprodução segue: preservar ZIPs e hashes SHA-256; extrair e normalizar; selecionar nove códigos IBGE; deduplicar eventos e classificar vítimas; vincular estação por Haversine; converter UTC para BRT; somar t−1h, t−2h e t−3h exigindo três medições; testar hipóteses e treinar com partições cronológicas; publicar cubo, métricas, artigo e manifesto. Hora ausente usa fase do dia de forma determinística.',
     models:'Os classificadores estimam fatalidade condicionada a um sinistro já registrado, não a ocorrência futura de acidentes. Há prevalência constante, regressão logística e Random Forest. Seleção por Average Precision na validação; avaliação em teste posterior, sem reajustar no teste. AUC mede ordenação; AP é útil no desbalanceamento; Brier mede erro probabilístico. Escores experimentais não são probabilidades operacionais calibradas.',
-    references:'O artigo apresenta as referências e o protocolo completo: artigo.html e artigo-baixada-santista.pdf. Fundamentos: Breiman (2001), Random Forests; Saito e Rehmsmeier (2015), precision–recall; Roberts et al. (2017), validação de dados estruturados; Wasserstein e Lazar (2016), interpretação de p; Kimball e Caserta (2004), ETL; Theofilatos e Yannis (2014), clima e segurança viária. Fontes dos registros: RENAEST, INMET e IBGE.'
+    references:'O artigo apresenta as referências e o protocolo completo: artigo.html e artigo-baixada-santista.pdf. Fundamentos: Breiman (2001), Random Forests; Saito e Rehmsmeier (2015), precision–recall; Roberts et al. (2017), validação de dados estruturados; Wasserstein e Lazar (2016), interpretação de p; Kimball e Caserta (2004), ETL; Theofilatos e Yannis (2014), clima e segurança viária. Fontes dos registros: RENAEST, INMET e IBGE.',
+    mobility:'A tabela TipoVeiculo é agregada por sinistro antes da junção com Acidentes e Vitimas. Quantidades de veículos e pessoas não são contagens de acidentes. Há 25 categorias de veículos na edição regional. Ciclista é consultado por eventos envolvendo BICICLETA; não existe papel CICLISTA na tabela de pessoas recebida. A fonte não liga cada motorista ou passageiro ao veículo, logo não identifica qual veículo teve o óbito em eventos mistos. Não fatal = sinistro sem óbito, podendo haver feridos. Carrinhos de ambulantes não têm categoria própria; não são inferidos de CARROCA nem de DESCONHECIDO.'
   };
-  const groups=['city','type','year','month','street','district','phase','weekday','wet','road'];
-  const metrics=['n','fatal','deaths','victims','fatalRate'];
+  const groups=['city','type','year','month','street','district','phase','weekday','wet','road','vehicle'];
+  const metrics=['n','fatal','nonfatal','deaths','victims','fatalRate','vehicles','people','personDeaths'];
   const months=['janeiro','fevereiro','marco','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-  function create({rows,report,period,analytics}) {
+  function create({rows,report,period,analytics,mobility=null}) {
     const A=analytics;
+    if(mobility)rows=M.hydrate(rows,mobility);
     const catalog=Object.fromEntries(['city','type','street','district','phase','weekday'].map(field=>[field,[...new Set(rows.map(r=>r[field]))].filter(Boolean).sort()]));
+    catalog.vehicle=mobility?.vehicleTypes||M.vehicleTypes;catalog.role=mobility?.personRoles||Object.keys(M.roleLabel);
     const filterKeys=['ano','mes','municipio','tipo_acidente','risco_pista_molhada','logradouro','bairro','lat','lng','radius_km','periodo','chuva3h'];
     function cleanFilters(input={}) {
       const f={};for(const key of filterKeys){const v=input[key];if(v!=null&&v!==''&&(typeof v==='string'||typeof v==='number'))f[key]=v;}
@@ -35,39 +39,56 @@ const AnalyticalAssistant = (() => {
       return f;
     }
     function validate(input={}) {
-      const p={scope:input.scope==='region'?'region':'current',groupBy:groups.includes(input.groupBy)?input.groupBy:null,metric:metrics.includes(input.metric)?input.metric:'n',limit:Math.max(1,Math.min(15,Math.floor(Number(input.limit)||5))),ascending:input.ascending===true};
-      for(const [key,field,max] of [['cities','city',9],['types','type',15],['streets','street',15],['districts','district',15],['phases','phase',10],['weekdays','weekday',7]]){
+      const p={scope:input.scope==='region'?'region':'current',groupBy:groups.includes(input.groupBy)?input.groupBy:null,metric:metrics.includes(input.metric)?input.metric:'n',limit:Math.max(1,Math.min(25,Math.floor(Number(input.limit)||5))),ascending:input.ascending===true};
+      for(const [key,field,max] of [['cities','city',9],['types','type',15],['streets','street',15],['districts','district',15],['phases','phase',10],['weekdays','weekday',7],['vehicles','vehicle',25],['excludeVehicles','vehicle',25],['roles','role',5]]){
         if(input[key]!=null&&!Array.isArray(input[key]))throw Error('Lista inválida: '+key);
         if(Array.isArray(input[key])){p[key]=[...new Set(input[key])];if(p[key].length>max||p[key].some(x=>!catalog[field].includes(x)))throw Error('Categoria desconhecida: '+key);}
       }
       for(const [key,min,max] of [['years',2000,2100],['months',1,12]])if(input[key]!=null){if(!Array.isArray(input[key])||input[key].length>20)throw Error('Lista inválida: '+key);p[key]=[...new Set(input[key].map(Number))];if(p[key].some(x=>!Number.isInteger(x)||x<min||x>max))throw Error('Período inválido');}
       for(const key of ['wet','road'])if(Object.hasOwn(input,key)){if(![0,1,'unknown',null].includes(input[key]))throw Error('Condição inválida: '+key);p[key]=input[key];}
       if(Object.hasOwn(input,'rain3h')){if(!['high','low','unknown',null].includes(input.rain3h))throw Error('Chuva inválida');p.rain3h=input.rain3h;}
+      if(input.vehicleMatch!=null){if(!['any','all'].includes(input.vehicleMatch))throw Error('Combinação de veículos inválida');p.vehicleMatch=input.vehicleMatch;}
+      if(input.outcome!=null){if(!['all','fatal','nonfatal'].includes(input.outcome))throw Error('Desfecho inválido');p.outcome=input.outcome;}
+      if(input.roadUser!=null){if(!['cyclist','motorcyclist'].includes(input.roadUser))throw Error('Usuário da via inválido');p.roadUser=input.roadUser;}
+      if(input.peopleRequested===true)p.peopleRequested=true;
+      if(input.unsupportedVehicles!=null){if(!Array.isArray(input.unsupportedVehicles)||input.unsupportedVehicles.some(k=>!Object.hasOwn(M.unsupported,k)))throw Error('Categoria não resolvida inválida');p.unsupportedVehicles=[...new Set(input.unsupportedVehicles)];}
       if(input.topic)p.topic=String(input.topic).slice(0,30);
       return p;
     }
     function query(input={},dashboardFilters={}) {
       const p=validate(input),f=p.scope==='region'?{}:cleanFilters(dashboardFilters);
+      const needsMobility=p.vehicles?.length||p.excludeVehicles?.length||p.roles?.length||p.roadUser||p.groupBy==='vehicle'||['vehicles','people','personDeaths'].includes(p.metric)||p.outcome&&p.outcome!=='all';
+      const sources=['metodologia.json','artigo.html',...(needsMobility||p.unsupportedVehicles?.length?['auditoria-mobilidade.json']:[])];
+      if(needsMobility&&!mobility)return {available:false,plan:p,scope:'Consulta específica por veículos/pessoas',limitations:['A base de veículos/pessoas não foi carregada. Não é possível responder especificamente; os totais gerais não substituem essa seleção.'],sourceLinks:sources};
+      if(p.unsupportedVehicles?.length&&!p.vehicles?.length&&!p.roles?.length)return {available:false,plan:p,scope:'Categoria não discriminada na fonte',limitations:M.limitations(p),sourceLinks:sources};
       for(const [key,filter] of [['cities','municipio'],['types','tipo_acidente'],['streets','logradouro'],['districts','bairro']])if(p[key])delete f[filter];
       if(p.years){delete f.ano;delete f.periodo;}if(p.months){delete f.mes;delete f.periodo;}
       if(Object.hasOwn(p,'wet'))delete f.risco_pista_molhada;if(Object.hasOwn(p,'rain3h'))delete f.chuva3h;
       let selected=A.filter(rows,f);
       const lists=[['cities','city'],['types','type'],['streets','street'],['districts','district'],['phases','phase'],['weekdays','weekday']];
       selected=selected.filter(r=>lists.every(([key,field])=>!p[key]?.length||p[key].includes(r[field]))&&(!p.years?.length||p.years.includes(+r.date.slice(0,4)))&&(!p.months?.length||p.months.includes(+r.date.slice(5,7)))&&(['wet','road'].every(k=>p[k]==null||(p[k]==='unknown'?r[k]===null:r[k]===p[k])))&&(!p.rain3h||(p.rain3h==='unknown'?r.rain3h===null:r.rain3h!==null&&(p.rain3h==='high'?r.rain3h>5:r.rain3h<=5))));
+      const beforeMobility=selected;
+      if(mobility)selected=M.select(selected,p);
       const total=A.stats(selected),baseBy=new Map();
-      if(p.groupBy)for(const r of selected){const key=p.groupBy==='year'?r.date.slice(0,4):p.groupBy==='month'?r.date.slice(0,7):r[p.groupBy]??'NAO_INFORMADO';if(!baseBy.has(key))baseBy.set(key,[]);baseBy.get(key).push(r);}
-      const table=[...baseBy].map(([key,rr])=>{const s=A.stats(rr);const label=p.groupBy==='wet'?({0:'Seca / sem indício',1:'Molhada / indício de chuva'}[key]||'Sem classificação'):p.groupBy==='road'?({0:'Outras vias',1:'Rodovias'}[key]||'Sem classificação'):pretty(key);return {key,label,n:s.total,fatal:s.fatal,deaths:s.deaths,victims:s.victims,victimKnown:s.victimKnown,fatalRate:s.fatalRate,value:p.metric==='n'?s.total:s[p.metric]};}).sort((a,b)=>(p.ascending?1:-1)*((a.value??-1)-(b.value??-1))||String(a.key).localeCompare(String(b.key))).slice(0,p.limit);
+      total.nonfatal=total.total-total.fatal;
+      const mobilitySummary=mobility?M.summary(selected,p.roles||[],p.vehicles||[]):null;
+      if(mobilitySummary){total.vehicles=mobilitySummary.selectedVehicles;total.people=mobilitySummary.peopleRecorded;total.personDeaths=mobilitySummary.personDeaths;}
+      if(p.groupBy==='vehicle'){
+        const types=p.vehicles?.length?p.vehicles:catalog.vehicle;
+        for(const t of types)baseBy.set(t,selected.filter(r=>r.vehicles[t]>0));
+      }else if(p.groupBy)for(const r of selected){const key=p.groupBy==='year'?r.date.slice(0,4):p.groupBy==='month'?r.date.slice(0,7):r[p.groupBy]??'NAO_INFORMADO';if(!baseBy.has(key))baseBy.set(key,[]);baseBy.get(key).push(r);}
+      const table=[...baseBy].map(([key,rr])=>{const s=A.stats(rr);s.nonfatal=s.total-s.fatal;const m=mobility?M.summary(rr,p.roles||[],p.groupBy==='vehicle'?[key]:p.vehicles||[]):null;if(m){s.vehicles=m.selectedVehicles;s.people=m.peopleRecorded;s.personDeaths=m.personDeaths;}const label=p.groupBy==='wet'?({0:'Seca / sem indício',1:'Molhada / indício de chuva'}[key]||'Sem classificação'):p.groupBy==='road'?({0:'Outras vias',1:'Rodovias'}[key]||'Sem classificação'):pretty(key);return {key,label,n:s.total,fatal:s.fatal,nonfatal:s.nonfatal,deaths:s.deaths,victims:s.victims,victimKnown:s.victimKnown,fatalRate:s.fatalRate,vehicles:s.vehicles,people:s.people,personDeaths:s.personDeaths,value:p.metric==='n'?s.total:s[p.metric]};}).sort((a,b)=>(p.ascending?1:-1)*((a.value??-1)-(b.value??-1))||String(a.key).localeCompare(String(b.key))).slice(0,p.limit);
       const dates=selected.map(r=>r.date).sort(),notes=[];
       if((p.years||[]).includes(2025)||f.ano==='2025'||!p.years&&!f.ano)notes.push('2025 cobre somente janeiro a agosto; totais anuais brutos não são comparáveis a anos completos.');
       if(p.wet!=null||p.rain3h||f.risco_pista_molhada!=null||f.chuva3h)notes.push(knowledge.rain);
       if(p.years?.some(y=>y<2022||y>2025))notes.push('A base não tem cobertura fora de 2022–agosto/2025; ausência de registros nesse período não significa ausência de acidentes.');
-      const labels={ano:'Ano',years:'Anos',mes:'Mês',months:'Meses',municipio:'Município',cities:'Municípios',tipo_acidente:'Tipo',types:'Tipos',logradouro:'Via',streets:'Vias',bairro:'Bairro',districts:'Bairros',phases:'Fases do dia',weekdays:'Dias da semana',periodo:'Período',lat:'Latitude',lng:'Longitude',risco_pista_molhada:'Pista',wet:'Pista',road:'Via',rain3h:'Chuva 3h',chuva3h:'Chuva 3h'};
-      const valueLabel=(k,v)=>['wet','risco_pista_molhada'].includes(k)?({0:'seca / sem indício',1:'molhada / indício de chuva',unknown:'sem classificação'}[v]):k==='road'?({0:'outras vias',1:'rodovias',unknown:'sem classificação'}[v]):['rain3h','chuva3h'].includes(k)?({high:'> 5 mm',low:'≤ 5 mm',unknown:'sem janela completa'}[v]):Array.isArray(v)?v.map(pretty).join(', '):v;
+      const labels={ano:'Ano',years:'Anos',mes:'Mês',months:'Meses',municipio:'Município',cities:'Municípios',tipo_acidente:'Tipo',types:'Tipos',logradouro:'Via',streets:'Vias',bairro:'Bairro',districts:'Bairros',phases:'Fases do dia',weekdays:'Dias da semana',periodo:'Período',lat:'Latitude',lng:'Longitude',risco_pista_molhada:'Pista',wet:'Pista',road:'Via',rain3h:'Chuva 3h',chuva3h:'Chuva 3h',vehicles:'Veículos',excludeVehicles:'Excluir veículos',roles:'Pessoas',outcome:'Desfecho',vehicleMatch:'Combinação'};
+      const valueLabel=(k,v)=>['wet','risco_pista_molhada'].includes(k)?({0:'seca / sem indício',1:'molhada / indício de chuva',unknown:'sem classificação'}[v]):k==='road'?({0:'outras vias',1:'rodovias',unknown:'sem classificação'}[v]):['rain3h','chuva3h'].includes(k)?({high:'> 5 mm',low:'≤ 5 mm',unknown:'sem janela completa'}[v]):k==='months'?v.map(m=>pretty(months[m-1])).join(', '):Array.isArray(v)?v.map(pretty).join(', '):v;
       const context=[];for(const [k,v] of Object.entries(f))if(k!=='radius_km')context.push((labels[k]||k)+': '+valueLabel(k,v));
-      for(const [k,v] of Object.entries(p))if(v!=null&&(!Array.isArray(v)||v.length)&&!['scope','groupBy','metric','limit','ascending','topic'].includes(k))context.push((labels[k]||k)+': '+valueLabel(k,v));
+      for(const [k,v] of Object.entries(p))if(v!=null&&(!Array.isArray(v)||v.length)&&!['scope','groupBy','metric','limit','ascending','topic','unsupportedVehicles','roadUser','peopleRequested'].includes(k))context.push((labels[k]||k)+': '+(k==='outcome'?{all:'todos',fatal:'fatais',nonfatal:'não fatais'}[v]:k==='vehicleMatch'?{any:'qualquer categoria (união)',all:'todas na mesma ocorrência'}[v]:valueLabel(k,v)));
       if(f.lat!=null)context.push('Raio: '+f.radius_km+' km');
       const weighted=field=>{const rr=selected.filter(r=>r[field]!=null),n=A.sum(rr,'n');return {n,mean:n?rr.reduce((v,r)=>v+r[field]*r.n,0)/n:null};};
-      return {plan:p,scope:context.length?context.join(' · '):'Toda a Baixada Santista · período disponível',coverage:{sourcePeriod:period,observedStart:dates[0]||null,observedEnd:dates.at(-1)||null},total,groups:table,central:A.central(selected),weather:{hourlyRainMm:weighted('rain'),previous3hRainMm:weighted('rain3h'),temperatureC:weighted('temp'),interpretation:'Médias ponderadas por sinistros com observações válidas associadas; não são médias climáticas regionais nem precipitação mensal acumulada.'},notes,sources:['RENAEST','INMET','IBGE'],sourceLinks:['metodologia.json','artigo.html']};
+      return {available:true,plan:p,scope:context.length?context.join(' · '):'Toda a Baixada Santista · período disponível',coverage:{sourcePeriod:period,observedStart:dates[0]||null,observedEnd:dates.at(-1)||null},total,groups:table,central:A.central(selected),weather:{hourlyRainMm:weighted('rain'),previous3hRainMm:weighted('rain3h'),temperatureC:weighted('temp'),interpretation:'Médias ponderadas por sinistros com observações válidas associadas; não são médias climáticas regionais nem precipitação mensal acumulada.'},mobility:needsMobility&&mobility?{...mobilitySummary,coverageBeforeVehicleFilter:M.summary(beforeMobility),partial:!!p.unsupportedVehicles?.length,limitations:M.limitations(p),methodology:mobility.methodology}:null,notes,sources:['RENAEST','INMET','IBGE'],sourceLinks:sources};
     }
     function study(topic='overview') {
       const common={knowledge,links:['artigo.html','artigo-baixada-santista.pdf','auditoria-formulas.html','reproducibilidade.json']};
@@ -79,7 +100,7 @@ const AnalyticalAssistant = (() => {
     function infer(question,previous=null) {
       const q=norm(question),follow=/^(e |mas |agora |ness|iss|compara com|compare com|por que|porque|explique|detalh|so |apenas )/.test(q),p=follow&&previous?{...validate(previous)}:{scope:'current',metric:'n',limit:5};
       p.topic=follow&&previous?.topic||'data';
-      if(/sem filtros|toda a baixada|toda baixada|regiao inteira/.test(q)){p.scope='region';for(const k of ['cities','years','months','types','streets','districts','phases','weekdays','wet','rain3h','road'])delete p[k];}
+      if(/sem filtros|toda a baixada|toda baixada|regiao inteira/.test(q)){p.scope='region';for(const k of ['cities','years','months','types','streets','districts','phases','weekdays','wet','rain3h','road','vehicles','excludeVehicles','roles','outcome','roadUser','unsupportedVehicles','peopleRequested'])delete p[k];}
       const hits=field=>catalog[field].filter(value=>value!=='NAO_INFORMADO'&&(' '+q+' ').includes(' '+norm(value)+' '));
       const cities=hits('city');
       // Accept a small typo in an otherwise unambiguous city name.
@@ -105,14 +126,34 @@ const AnalyticalAssistant = (() => {
       else if(/diferenca.*(fatal|obito)|fatal.*obito|o que.*letal|o que.*vitima/.test(q))p.topic='definitions';
       else if(/fonte|referencia|bibliograf/.test(q))p.topic='references';
       else if(/cobertura|dados disponiveis|periodo disponivel/.test(q))p.topic='coverage';
+      const vehiclePlan=M.infer(question,catalog.vehicle);
+      if(vehiclePlan.vehicles?.length){delete p.roadUser;delete p.unsupportedVehicles;delete p.excludeVehicles;}
+      if(vehiclePlan.unsupportedVehicles?.length&&!vehiclePlan.vehicles?.length){delete p.vehicles;delete p.excludeVehicles;delete p.roles;delete p.roadUser;delete p.vehicleMatch;if(p.groupBy==='vehicle')p.groupBy=null;}
+      Object.assign(p,vehiclePlan);
+      if(p.topic!=='data')delete p.outcome;
+      if(p.outcome==='all'&&/nao fata/.test(q))p.metric='n';else if(p.outcome==='nonfatal')p.metric='nonfatal';
       if(p.topic==='central'){delete p.wet;delete p.rain3h;delete p.road;}
       return validate(p);
     }
     function localAnswer(question,filters={},previous=null) {
       const q=norm(question),p=infer(question,previous),e=query(p,filters),s=e.total;
+      if(!e.available)return {text:e.limitations.join('. ')+'. Essa edição não permite calcular esse número específico.',plan:p,scope:e.scope,evidence:e};
       if(/^(oi|ola|bom dia|boa tarde|boa noite|tudo bem|e ai)$/.test(q))return {text:'Olá! Pode perguntar do seu jeito. Posso comparar cidades e anos, consultar acidentes e mortes, explicar os testes e conversar sobre o estudo. Por exemplo: “quantos acidentes aconteceram em Santos em 2023?”',plan:p,scope:'Conversa',evidence:e};
       let text='';
-      if(['haversine','etl','definitions','references','coverage'].includes(p.topic)){
+      if(e.mobility&&p.topic==='data'){
+        const m=e.mobility,lines=[];
+        if(m.partial)lines.push('Consulta parcial: consigo identificar '+(p.vehicles||[]).map(pretty).join(', ')+'. As demais categorias solicitadas não podem ser isoladas na fonte.');
+        if(p.peopleRequested&&p.roadUser)lines.push('A fonte não identifica separadamente pessoas '+(p.roadUser==='cyclist'?'ciclistas':'motociclistas')+' nem seus óbitos/ferimentos. Os números abaixo são de sinistros envolvendo o veículo.');
+        const describe=g=>number(g.n)+(g.n===1?' sinistro':' sinistros')+': '+number(g.fatal)+(g.fatal===1?' fatal':' fatais')+' e '+number(g.nonfatal)+(g.nonfatal===1?' não fatal':' não fatais')+(g.deaths?' · '+number(g.deaths)+(g.deaths===1?' óbito':' óbitos')+' nas ocorrências':'')+'.';
+        if(e.groups.length)for(const g of e.groups)lines.push(g.label+': '+describe(g));
+        else lines.push(describe({n:s.total,...s}));
+        if(e.groups.length)lines.push('Total de ocorrências distintas no conjunto identificado: '+number(s.total)+' ('+number(s.fatal)+' fatais e '+number(s.nonfatal)+' não fatais).');
+        if(p.vehicles?.length)lines.push('Quantidade de veículos das categorias selecionadas registrada nesses eventos: '+number(m.selectedVehicles)+'.');
+        if(p.roles?.length){for(const v of Object.values(m.byRole))lines.push(v.label+' registrados nesses sinistros: '+number(v.people)+' pessoa(s), '+number(v.deaths)+' óbito(s) e '+number(v.injured)+' ferido(s) leves/graves.');if(!Object.keys(m.byRole).length)lines.push('Não há pessoas com o papel solicitado identificado neste recorte; ausência de classificação não é ausência de motoristas/passageiros.');}
+        const c=m.coverageBeforeVehicleFilter;lines.push('Cobertura do recorte antes do filtro de veículo: '+number(c.eventsWithKnownVehicleType)+' sinistros com categoria conhecida; '+number(c.eventsWithUnknownVehicleType)+' com alguma categoria desconhecida (podem coexistir na mesma ocorrência) e '+number(c.eventsWithoutVehicleRows)+' sem detalhe de veículo.');
+        if(m.limitations.length)lines.push(m.limitations.map(s=>s.endsWith('.')?s:s+'.').join(' '));
+        lines.push('Não fatal significa sem óbito; pode haver feridos.');text=lines.join('\n\n');
+      }else if(['haversine','etl','definitions','references','coverage'].includes(p.topic)){
         text=knowledge[p.topic];
         if(p.topic==='definitions'&&e.groups.length&&/compar|quant|numero|total/.test(q))text=e.groups.map(g=>g.label+': '+number(g.n)+' sinistros, '+number(g.fatal)+' eventos fatais e '+number(g.deaths)+' óbitos em pessoas.').join('\n')+'\n\n'+text;
       }

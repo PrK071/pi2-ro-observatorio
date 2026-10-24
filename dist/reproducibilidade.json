@@ -54,6 +54,11 @@
       "sha256": "f5cb3a99903161655195c3aad791a48d990fef9aa8ef3b7dfa3c38cd0e3c9d8f"
     },
     {
+      "path": "treated/veiculos_br.parquet",
+      "bytes": 52972053,
+      "sha256": "fa3681752525bc47dbcb6a70f372bc65b2205957b67ce31db564f84aea4397c8"
+    },
+    {
       "path": "treated/vitimas_br.parquet",
       "bytes": 77274360,
       "sha256": "76afa3a74f72598304a13fb166a302a904a5dfa0a2d974a0bcf9c1c1af6b50b8"
@@ -76,12 +81,17 @@
     {
       "path": "treated/acidentes_rmbs.csv",
       "bytes": 9436556,
-      "sha256": "d5d45114b6a4bc0daece98614769e65413bc79fcd74bcc31d932834065f3086a"
+      "sha256": "b15a2fcefda2f7d0b4998d418d0d9a71b30467709ba338e90981c032ad25fb93"
+    },
+    {
+      "path": "treated/veiculos_rmbs.csv",
+      "bytes": 1548819,
+      "sha256": "387b9c9a4eeccc2e6095fb3fc0bf3b88e6add96525a142d5727b555625321c7e"
     },
     {
       "path": "treated/vitimas_rmbs.csv",
       "bytes": 3614652,
-      "sha256": "82d0535ae9c79306ddce742a5bf49714dfb36f4877d99ee7e879d8d83313bd0c"
+      "sha256": "c14dafaaeaa77d5dae6b3f7c0fff25d5c4369ae43206997fe7c94b9159b82a4a"
     },
     {
       "path": "treated/localidades_rmbs.csv",
@@ -122,8 +132,13 @@
     },
     {
       "path": "api/chat.mjs",
-      "bytes": 4105,
-      "sha256": "e49f83ed06e32077f4b5e449ff8c32c1e186f69748af956c8039066c0de6a3e9"
+      "bytes": 4163,
+      "sha256": "a5927b7e5ce3b5d89b14352005033642c359bc140d78e6656d1ad3ae56d3d264"
+    },
+    {
+      "path": "audit_mobility.py",
+      "bytes": 3804,
+      "sha256": "97075a501eec08884f8e91d1952a7b3f5e3ea15cfb5b8c7933528e260c9df484"
     },
     {
       "path": "audit_research.py",
@@ -141,9 +156,14 @@
       "sha256": "854a3a089be7d1825895bd38b04a6b2d938719640b9ea89705221fa0235fb9ba"
     },
     {
+      "path": "build_mobility.py",
+      "bytes": 8290,
+      "sha256": "ef027bf5ba8959c3e925fc984abb7cc1603135426b2170162976c1af4a13b32a"
+    },
+    {
       "path": "build_research.py",
-      "bytes": 8863,
-      "sha256": "52875ce3ca985215966875b13fed997aed4c2247c07b25931bf619a314b56bfc"
+      "bytes": 9079,
+      "sha256": "c7e9630903eb0568990ae67241892ca0f876e4a1b3ae3b580f57f2913f71feff"
     },
     {
       "path": "build_station_catalog.py",
@@ -167,8 +187,8 @@
     },
     {
       "path": "deploy_files.py",
-      "bytes": 958,
-      "sha256": "b98688e677794cb1e886bf2cc1ff15694e804466f27518c1e9f578869d49c381"
+      "bytes": 1019,
+      "sha256": "511cdbc6ef91ae7fa966ea341ac8728489a17714d48376a3cf12528ed527e757"
     },
     {
       "path": "dev-server.mjs",
@@ -177,13 +197,18 @@
     },
     {
       "path": "dist/vercel.json",
-      "bytes": 507,
-      "sha256": "d0e377449ce368426903594af4d6ffc1889aea8962e0b03172f8386afc550552"
+      "bytes": 518,
+      "sha256": "0ea783435c7d8cc01bedd404ac5c1e131b870ade86ff19f0261f47593e9e7cfe"
     },
     {
       "path": "docs/agente-analitico.md",
-      "bytes": 4944,
-      "sha256": "d29517b9de3c52475b8d75ffd771a6b9e5a8750817c8a62f340167391c1a6fd3"
+      "bytes": 5384,
+      "sha256": "7fa7967835c34d6eb095b8b8fd19c43c2848ef7b9e59b2fe0979969f7e301be0"
+    },
+    {
+      "path": "docs/agente-mobilidade.md",
+      "bytes": 5414,
+      "sha256": "bb7fe61e5354e87717a4596260a2dcf5cc455ab4ded3587916a7fb5e5c32fd86"
     },
     {
       "path": "etl_national.py",
@@ -192,8 +217,8 @@
     },
     {
       "path": "extract_rmbs.py",
-      "bytes": 1326,
-      "sha256": "afb7a50c249764f56ce2e92d59a9d8dfebe452fe412e9c2d4d6eaf3409b2f200"
+      "bytes": 1421,
+      "sha256": "9336e4c6ca0a4fc6f1107829ab556ecbe23a59ac65d1611c4b6c2a915955ae33"
     },
     {
       "path": "finalize.py",
@@ -207,13 +232,13 @@
     },
     {
       "path": "lib/chat-agent.mjs",
-      "bytes": 9332,
-      "sha256": "61d3aebafa4871a2bf20c04154c117504e29c91effb91bbae4163de902c3ddf8"
+      "bytes": 12055,
+      "sha256": "d9c4ec523fcece93541fd52bc8c51598f60406ceb887a0b98b2507e50388639c"
     },
     {
       "path": "make_manifest.py",
-      "bytes": 2890,
-      "sha256": "2072abf1d8d863cef55bd54d3aca406c440b1585211f088673e51c623b347137"
+      "bytes": 2932,
+      "sha256": "b6c0b1a4e7dadbb0711bb6774335e33086df2c10ed19e4e58a2e737a5cdd566c"
     },
     {
       "path": "normalize_times.py",
@@ -227,8 +252,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8852,
-      "sha256": "570fb6bd7db990891d44d98def3fa0d4426af54924d46827483c6e77c2058ca0"
+      "bytes": 9364,
+      "sha256": "e34e8445ecd617d96740a956fae0d6ac115544912b1c1fcad86f57a417559686"
     },
     {
       "path": "referencia-dashboard.png",
@@ -242,8 +267,8 @@
     },
     {
       "path": "run_research.py",
-      "bytes": 779,
-      "sha256": "d511efd5e7160ab0e8b5806ffa80cb4375a356df9e70705644dc37b5f13cd449"
+      "bytes": 819,
+      "sha256": "7f392a9e4372c3c97581ca1f8679ed2983bfb73d4ea1c198be2b309723c7fb27"
     },
     {
       "path": "tests/analysis.test.cjs",
@@ -252,8 +277,8 @@
     },
     {
       "path": "tests/assistant-browser.cjs",
-      "bytes": 3068,
-      "sha256": "ca7eb5fc687e3ee95f3a48f09003591aae963e48831a8b96c837809241663e79"
+      "bytes": 4372,
+      "sha256": "f05541471387c1a904a8347687c1f65d4baa658388972e2b3e2780792f2c0b91"
     },
     {
       "path": "tests/assistant.test.cjs",
@@ -262,8 +287,13 @@
     },
     {
       "path": "tests/chart-navigation.cjs",
-      "bytes": 12527,
-      "sha256": "8340a8d2caba3890a3098c71606f91eab1bb137e37d47423be9aa554f440dd2e"
+      "bytes": 12529,
+      "sha256": "15c0ab404c324411ab691df3ca8870c856463497e8b785bd5cb7af8180ebc655"
+    },
+    {
+      "path": "tests/mobility.test.cjs",
+      "bytes": 8095,
+      "sha256": "388ce28884e3cca7d3ed1b544c568006f1573f9911932be33ebe118054793727"
     },
     {
       "path": "tests/research.test.cjs",
@@ -277,8 +307,8 @@
     },
     {
       "path": "vercel.json",
-      "bytes": 679,
-      "sha256": "2acee64073fbb42151494976da6e2a97923cae658a8d0945cb619cf1f1fcb7e8"
+      "bytes": 707,
+      "sha256": "2f89ec5c2f08b51e9003c87f3fe44697fe0bd23961e4cd5a6f87402f452edcc7"
     }
   ],
   "outputs": [
@@ -289,8 +319,8 @@
     },
     {
       "path": "dist/app.js",
-      "bytes": 22534,
-      "sha256": "165e4c1ecb708993635f7c96b8a30389c2b367bcf29d0b06a53dbf867e39c5f3"
+      "bytes": 22569,
+      "sha256": "284dc04d1484a2cf125a91ff71f0564c010bb97e65ab07941381cef201651c5b"
     },
     {
       "path": "dist/artigo-baixada-santista.pdf",
@@ -304,8 +334,8 @@
     },
     {
       "path": "dist/assistant.js",
-      "bytes": 21818,
-      "sha256": "20c310a82b0486514e1facdafe0f4c829cc33dca79eb2c25f9c726fa60884948"
+      "bytes": 29367,
+      "sha256": "5c0d3df8425ca51841db4609fbad61d4d64aa19e46db5cc5b1fc366b6a2870ac"
     },
     {
       "path": "dist/auditoria-calculos.json",
@@ -318,9 +348,14 @@
       "sha256": "b689fa4a821aa99218660d8b1b3c573214b556a6a0c369fd5121c0266f419f5b"
     },
     {
+      "path": "dist/auditoria-mobilidade.json",
+      "bytes": 8821,
+      "sha256": "cc34abbc33684448e9e6672a7a12ea2156576af11792baffd765a94b49e2313a"
+    },
+    {
       "path": "dist/chat-ui.js",
-      "bytes": 4280,
-      "sha256": "08b335d1ec12482d835e0f8ccbfd1c2c46410f5181053078827e81b22a31f67d"
+      "bytes": 4789,
+      "sha256": "a14f1465e9a0f386127249586dc147053c5fb061663a9837035725e6a9990802"
     },
     {
       "path": "dist/figuras/confiabilidade.svg",
@@ -334,8 +369,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 17504,
-      "sha256": "846dd57d82d4da7166b713216f1664c23465091b9ad238192f66a9c9d176dc90"
+      "bytes": 17617,
+      "sha256": "ff72c881ea0bed33c19e993cad767330f24d9c2ccc14c9d66fadc65a7a090db3"
     },
     {
       "path": "dist/interactions.js",
@@ -344,8 +379,18 @@
     },
     {
       "path": "dist/metodologia.json",
-      "bytes": 1943,
-      "sha256": "1ab25694b57d4562116200d1c4372662cf41b10491af49c4d459e59d6bc72584"
+      "bytes": 4919,
+      "sha256": "507200c9c56cda549b84ff27715867c9f005486064a97954ae2e8c2a16324dab"
+    },
+    {
+      "path": "dist/mobility.js",
+      "bytes": 10385,
+      "sha256": "b2e0946730c425c2e93e167528fa109e2a24e8d536cd0c9274072d0bb1334263"
+    },
+    {
+      "path": "dist/mobility.json.gz",
+      "bytes": 110976,
+      "sha256": "8e8d980021f58899a0411c90f8491895843ce904d54b55ffbcde512b7a22d41f"
     },
     {
       "path": "dist/modelos.json",

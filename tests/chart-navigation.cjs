@@ -17,15 +17,14 @@ const state=()=>page.evaluate(()=>window.dashboardState);
 async function reset(){await page.locator('#reset').click();}
 async function clickPlot(id,index=0,dataset=0){
  await page.locator('#'+id).scrollIntoViewIfNeeded();
- const box=await page.locator('#'+id).boundingBox();
  const point=await page.evaluate(({id,index,dataset})=>charts[id].getDatasetMeta(dataset).data[index].getCenterPoint(),{id,index,dataset});
- await page.mouse.click(box.x+point.x,box.y+point.y);await page.waitForTimeout(80);
+ // Let Playwright wait for stable canvas geometry after a responsive layout.
+ await page.locator('#'+id).click({position:{x:point.x,y:point.y}});await page.waitForTimeout(80);
 }
 async function clickLegend(id,index){
  await page.locator('#'+id).scrollIntoViewIfNeeded();
- const box=await page.locator('#'+id).boundingBox();
  const point=await page.evaluate(({id,index})=>{const b=charts[id].legend.legendHitBoxes[index];return{x:b.left+b.width/2,y:b.top+b.height/2};},{id,index});
- await page.mouse.click(box.x+point.x,box.y+point.y);await page.waitForTimeout(80);
+ await page.locator('#'+id).click({position:{x:point.x,y:point.y}});await page.waitForTimeout(80);
 }
 test('monthly chart: repeat click, chip removal and local reset preserve prior year/month',async()=>{
  await page.selectOption('#ano','2023');const original=(await state()).filters;

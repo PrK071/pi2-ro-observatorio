@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/chat.mjs": {
-      "includeFiles": "dist/{research.json.gz,modelos.json}",
+      "includeFiles": "dist/{research.json.gz,modelos.json,mobility.json.gz}",
       "maxDuration": 60,
       "supportsCancellation": true
     }
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "source": "/research.json.gz",
+      "source": "/(research|mobility).json.gz",
       "headers": [
         { "key": "Content-Type", "value": "application/octet-stream" },
         { "key": "Cache-Control", "value": "public,max-age=0,must-revalidate" }

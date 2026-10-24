@@ -8,7 +8,7 @@ def entry(p):
         for block in iter(lambda:f.read(8*1024*1024),b''):h.update(block)
     return {'path':p.relative_to(R).as_posix(),'bytes':p.stat().st_size,'sha256':h.hexdigest()}
 raw=sorted((R/'raw').rglob('*.zip'))
-treated=[R/'treated'/n for n in ['acidentes_br.parquet','vitimas_br.parquet','localidades_br.parquet','clima_br.parquet','estacoes_br.csv','acidentes_rmbs.csv','vitimas_rmbs.csv','localidades_rmbs.csv','contagens_diarias_2023.csv','model_primary.joblib','model_climate.joblib','model_climate_control.joblib']]
+treated=[R/'treated'/n for n in ['acidentes_br.parquet','veiculos_br.parquet','vitimas_br.parquet','localidades_br.parquet','clima_br.parquet','estacoes_br.csv','acidentes_rmbs.csv','veiculos_rmbs.csv','vitimas_rmbs.csv','localidades_rmbs.csv','contagens_diarias_2023.csv','model_primary.joblib','model_climate.joblib','model_climate_control.joblib']]
 scripts=list(R.glob('*.py'))+list((R/'tests').glob('*.cjs'))+[R/'analysis_config.json',R/'requirements.txt',R/'README.md',R/'.gitattributes',R/'vercel.json',R/'dist/vercel.json']
 scripts+=list(R.glob('*.mjs'))+list((R/'api').glob('*.mjs'))+list((R/'lib').glob('*.mjs'))+list((R/'docs').glob('agente-*.md'))
 # Historical Rondônia exports are local intermediates excluded from Git and

@@ -8,6 +8,8 @@ O endpoint `api/chat.mjs` chama o Vercel AI Gateway pelo protocolo HTTP compatí
 
 As ferramentas só consultam o cubo público e o relatório treinado: `consultar_dados`, `buscar_categorias` e `consultar_estudo`. O modelo recebe o contexto calculado e pode refinar a seleção antes de responder. O servidor recalcula os resultados a partir dos arquivos versionados; não aceita números calculados pelo cliente como evidência. Os parâmetros são validados contra o catálogo e listas de operações permitidas. Não há execução de SQL ou código gerado.
 
+As consultas por bicicleta, automóvel, ônibus, moto, caminhão e demais tipos usam a extensão `mobility.json.gz`, construída das tabelas de veículos e pessoas. Ela inclui união/interseção/exclusão de veículos, eventos fatais e não fatais e papéis das pessoas. Ver o [protocolo de mobilidade e seus limites](agente-mobilidade.md). Categorias não discriminadas não são substituídas pelo total geral, inclusive no modo local.
+
 As contagens somam `n`, os eventos fatais somam `fatal` e as mortes em pessoas somam `deaths`. Estatísticas compartilham `dist/analysis.js`. O agente deve distinguir associação, causalidade, escores experimentais e risco por viagem. Dados ausentes e cobertura parcial de 2025 permanecem explícitos. O modelo de linguagem pode cometer erros de interpretação; o recorte e os links de fontes ajudam a conferir a resposta.
 
 ## Autenticação e disponibilidade

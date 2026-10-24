@@ -31,14 +31,14 @@ export async function POST(request){
     const filters=engine.cleanFilters(body.filters||{}),previousPlan=body.previousPlan?engine.validate(body.previousPlan):null;
     local=engine.localAnswer(body.message,filters,previousPlan);
     const result=await runConversation({message:body.message.trim(),history,filters,previousPlan,signal:AbortSignal.any([request.signal,AbortSignal.timeout(45000)])},{engine,token:gatewayToken(request)});
-    return json({text:result.text,mode:result.mode,reason:result.reason,scope:result.scope,plan:result.plan,sources:result.sources||['metodologia.json','artigo.html']});
+    return json({text:result.text,mode:result.mode,reason:result.reason,scope:result.scope,plan:result.plan,sources:result.sources||result.evidence?.sourceLinks||['metodologia.json','artigo.html']});
   }catch(error){
     if(local){
       const reason=[401,402,403].includes(error.status)?'activation_required':error.name==='TimeoutError'?'timeout':'temporarily_unavailable';
       // Only status/code are logged; never headers, tokens or conversation contents.
       console.warn('analytical_assistant_fallback',{status:error.status||0,code:error.code||error.name});
       const codes=['customer_verification_required','insufficient_funds','quota_for_entity_exceeded','invalid_api_key','authentication_error','forbidden','invalid_token','permission_denied','rate_limit_exceeded'];
-      return json({text:local.text,mode:'local',reason,service:{status:error.status||0,code:codes.includes(error.code)?error.code:'unavailable'},scope:local.scope,plan:local.plan,sources:['metodologia.json','artigo.html']});
+      return json({text:local.text,mode:'local',reason,service:{status:error.status||0,code:codes.includes(error.code)?error.code:'unavailable'},scope:local.scope,plan:local.plan,sources:local.evidence.sourceLinks||['metodologia.json','artigo.html']});
     }
     return json({error:error instanceof SyntaxError?'Mensagem inválida.':engine?'A seleção enviada é inválida. Inicie uma nova conversa.':'Os dados estão indisponíveis agora. Tente novamente.'},engine?400:503);
   }

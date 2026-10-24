@@ -18,6 +18,16 @@ test('new conversation clears context, changing filters restarts context, user t
  await ask('e em 2024?');assert.equal(await page.evaluate(()=>chatPlan.cities?.length||0),0);assert.match(await page.locator('#chatMessages .message.bot').last().innerText(),/CUBATAO|Cubatão/);
  await ask('Quantos acidentes em Santos em 2023? <img src=x onerror=alert(1)>');assert.equal(await page.locator('#chatMessages img').count(),0);
 });
+test('vehicle questions query exact categories, retain period and expose attribution limits',async()=>{
+ await page.locator('#reset').click();await page.locator('#chatClear').click();
+ const text=await ask('qual o numero de acidentes fatais e nao fatais envolvendo ciclistas ou outros como carroças e carrinhos de lanche de ambulantes no periodo de março de 2024?');
+ assert.match(text,/Bicicleta: 1 sinistro: 0 fatais e 1 não fatal/);assert.match(text,/Carroça: 0 sinistros/);assert.match(text,/ambulantes não têm categoria própria/);assert.doesNotMatch(text,/760 sinistros/);
+ assert.deepEqual(new Set(await page.evaluate(()=>chatPlan.vehicles)),new Set(['BICICLETA','CARROCA']));assert.ok(await page.locator('#chatMessages .message.bot').last().locator('a[href="auditoria-mobilidade.json"]').count());
+ assert.match(await ask('e de ônibus?'),/25 sinistros: 4 fatais e 21 não fatais/);
+ const driver=await ask('quantos motoristas de carro morreram em março de 2024?');assert.match(driver,/não liga cada motorista/);
+ const cart=await ask('quantos acidentes envolvendo carrinhos de ambulantes em março de 2024?');assert.match(cart,/não têm categoria própria/);assert.doesNotMatch(cart,/760 sinistros/);
+ assert.equal(await page.evaluate(()=>window.dashboardState.stats.total),31493);
+});
 test('pending query can be cancelled and mobile chat stays inside the viewport',async()=>{
  await page.route('**/api/chat',async route=>{await new Promise(resolve=>setTimeout(resolve,1500));await route.abort().catch(()=>{});});
  await page.locator('#chatInput').fill('Explique os dados');await page.locator('#chatSend').click();await page.locator('#chatStop').click();

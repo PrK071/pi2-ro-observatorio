@@ -75,5 +75,82 @@
     "stationSelection": "Nearest among two supplied coastal stations, not the entire INMET network",
     "prediction": "Frozen train/validation/test chronological splits; only test scores published; see modelos.json"
   },
-  "generated": "2026-10-23T16:11:56.059489+00:00"
+  "generated": "2026-10-23T16:11:56.059489+00:00",
+  "mobility": {
+    "file": "mobility.json.gz",
+    "auditFile": "auditoria-mobilidade.json",
+    "vehicleTypes": [
+      "AUTOMOVEL",
+      "BICICLETA",
+      "BONDE",
+      "CAMINHAO",
+      "CAMINHAO-TRATOR",
+      "CAMINHONETE",
+      "CAMIONETA",
+      "CARROCA",
+      "CHARRETE",
+      "CICLOMOTOR",
+      "DESCONHECIDO",
+      "MICRO-ONIBUS",
+      "MOTOCICLETA",
+      "MOTONETA",
+      "NAO_INFORMADO",
+      "ONIBUS",
+      "QUADRICICLO",
+      "REBOQUE",
+      "SEMIRREBOQUE",
+      "TRATOR",
+      "TREMINHAO",
+      "TRICICLO",
+      "UTILITARIO",
+      "VEICULO ARTICULADO",
+      "VEICULO DE SERVICO"
+    ],
+    "personRoles": [
+      "DESCONHECIDO",
+      "MOTORISTA",
+      "PASSAGEIROS",
+      "PEDESTRE"
+    ],
+    "audit": {
+      "events": 31493,
+      "fatal": 911,
+      "nonfatal": 30582,
+      "deaths": 961,
+      "eventsWithVehicleRows": 30571,
+      "eventsWithKnownVehicleType": 23405,
+      "eventsWithUnknownVehicleType": 9924,
+      "vehicles": 46125,
+      "eventsWithPersonCounts": 5788,
+      "peopleRecorded": 10391,
+      "personDeaths": 961,
+      "eventsWithKnownPersonRole": 4840
+    },
+    "source": {
+      "events": "acidentes_rmbs.csv",
+      "vehicles": "veiculos_rmbs.csv",
+      "people": "vitimas_rmbs.csv",
+      "joinKey": "num_acidente (local only)",
+      "vehicleRowKey": [
+        "tipo_veiculo",
+        "ind_veic_estrangeiro"
+      ],
+      "personRowKey": [
+        "tp_envolvido",
+        "ind_motorista",
+        "gravidade_lesao"
+      ]
+    },
+    "methodology": {
+      "unit": "Distinct original event, grouped by public base dimensions, vehicle profile, person profile and fatality flag",
+      "eventDeduplication": "Vehicle quantities and person detail rows are aggregated before joining; event totals never sum a direct one-to-many join",
+      "fatality": "fatal event flag from acidentes; nonfatal = n - fatal; nonfatal does not mean uninjured",
+      "vehiclePresence": "Positive qtde_veiculos; unknown categories remain unknown. A vehicle type can occur in a fatal event without any death in that vehicle.",
+      "personAttribution": "Person table has role/driver flag/injury but no person-to-vehicle link. Driver deaths cannot be attributed to a vehicle category in mixed events.",
+      "cyclist": "CICLISTA is not a distinct person role in the supplied region. Bicycle-involved events can be counted from tipo_veiculo=BICICLETA; cyclist injuries/deaths are not identified separately.",
+      "unsupported": "Ambulant food carts, wheelchairs, scooters, specific service uses and other absent types cannot be inferred from DESCONHECIDO, NAO_INFORMADO or another vehicle category.",
+      "overlap": "Vehicle rankings overlap when an event contains multiple types. Union counts deduplicate events; intersection requires all requested types.",
+      "privacy": "No original accident/person/vehicle identifiers are published; baseGroup is only a reference to an existing public aggregate row."
+    }
+  }
 }

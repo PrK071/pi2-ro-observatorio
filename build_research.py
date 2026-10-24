@@ -17,6 +17,12 @@ ROOT = pathlib.Path(__file__).resolve().parent
 T = ROOT / 'treated'
 O = ROOT / 'dist'
 sys.path.insert(0, str(ROOT / 'tools' / 'pylibs'))
+DIMENSIONS = ['date','city','type','phase','weekday','road','wet','victim',
+              'lat','lng','rain','rain3h','temp','season','climateMethod','street','district',
+              'stationCode','stationDistanceKm']
+CITIES = {'3548500':'SANTOS','3551009':'SAO VICENTE','3541000':'PRAIA GRANDE',
+          '3518701':'GUARUJA','3513504':'CUBATAO','3506359':'BERTIOGA',
+          '3522109':'ITANHAEM','3537602':'PERUIBE','3531100':'MONGAGUA'}
 
 
 def number(value):
@@ -59,12 +65,10 @@ def load_climate():
     return observations, stations
 
 
-def main():
+def iter_events():
+    """Shared original-event transformation; identifiers remain local to the ETL."""
     climate, stations = load_climate()
-    locations = {r['chv_localidade']: r for r in read('localidades')}
-    cities = {'3548500':'SANTOS','3551009':'SAO VICENTE','3541000':'PRAIA GRANDE',
-              '3518701':'GUARUJA','3513504':'CUBATAO','3506359':'BERTIOGA',
-              '3522109':'ITANHAEM','3537602':'PERUIBE','3531100':'MONGAGUA'}
+    cities = CITIES
     # A person labelled LEVE, GRAVE or OBITO establishes a victim. The aggregate
     # feridos/ilesos field cannot establish this distinction.
     injuries = collections.defaultdict(lambda: [0, 0, 0])
@@ -78,12 +82,8 @@ def main():
         else:
             counts[2] += count
 
-    fields = ['date','city','type','phase','weekday','road','wet','victim',
-              'lat','lng','rain','rain3h','temp','season','climateMethod','street','district',
-              'stationCode','stationDistanceKm']
-    cube = collections.defaultdict(lambda: [0, 0, 0, 0])
-    audit = collections.Counter()
     for a in read('acidentes'):
+        audit = collections.Counter()
         date = dt.date.fromisoformat(a['data_acidente'])
         n = int(a['qtde_acidente'])
         fatal = int(a['qtde_acid_com_obitos'])
@@ -136,13 +136,20 @@ def main():
                round(rain,2) if rain is not None else None,round(rain3h,2) if rain3h is not None else None,
                round(temp,2) if temp is not None else None,season,climate_method,
                a['end_acidente'],a['bairro_acidente'],station_code,station_km)
-        values = cube[key]
-        for i,value in enumerate((n,int(a['qtde_obitos']),involved,fatal)):
-            values[i] += value
         audit['accidents'] += n
         audit['wetKnown'] += n if wet is not None else 0
         audit['victimKnown'] += n if victim is not None else 0
         audit['climateMatched'] += n if rain is not None else 0
+        yield a['num_acidente'],key,(n,int(a['qtde_obitos']),involved,fatal),audit
+
+
+def main():
+    fields,cities = DIMENSIONS,CITIES
+    cube = collections.defaultdict(lambda: [0,0,0,0])
+    audit = collections.Counter()
+    for _identifier,key,measures,flags in iter_events():
+        for i,value in enumerate(measures):cube[key][i] += value
+        audit.update(flags)
 
     dates = [k[0] for k in cube]
     data = {'version':3,'scope':'RMBS','fields':fields+['n','deaths','involved','fatal'],

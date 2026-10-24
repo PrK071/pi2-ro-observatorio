@@ -13,6 +13,7 @@ d.execute("CREATE TEMP TABLE regional AS SELECT * FROM read_parquet(?) WHERE uf_
 for table,query in [
     ('acidentes','SELECT * FROM regional'),
     ('vitimas',"SELECT v.* FROM read_parquet(?) v SEMI JOIN regional a USING(num_acidente)"),
+    ('veiculos',"SELECT v.* FROM read_parquet(?) v SEMI JOIN regional a USING(num_acidente)"),
     ('localidades',"SELECT l.* FROM read_parquet(?) l SEMI JOIN regional a USING(chv_localidade)")]:
     cur=d.execute(query,[] if table=='acidentes' else [str(T/f'{table}_br.parquet')])
     with (T/f'{table}_rmbs.csv').open('w',encoding='utf-8',newline='') as f:

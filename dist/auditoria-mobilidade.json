@@ -1,0 +1,350 @@
+{
+  "allPassed": true,
+  "checks": [
+    "All regional source events have weight 1",
+    "Original dimensions match every base group",
+    "n/deaths/involved/fatal reconcile within every base group",
+    "Person death counts reconcile with accident deaths",
+    "Vehicle and person quantities are nonnegative integers"
+  ],
+  "audit": {
+    "events": 31493,
+    "fatal": 911,
+    "nonfatal": 30582,
+    "deaths": 961,
+    "eventsWithVehicleRows": 30571,
+    "eventsWithKnownVehicleType": 23405,
+    "eventsWithUnknownVehicleType": 9924,
+    "vehicles": 46125,
+    "eventsWithPersonCounts": 5788,
+    "peopleRecorded": 10391,
+    "personDeaths": 961,
+    "eventsWithKnownPersonRole": 4840
+  },
+  "vehicleTypes": {
+    "CAMINHAO": {
+      "events": 1147,
+      "fatal": 113,
+      "nonfatal": 1034,
+      "vehicles": 1231,
+      "deathsInEvents": 125
+    },
+    "MOTONETA": {
+      "events": 1426,
+      "fatal": 6,
+      "nonfatal": 1420,
+      "vehicles": 1479,
+      "deathsInEvents": 6
+    },
+    "NAO_INFORMADO": {
+      "events": 326,
+      "fatal": 11,
+      "nonfatal": 315,
+      "vehicles": 378,
+      "deathsInEvents": 11
+    },
+    "DESCONHECIDO": {
+      "events": 9598,
+      "fatal": 271,
+      "nonfatal": 9327,
+      "vehicles": 10026,
+      "deathsInEvents": 284
+    },
+    "MOTOCICLETA": {
+      "events": 12190,
+      "fatal": 277,
+      "nonfatal": 11913,
+      "vehicles": 12539,
+      "deathsInEvents": 287
+    },
+    "AUTOMOVEL": {
+      "events": 15230,
+      "fatal": 371,
+      "nonfatal": 14859,
+      "vehicles": 17088,
+      "deathsInEvents": 408
+    },
+    "CAMINHONETE": {
+      "events": 760,
+      "fatal": 30,
+      "nonfatal": 730,
+      "vehicles": 794,
+      "deathsInEvents": 39
+    },
+    "ONIBUS": {
+      "events": 943,
+      "fatal": 47,
+      "nonfatal": 896,
+      "vehicles": 958,
+      "deathsInEvents": 48
+    },
+    "BICICLETA": {
+      "events": 375,
+      "fatal": 14,
+      "nonfatal": 361,
+      "vehicles": 375,
+      "deathsInEvents": 15
+    },
+    "CICLOMOTOR": {
+      "events": 33,
+      "fatal": 2,
+      "nonfatal": 31,
+      "vehicles": 33,
+      "deathsInEvents": 2
+    },
+    "CAMIONETA": {
+      "events": 454,
+      "fatal": 6,
+      "nonfatal": 448,
+      "vehicles": 464,
+      "deathsInEvents": 6
+    },
+    "CAMINHAO-TRATOR": {
+      "events": 232,
+      "fatal": 18,
+      "nonfatal": 214,
+      "vehicles": 258,
+      "deathsInEvents": 18
+    },
+    "SEMIRREBOQUE": {
+      "events": 145,
+      "fatal": 17,
+      "nonfatal": 128,
+      "vehicles": 189,
+      "deathsInEvents": 17
+    },
+    "UTILITARIO": {
+      "events": 193,
+      "fatal": 4,
+      "nonfatal": 189,
+      "vehicles": 194,
+      "deathsInEvents": 4
+    },
+    "TRICICLO": {
+      "events": 2,
+      "fatal": 0,
+      "nonfatal": 2,
+      "vehicles": 2,
+      "deathsInEvents": 0
+    },
+    "MICRO-ONIBUS": {
+      "events": 57,
+      "fatal": 3,
+      "nonfatal": 54,
+      "vehicles": 61,
+      "deathsInEvents": 3
+    },
+    "CARROCA": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    },
+    "CHARRETE": {
+      "events": 3,
+      "fatal": 0,
+      "nonfatal": 3,
+      "vehicles": 3,
+      "deathsInEvents": 0
+    },
+    "REBOQUE": {
+      "events": 31,
+      "fatal": 2,
+      "nonfatal": 29,
+      "vehicles": 33,
+      "deathsInEvents": 2
+    },
+    "TRATOR": {
+      "events": 6,
+      "fatal": 1,
+      "nonfatal": 5,
+      "vehicles": 7,
+      "deathsInEvents": 1
+    },
+    "QUADRICICLO": {
+      "events": 4,
+      "fatal": 0,
+      "nonfatal": 4,
+      "vehicles": 4,
+      "deathsInEvents": 0
+    },
+    "VEICULO DE SERVICO": {
+      "events": 1,
+      "fatal": 1,
+      "nonfatal": 0,
+      "vehicles": 1,
+      "deathsInEvents": 1
+    },
+    "TREMINHAO": {
+      "events": 2,
+      "fatal": 0,
+      "nonfatal": 2,
+      "vehicles": 2,
+      "deathsInEvents": 0
+    },
+    "VEICULO ARTICULADO": {
+      "events": 4,
+      "fatal": 0,
+      "nonfatal": 4,
+      "vehicles": 4,
+      "deathsInEvents": 0
+    },
+    "BONDE": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    }
+  },
+  "march2024": {
+    "AUTOMOVEL": {
+      "events": 335,
+      "fatal": 7,
+      "nonfatal": 328,
+      "vehicles": 343,
+      "deathsInEvents": 8
+    },
+    "DESCONHECIDO": {
+      "events": 268,
+      "fatal": 5,
+      "nonfatal": 263,
+      "vehicles": 270,
+      "deathsInEvents": 5
+    },
+    "MOTOCICLETA": {
+      "events": 353,
+      "fatal": 10,
+      "nonfatal": 343,
+      "vehicles": 353,
+      "deathsInEvents": 10
+    },
+    "ONIBUS": {
+      "events": 25,
+      "fatal": 4,
+      "nonfatal": 21,
+      "vehicles": 25,
+      "deathsInEvents": 4
+    },
+    "MOTONETA": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    },
+    "CAMINHAO": {
+      "events": 24,
+      "fatal": 4,
+      "nonfatal": 20,
+      "vehicles": 26,
+      "deathsInEvents": 4
+    },
+    "BICICLETA": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    },
+    "NAO_INFORMADO": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 2,
+      "deathsInEvents": 0
+    },
+    "CAMIONETA": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    },
+    "CAMINHAO-TRATOR": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    },
+    "CAMINHONETE": {
+      "events": 1,
+      "fatal": 0,
+      "nonfatal": 1,
+      "vehicles": 1,
+      "deathsInEvents": 0
+    }
+  },
+  "source": {
+    "events": "acidentes_rmbs.csv",
+    "vehicles": "veiculos_rmbs.csv",
+    "people": "vitimas_rmbs.csv",
+    "joinKey": "num_acidente (local only)",
+    "vehicleRowKey": [
+      "tipo_veiculo",
+      "ind_veic_estrangeiro"
+    ],
+    "personRowKey": [
+      "tp_envolvido",
+      "ind_motorista",
+      "gravidade_lesao"
+    ]
+  },
+  "methodology": {
+    "unit": "Distinct original event, grouped by public base dimensions, vehicle profile, person profile and fatality flag",
+    "eventDeduplication": "Vehicle quantities and person detail rows are aggregated before joining; event totals never sum a direct one-to-many join",
+    "fatality": "fatal event flag from acidentes; nonfatal = n - fatal; nonfatal does not mean uninjured",
+    "vehiclePresence": "Positive qtde_veiculos; unknown categories remain unknown. A vehicle type can occur in a fatal event without any death in that vehicle.",
+    "personAttribution": "Person table has role/driver flag/injury but no person-to-vehicle link. Driver deaths cannot be attributed to a vehicle category in mixed events.",
+    "cyclist": "CICLISTA is not a distinct person role in the supplied region. Bicycle-involved events can be counted from tipo_veiculo=BICICLETA; cyclist injuries/deaths are not identified separately.",
+    "unsupported": "Ambulant food carts, wheelchairs, scooters, specific service uses and other absent types cannot be inferred from DESCONHECIDO, NAO_INFORMADO or another vehicle category.",
+    "overlap": "Vehicle rankings overlap when an event contains multiple types. Union counts deduplicate events; intersection requires all requested types.",
+    "privacy": "No original accident/person/vehicle identifiers are published; baseGroup is only a reference to an existing public aggregate row."
+  },
+  "inputHashes": {
+    "dist\\research.json.gz": "1fde101fc4b14b5d5154be6c7e80dbf4ce174b0729244f514578a5642d7b3813",
+    "treated\\acidentes_rmbs.csv": "b15a2fcefda2f7d0b4998d418d0d9a71b30467709ba338e90981c032ad25fb93",
+    "treated\\veiculos_rmbs.csv": "387b9c9a4eeccc2e6095fb3fc0bf3b88e6add96525a142d5727b555625321c7e",
+    "treated\\vitimas_rmbs.csv": "c14dafaaeaa77d5dae6b3f7c0fff25d5c4369ae43206997fe7c94b9159b82a4a"
+  },
+  "independentAudit": {
+    "allPassed": true,
+    "method": "DuckDB aggregates national vehicle/person Parquets before joining to regional original events; compares every published date/city/type cell",
+    "vehicleCellsCompared": 23401,
+    "personCellsCompared": 14,
+    "cases": {
+      "march2024_bicycle": {
+        "n": 1,
+        "fatal": 0,
+        "nonfatal": 1,
+        "deathsInEvents": 0
+      },
+      "march2024_cart": {
+        "n": 0,
+        "fatal": 0,
+        "nonfatal": 0,
+        "deathsInEvents": 0
+      },
+      "march2024_car_or_motorcycle": {
+        "n": 490,
+        "fatal": 14,
+        "nonfatal": 476,
+        "deathsInEvents": 15
+      },
+      "march2024_car_and_motorcycle": {
+        "n": 198,
+        "fatal": 3,
+        "nonfatal": 195,
+        "deathsInEvents": 3
+      },
+      "march2024_bus": {
+        "n": 25,
+        "fatal": 4,
+        "nonfatal": 21,
+        "deathsInEvents": 4
+      }
+    }
+  }
+}

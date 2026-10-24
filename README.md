@@ -49,6 +49,8 @@ Abrir `http://127.0.0.1:8879/`. O navegador precisa de `DecompressionStream` par
 
 O agente interpreta perguntas livres com IA quando o Vercel AI Gateway está disponível, consulta os dados por ferramentas validadas e mantém contexto para comparações e perguntas seguintes. Sem o serviço, há consulta local com interpretação limitada, identificada na interface. A seleção de cidades e períodos na pergunta não modifica os filtros do painel. A autenticação no servidor usa OIDC da implantação ou `AI_GATEWAY_API_KEY` já configurada; não há chave no navegador. Ver [funcionamento e reprodução do agente](docs/agente-analitico.md).
 
+Consultas por veículos usam TipoVeiculo e Vitimas ligados aos sinistros originais: bicicleta, automóvel, motocicleta, ônibus, caminhão e as demais categorias disponíveis. O agente calcula fatais e não fatais sem duplicar acidentes em colisões com vários veículos e informa categorias ausentes ou falta de vínculo pessoa–veículo. O mesmo motor funciona localmente. Ver [auditoria e reprodução da extensão de mobilidade](docs/agente-mobilidade.md).
+
 ## Modelagem executada
 
 **Contexto:** treino 2022–2023, validação 2024 e teste jan–ago/2025. **Clima:** treino jan–jun/2023, validação jul–set e teste out–dez. Prevalência constante, regressão logística L2 e Random Forest são comparadas. O modelo é selecionado por Average Precision na validação; limiares são definidos na validação. Não há reajuste no teste. A semente é 42.
@@ -73,7 +75,7 @@ python run_research.py --from-raw
 
 Sequência nacional: `etl_national.py` → `climate_worker.py` → `compact.py` → `normalize_times.py` → `quarantine.py` → `build_station_catalog.py`.
 
-Sequência regional: `extract_rmbs.py` → `build_research.py` → `train_models.py` → `build_article.py` → `audit_research.py` → `make_manifest.py`.
+Sequência regional: `extract_rmbs.py` → `build_research.py` → `train_models.py` → `build_mobility.py` → `audit_mobility.py` → `build_article.py` → `audit_research.py` → `make_manifest.py`.
 
 As configurações estão em `analysis_config.json`. O manifesto registra hashes dos ZIPs, insumos, código, modelos locais e saídas. Carimbos de geração e serializações podem alterar os hashes de saídas entre execuções; comparar insumos, configuração e métricas além dos bytes.
 
